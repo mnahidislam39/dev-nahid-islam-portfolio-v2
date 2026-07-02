@@ -1,3 +1,147 @@
+// Nahid Dynamic Header Rendering
+function initNahidDynamicHeader() {
+  const config =
+    typeof nahidHeaderConfig !== "undefined" ? nahidHeaderConfig : null;
+  if (!config) return;
+
+  const leftMenuContainer = document.getElementById("nahidHeaderLeftMenu");
+  const rightMenuContainer = document.getElementById("nahidHeaderRightMenu");
+  const logoContainer = document.getElementById("nahidHeaderLogo");
+
+  // ১. হেল্পার ফাংশন: মেনু আইটেম জেনারেটর
+  const generateMenuItems = (container, itemsArray) => {
+    if (!container || !itemsArray) return;
+    container.innerHTML = ""; // ওল্ড রিসেট
+
+    itemsArray.forEach((item) => {
+      const a = document.createElement("a");
+      a.href = item.url || "#";
+      a.className = "nav-item";
+      if (item.active) a.classList.add("active");
+      if (item.target) a.setAttribute("target", item.target);
+      a.textContent = item.label;
+      container.appendChild(a);
+    });
+  };
+
+  // লোগো রেন্ডার সেকশন (Direct Link from App Data)
+  if (logoContainer && config.logo) {
+    // app-data.js থেকে সরাসরি ইউআরএল নেওয়া হচ্ছে, ফাঁকা থাকলে ডিফল্ট রুট "/" বা "#" পাবে
+    const homeLink =
+      config.logo.homeUrl && config.logo.homeUrl.trim() !== ""
+        ? config.logo.homeUrl
+        : "#";
+
+    // মেইন কন্টেইনারের ভেতরে অ্যানকর ট্যাগ তৈরি
+    logoContainer.innerHTML = `<a href="${homeLink}" class="brand-logo-link"></a>`;
+    const logoLinkWrapper = logoContainer.querySelector(".brand-logo-link");
+
+    // কন্ডিশনাল চেকিং: ইমেজ থাকলে শুধু ইমেজ, না থাকলে শুধু টেক্সট-আইকন
+    if (config.logo.imgSrc && config.logo.imgSrc.trim() !== "") {
+      logoLinkWrapper.innerHTML = `
+      <img src="${config.logo.imgSrc}" alt="${config.logo.text || "Logo"}" class="logo-img">
+    `;
+    } else {
+      logoLinkWrapper.innerHTML = `      
+      <span class="logo-text">${config.logo.text || "Nahid Islam"}</span>
+    `;
+    }
+  }
+  generateMenuItems(leftMenuContainer, config.leftMenu);
+  generateMenuItems(rightMenuContainer, config.rightMenu);
+
+  // ৩. 🎯 স্টিকি হেডার ইঞ্জিন (Smooth Backdrop Blurring)
+  const header = document.querySelector(".main-header");
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (window.scrollY > 50) {
+        header.classList.add("sticky");
+      } else {
+        header.classList.remove("sticky");
+      }
+    },
+    { passive: true },
+  );
+
+  // ৪. 📱 মোবাইল নেভিগেশন ফিক্স লজিক
+  const mobileToggle = document.getElementById("nahidMobileToggle");
+
+  if (mobileToggle) {
+    mobileToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      header.classList.toggle("mobile-nav-open");
+    });
+
+    // স্ক্রিনের যেকোনো খালি জায়গায় ক্লিক করলে মোবাইল মেনু অটোমেটিক বন্ধ হয়ে যাবে
+    document.addEventListener("click", (e) => {
+      if (
+        header.classList.contains("mobile-nav-open") &&
+        !header.contains(e.target)
+      ) {
+        header.classList.remove("mobile-nav-open");
+      }
+    });
+  }
+}
+
+function initNahidDynamicHero() {
+  const config =
+    typeof nahidHeroConfig !== "undefined" ? nahidHeroConfig : null;
+  if (!config) return;
+
+  // ১. ব্যাজ লোড
+  const badgeText = document.getElementById("heroBadgeText");
+  const badgeIcon = document.getElementById("heroBadgeIcon");
+  if (badgeText && config.badge) badgeText.textContent = config.badge.text;
+  if (badgeIcon && config.badge)
+    badgeIcon.innerHTML = config.badge.sparkleSvg || "";
+
+  // ২. হেডিং জেনারেটর
+  const headingEl = document.getElementById("heroHeading");
+  if (headingEl && config.heading) {
+    headingEl.innerHTML = `${config.heading.prefix || ""} <span class="highlight-text">${config.heading.name || ""}</span>,<br>${config.heading.title || ""}`;
+  }
+
+  // ৩. প্রোফাইল ইমেজ ও ওভারলে
+  const imgWrapper = document.getElementById("heroImageWrapper");
+  if (imgWrapper && config.media) {
+    imgWrapper.innerHTML = `
+      <img src="${config.media.imgSrc}" alt="${config.media.altText}" class="hero-image">
+      <div class="image-overlay"></div>
+    `;
+  }
+
+  // ৪. গ্লাস সিটিএ অ্যাকশন বাটন
+  const btnPort = document.getElementById("heroBtnPortfolio");
+  const btnHire = document.getElementById("heroBtnHire");
+  if (btnPort && config.ctas) {
+    btnPort.href = config.ctas.portfolioUrl || "#";
+    btnPort.querySelector(".btn-text").textContent = config.ctas.portfolioLabel;
+  }
+  if (btnHire && config.ctas) {
+    btnHire.href = config.ctas.hireUrl || "#";
+    btnHire.textContent = config.ctas.hireLabel;
+  }
+
+  // ৫. উইজেট ও পরিসংখ্যান
+  const quoteText = document.getElementById("heroQuoteText");
+  if (quoteText && config.testimonial)
+    quoteText.textContent = config.testimonial.text;
+
+  const starsEl = document.getElementById("heroRatingStars");
+  const yearsEl = document.getElementById("heroExpYears");
+  const labelEl = document.getElementById("heroExpLabel");
+
+  if (starsEl && config.stats) starsEl.textContent = config.stats.stars;
+  if (yearsEl && config.stats) yearsEl.textContent = config.stats.years;
+  if (labelEl && config.stats) labelEl.textContent = config.stats.label;
+
+  // ৬. ডেকোরেটিভ কার্ভ লাইন
+  const decoLine = document.getElementById("heroDecoLine");
+  if (decoLine && config.decorations)
+    decoLine.innerHTML = config.decorations.leftLineSvg || "";
+}
 // 1. Service Local Configurations
 function initNahidInfiniteSlider() {
   // 1. Service Local Configurations & Context Scopes
@@ -1268,8 +1412,8 @@ function initNahidDynamicFooter() {
 
     if (logoWrap) {
       logoWrap.innerHTML = `
-        <span class="brand-logo-icon">${config.brand.logoSvgIcon || ""}</span>
-        <span class="brand-logo-text">${config.brand.logoText || ""}</span>
+        <span class="brand-logo-icon"> <img src="${config.brand.logoImage}" alt="${config.brand.logoAlt}"></span>
+       
       `;
     }
     if (descEl) descEl.textContent = config.brand.description;
@@ -1346,6 +1490,8 @@ function initNahidDynamicFooter() {
 
 // Master execution pipeline trigger
 function bootNahidPortfolioEngine() {
+  initNahidDynamicHeader();
+  initNahidDynamicHero();
   initNahidInfiniteSlider();
   renderNahidDynamicExperience();
   initNahidHireMeEngine();

@@ -9,96 +9,86 @@
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet">
+
    <link rel="stylesheet" href="assets/css/style.css">
    <link rel="stylesheet" href="assets/css/hero-section.css">
    <link rel="stylesheet" href="assets/css/marque.css">
    <link rel="stylesheet" href="assets/css/services.css">
+
+   <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
 </head>
 
 <body>
 
    <div class="main-wrapper">
       <div class="main">
-         <header class="main-header container">
+
+         <!-- Dynamic Premium Header Section -->
+         <header id="mainHeader" class="main-header container">
             <div class="header-container">
-               <nav class="nav-menu">
-                  <a href="#" class="nav-item active">Home</a>
-                  <a href="#" class="nav-item">About</a>
-                  <a href="#" class="nav-item">Service</a>
-               </nav>
 
-               <div class="brand-logo">
-                  <span class="logo-icon">NI</span>
-                  <span class="logo-text">Nahid Islam</span>
-               </div>
+               <!-- 1. Left Navigation Menu (Dynamically Injected) -->
+               <nav class="nav-menu nav-left" id="nahidHeaderLeftMenu"></nav>
 
-               <nav class="nav-menu">
-                  <a href="pages/resume.html" target="_self" class="nav-item">Resume</a>
-                  <a href="#" class="nav-item">Project</a>
-                  <a href="#" class="nav-item">Contact</a>
-               </nav>
+               <!-- 2. Central Brand Logo (Dynamically Injected) -->
+               <div class="brand-logo" id="nahidHeaderLogo"></div>
 
-               <button class="mobile-toggle" aria-label="Toggle Navigation">
+               <!-- 3. Right Navigation Menu (Dynamically Injected) -->
+               <nav class="nav-menu nav-right" id="nahidHeaderRightMenu"></nav>
+
+               <!-- 4. Mobile Toggle Hamburger Button -->
+               <button class="mobile-toggle" id="nahidMobileToggle" aria-label="Toggle Navigation">
                   <span></span>
                   <span></span>
                   <span></span>
                </button>
+
             </div>
          </header>
-         <!-- Hero Section -->
-         <section class="hero-section container">
+
+         <section class="hero-section container" id="nahidHeroSection">
             <div class="hero-container">
+
                <div class="greeting-badge">
-                  <span>Hello!</span>
-                  <svg class="sparkle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     xmlns="http://www.w3.org/2000/svg">
-                     <path d="M12 3V6M12 18V21M3 12H6M18 12H21" stroke="#FE7E36" stroke-width="2"
-                        stroke-linecap="round" />
-                  </svg>
+                  <span id="heroBadgeText"></span>
+                  <div id="heroBadgeIcon"></div>
                </div>
 
-               <h1 class="hero-heading">
-                  I'm <span class="highlight-text">Nahid Islam</span>,<br>
-                  Full Stack Developer
-               </h1>
+               <h1 class="hero-heading" id="heroHeading"></h1>
 
                <div class="hero-center-content">
                   <div class="circle-bg"></div>
 
-                  <div class="hero-image-container">
-                     <img src="assets/images/nahid.png" alt="Nahid Islam - Full Stack Developer" class="hero-image">
-                     <div class="image-overlay"></div>
+                  <div class="hero-image-container" id="heroImageWrapper">
                   </div>
 
                   <div class="cta-glass-container">
-                     <a href="#" class="btn-portfolio">Portfolio <span class="arrow">↗</span></a>
-                     <a href="#" class="btn-hire">Hire me</a>
+                     <a href="#" class="btn-portfolio" id="heroBtnPortfolio">
+                        <span class="btn-text"></span>
+                        <span class="arrow">↗</span>
+                     </a>
+                     <a href="#" class="btn-hire" id="heroBtnHire"></a>
                   </div>
                </div>
 
                <div class="hero-left-widget">
                   <span class="quote-icon">“</span>
-                  <p class="quote-text">Nahid’s Exceptional development skills ensure our project’s success. Highly
-                     Recommended
-                  </p>
+                  <p class="quote-text" id="heroQuoteText"></p>
                </div>
 
                <div class="hero-right-widget">
-                  <div class="rating-stars">★★★★★</div>
-                  <div class="experience-years">2 Years</div>
-                  <p class="experience-text">Experience</p>
+                  <div class="rating-stars" id="heroRatingStars"></div>
+                  <div class="experience-years" id="heroExpYears"></div>
+                  <p class="experience-text" id="heroExpLabel"></p>
                </div>
 
-               <div class="deco-line-left">
-                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                     <path d="M5 35C15 20 25 25 35 5" stroke="#FE7E36" stroke-width="2" stroke-linecap="round" />
-                  </svg>
-               </div>
+               <div class="deco-line-left" id="heroDecoLine"></div>
+
             </div>
          </section>
 
-         <!-- Project Section-->
-         <section class="nahid-services-section">
+         <!-- Services Section-->
+         <section id="nahidServicesSection" class="nahid-services-section">
             <div class="nahid-container">
                <div class="nahid-services-header">
                   <h2 class="nahid-services-title"></h2>
@@ -188,7 +178,7 @@
          -->
 
          <!-- Experience Section -->
-         <section id="experience" class="nahid-experience-section">
+         <section id="nahidExperienceSection" class="nahid-experience-section">
             <div class="nahid-exp-container">
 
                <div class="nahid-exp-header">
@@ -254,7 +244,7 @@
          </section>
 
          <!-- Portfolio Section -->
-         <section class="portfolio-section">
+         <section id="nahidPortfolioSection" class="portfolio-section">
             <div class="portfolio-container">
 
                <!-- Top Header Layout -->
@@ -293,9 +283,8 @@
             </div>
          </section>
 
-
          <!-- Testimonial Section -->
-         <section class="testimonial-section">
+         <section id="nahidTestimonialsSection" class="testimonial-section">
             <div class="testimonial-container">
 
                <!-- Section Title Area (Totally Empty Skeleton) -->
@@ -344,7 +333,7 @@
          </section>
 
          <!-- CTA Contact Section -->
-         <section class="cta-contact-section">
+         <section id="nahidContactSection" class="cta-contact-section">
             <div class="cta-container">
 
                <!-- Dynamic Heading Area -->
@@ -373,7 +362,7 @@
          </section>
 
          <!-- Marquee Section -->
-         <section class="nahid-marquee-section">
+         <section id="marquee" class="nahid-marquee-section">
             <div class="marquee-skew-wrapper">
                <div class="marquee-track" id="nahidMarqueeTrack">
                </div>
@@ -381,7 +370,7 @@
          </section>
 
          <!-- Pricing Section -->
-         <section class="pricing-section">
+         <section id="nahidPricingSection" class="pricing-section">
             <div class="pricing-container">
 
                <div class="pricing-header">
@@ -425,7 +414,7 @@
          </section>
 
          <!-- Dynamic FAQ Section -->
-         <section class="nahid-faq-section">
+         <section id="nahidFaqSection" class="nahid-faq-section">
             <div class="faq-container">
 
                <!-- Section Header -->
@@ -442,7 +431,7 @@
          </section>
 
          <!-- Dynamic Workflow / Process Section -->
-         <section class="nahid-workflow-section">
+         <section id="workflow" class="nahid-workflow-section">
             <div class="workflow-container">
 
                <!-- Section Header (Dynamically Injected) -->
@@ -471,7 +460,7 @@
          </section>
 
          <!-- Dynamic Premium Footer Section -->
-         <footer class="nahid-main-footer">
+         <footer id="nahidFooter" class="nahid-main-footer">
             <div class="footer-wrapper">
 
                <!-- 🤝 Upper Connect Banner (As seen in image_42ea7c.png) -->

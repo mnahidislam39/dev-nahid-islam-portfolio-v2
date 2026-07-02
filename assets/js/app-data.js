@@ -1,3 +1,72 @@
+// ==========================================
+// NAHID HEADER CONFIGURATION & NAVIGATION DATA
+// ==========================================
+const nahidHeaderConfig = {
+  logo: {
+    imgSrc: "assets/images/nahid-logo.png",
+    text: "Nahid Islam",
+    // iconHtml: `<span class="logo-inner-icon">JC</span>`,
+    homeUrl: "/", // হোম পেজের লিংক (যেমন: "index.html" বা "#")
+  },
+  // বাঁদিকের মেনু আইটেম লিস্ট
+  leftMenu: [
+    // { label: "Home", url: "#nahidHeroSection", active: true },
+    { label: "About", url: "#nahidExperienceSection", active: false },
+    { label: "Service", url: "#nahidServicesSection", active: false },
+    { label: "Portfolio", url: "#nahidPortfolioSection", active: false },
+    {
+      label: "Resume",
+      url: "pages/resume.html",
+      target: "_self",
+      active: false,
+    },
+  ],
+
+  // ডানদিকের মেনু আইটেম লিস্ট
+  rightMenu: [
+    { label: "Review", url: "#nahidTestimonialsSection", active: false },
+    { label: "Pricing", url: "#nahidPricingSection", active: false },
+    { label: "FAQ", url: "#nahidFaqSection", active: false },
+    { label: "Contact", url: "#nahidContactSection", active: false },
+  ],
+};
+
+// ==========================================
+// NAHID HERO SECTION CONFIGURATION & DATA
+// ==========================================
+const nahidHeroConfig = {
+  badge: {
+    text: "Hello!",
+    sparkleSvg: `<svg class="sparkle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3V6M12 18V21M3 12H6M18 12H21" stroke="#FE7E36" stroke-width="2" stroke-linecap="round" /></svg>`,
+  },
+  heading: {
+    prefix: "I'm",
+    name: "Nahid Islam", // হাইলাইটেড নাম
+    title: "Full Stack Developer",
+  },
+  media: {
+    imgSrc: "assets/images/nahid.png",
+    altText: "Nahid Islam - Full Stack Developer",
+  },
+  ctas: {
+    portfolioLabel: "Portfolio",
+    portfolioUrl: "#",
+    hireLabel: "Hire me",
+    hireUrl: "#",
+  },
+  testimonial: {
+    text: "Nahid’s exceptional development skills ensure our project’s success. Highly Recommended",
+  },
+  stats: {
+    stars: "★★★★★",
+    years: "2 Years",
+    label: "Experience",
+  },
+  decorations: {
+    leftLineSvg: `<svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M5 35C15 20 25 25 35 5" stroke="#FE7E36" stroke-width="2" stroke-linecap="round" /></svg>`,
+  },
+};
+
 // Services Data
 const nahidServicesMeta = {
   sectionTitle: "My",
@@ -97,7 +166,7 @@ const nahidHireMeta = {
   titleStart: "Why",
   titleAccent: "Hire me?",
   description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacus nunc, posuere in justo vulputate, bibendum sodales.",
+    "I'm a Shopify-focused Full-Stack Web Developer, currently leading a team in delivering high-quality eCommerce solutions. My primary expertise lies in Shopify store development, customization, and performance optimization, helping businesses build scalable and conversion-focused online stores. Alongside Shopify, I have strong expertise in HTML, CSS, Bootstrap, Tailwind CSS, SASS, JavaScript, jQuery, Vue.js, PHP, and Laravel, allowing me to handle both front-end and back-end development efficiently.",
   avatarImg: "assets/images/nahid.png", // Apnar high-end png image path eikhane bhashaben
   ctaText: "Hire me",
   ctaLink: "#contact",
@@ -192,7 +261,7 @@ const nahidTestimonialConfig = {
 // রিভিউ কার্ডের পিওর ডাটা অ্যারে
 const nahidTestimonialData = [
   {
-    name: "Jayesh Patil",
+    name: "Nahid Islam Patil",
     role: "CEO, Lirante",
     avatar: "assets/images/avatar1.webp",
     rating: 5.0,
@@ -417,14 +486,15 @@ const nahidFooterConfig = {
   },
   brand: {
     logoText: "JCREA", // আপনার টিম বা নিজের লোগো টেক্সট
-    logoSvgIcon: `<svg viewBox="0 0 24 24" fill="#ff7a30" width="32" height="32"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M8 12h8M12 8v8"/></svg>`,
+    logoImage: `assets/images/nahid-logo.png`, // লোগো ইমেজ পাথ
+    logoAlt: "Nahid Logo", // লোগোর অ্যালট টেক্সট
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue interdum ligula a dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "I manage project planning, guide developers, maintain code quality, and ensure timely project delivery. I am passionate about writing clean, maintainable, and scalable code while following modern development standards.",
   },
   newsletter: {
     title: "Get the latest information",
   },
-  copyright: `Copyright© ${new Date().getFullYear()} Jayesh. All Rights Reserved.`,
+  copyright: `Copyright© ${new Date().getFullYear()} Nahid Islam. All Rights Reserved.`,
 
   // ডাইনামিক সোশ্যাল লিংক মেমোরি
   socials: [
@@ -457,23 +527,35 @@ const nahidFooterConfig = {
 
   // নেভিগেশন লিংকসমূহ (ক্লিন অবজেক্ট ট্র্যাকিং)
   navigation: [
-    { label: "Home", link: "#" },
-    { label: "About Us", link: "#" },
-    { label: "Service", link: "#" },
-    { label: "Resume", link: "#" },
-    { label: "Project", link: "#" },
+    { label: "Service", url: "#nahidServicesSection", active: false },
+    { label: "Portfolio", url: "#nahidPortfolioSection", active: false },
+    {
+      label: "Resume",
+      url: "pages/resume.html",
+      target: "_self",
+      active: false,
+    },
+    { label: "Review", url: "#nahidTestimonialsSection", active: false },
+    { label: "Pricing", url: "#nahidPricingSection", active: false },
+    { label: "FAQ", url: "#nahidFaqSection", active: false },
   ],
 
   // কন্টাক্ট ইনফো
   contact: [
-    { label: "+91 7738443636", link: "tel:+917738443636" },
-    { label: "Jaycrea36@gmail.com", link: "mailto:Jaycrea36@gmail.com" },
-    { label: "Portfolio-jcrea.com", link: "#" },
+    { label: "+8801761-005639", link: "tel:+8801761-005639" },
+    {
+      label: "devnahidislam4@gmail.com",
+      link: "mailto:devnahidislam4@gmail.com",
+    },
+    {
+      label: "Nahid Islam Portfolio",
+      link: "https://mnahidislam39.github.io/dev-nahid-islam-portfolio/",
+    },
   ],
 
   // লিগ্যাল ডকুমেন্টস
   legal: [
-    { label: "User Terms & Conditions", link: "#" },
+    { label: "Terms & Conditions", link: "#" },
     { label: "Privacy Policy", link: "#" },
   ],
 };
