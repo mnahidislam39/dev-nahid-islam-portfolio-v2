@@ -513,6 +513,7 @@ function renderNahidDynamicPortfolio() {
     typeof nahidPortfolioMeta !== "undefined" ? nahidPortfolioMeta : null;
 
   const headerMainTitle = document.getElementById("portfolioMainTitle");
+  const headerDescription = document.getElementById("portfolioDescription");
   const headerAccentTitle = document.getElementById("portfolioAccentTitle");
   const headerSeeAllBtn = document.getElementById("portfolioSeeAllBtn");
 
@@ -520,6 +521,9 @@ function renderNahidDynamicPortfolio() {
     if (headerMainTitle && metaData.sectionTitle) {
       // এটি স্প্যান (<span>) ট্যাগ না ভেঙে শুধু শুরুর টেক্সট ("My") চেঞ্জ করবে
       headerMainTitle.childNodes[0].textContent = metaData.sectionTitle + " ";
+    }
+    if (headerDescription && metaData.portfolioDescription) {
+      headerDescription.textContent = metaData.portfolioDescription;
     }
     if (headerAccentTitle && metaData.accentText) {
       headerAccentTitle.textContent = metaData.accentText;
@@ -1227,18 +1231,28 @@ function initNahidTiltedMarquee() {
 
     setContainer.innerHTML = itemsArray
       .map((item) => {
-        // SVG ট্যাগের ভেতরে আমাদের নিজস্ব ক্লাসটি পুশ করে দিচ্ছি যেন CSS এটাকে ফোর্স করতে পারে
-        let svgContent = item.svg || "✦";
-        if (item.svg && item.svg.includes("<svg")) {
-          svgContent = item.svg.replace(
-            "<svg",
-            `<svg class="custom-marquee-svg" style="color: ${item.iconColor || "#ff7a30"}; fill: ${item.iconColor || "#ff7a30"};"`,
-          );
+        let iconContent = "✦"; // ডিফল্ট আইকন (যদি কোনোটিই না দেওয়া থাকে)
+
+        // ১. যদি ডাটাতে সরাসরি SVG কোড দেওয়া থাকে
+        if (item.svg && item.svg.trim()) {
+          iconContent = item.svg;
+
+          // SVG এর ওপর ডাইনামিক কালার ফোর্স করার অংশ
+          if (iconContent.includes("<svg")) {
+            iconContent = iconContent.replace(
+              "<svg",
+              `<svg class="custom-marquee-svg" style="color: ${item.iconColor || "#ff7a30"}; fill: ${item.iconColor || "#ff7a30"};"`,
+            );
+          }
+        }
+        // ২. আর যদি ডাটাতে ইমেজ পাথ/লিংক দেওয়া থাকে
+        else if (item.img && item.img.trim()) {
+          iconContent = `<img src="${item.img}" alt="${item.text || "icon"}" class="marquee-img" style=" object-fit: contain;" />`;
         }
 
         return `
+        <span class="marquee-icon-wrap">${iconContent}</span>
         <span class="marquee-text">${item.text}</span>
-        <span class="marquee-icon-wrap">${svgContent}</span>
       `;
       })
       .join("");
@@ -1455,14 +1469,59 @@ function initNahidDynamicFooter() {
     typeof nahidFooterConfig !== "undefined" ? nahidFooterConfig : null;
   if (!config) return;
 
-  // ১. কানেক্ট ব্যানার ডাটা
   if (config.connectBanner) {
     const titleEl = document.getElementById("nahidFooterConnectTitle");
     const btnTextEl = document.querySelector("#nahidFooterHireBtn .btn-text");
+    const btnUrlEl = document.querySelector("#nahidFooterHireBtn");
+
+    const popup = document.getElementById("nahidConnectPopup");
+    const popupClose = document.getElementById("nahidPopupCloseBtn");
+    const popupTitle = document.getElementById("nahidPopupTitle");
+    const popupDesc = document.getElementById("nahidPopupDesc");
+    const popupWhatsappBtn = document.getElementById("nahidPopupWhatsappBtn");
+    // নতুন স্প্যান আইডিটি ধরা হলো
+    const popupBtnTextEl = document.getElementById("nahidPopupBtnText");
+
     if (titleEl) titleEl.textContent = config.connectBanner.title;
     if (btnTextEl) btnTextEl.textContent = config.connectBanner.buttonText;
-  }
 
+    if (popupTitle) popupTitle.textContent = config.connectBanner.title;
+    if (popupDesc && config.connectBanner.desc) {
+      popupDesc.textContent = config.connectBanner.desc;
+    }
+
+    // পপআপ বাটনের টেক্সট ডাইনামিকলি কনফিগ থেকে বসানো হলো
+    if (popupBtnTextEl && config.connectBanner.popupBtnText) {
+      popupBtnTextEl.textContent = config.connectBanner.popupBtnText;
+    }
+
+    if (btnUrlEl && popup) {
+      btnUrlEl.addEventListener("click", (e) => {
+        e.preventDefault();
+        popup.classList.add("active");
+      });
+    }
+
+    if (popupClose && popup) {
+      popupClose.addEventListener("click", () => {
+        popup.classList.remove("active");
+      });
+    }
+
+    if (popup) {
+      popup.addEventListener("click", (e) => {
+        if (e.target === popup) popup.classList.remove("active");
+      });
+    }
+
+    if (popupWhatsappBtn) {
+      popupWhatsappBtn.href = config.connectBanner.buttonUrl;
+
+      popupWhatsappBtn.addEventListener("click", () => {
+        popup.classList.remove("active");
+      });
+    }
+  }
   // ২. ব্র্যান্ড ও ডেসক্রিপশন
   if (config.brand) {
     const logoWrap = document.getElementById("nahidFooterLogoWrap");
@@ -1470,40 +1529,57 @@ function initNahidDynamicFooter() {
 
     if (logoWrap) {
       logoWrap.innerHTML = `
-        <span class="brand-logo-icon"> <img src="${config.brand.logoImage}" alt="${config.brand.logoAlt}"></span>
-       
+        <span class="brand-logo-icon">
+          <img src="${config.brand.logoImage}" alt="${config.brand.logoAlt}">
+        </span>
       `;
     }
     if (descEl) descEl.textContent = config.brand.description;
   }
 
-  // ৩. সোশ্যাল মিডিয়া রেন্ডারিং
+  // Helper: টেক্সট থেকে ডাইনামিক স্লাগ বানানোর ফাংশন
+  const generateSlug = (text) => {
+    return text
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, "")
+      .trim()
+      .replace(/\s+/g, "-");
+  };
+
+  // ৩. সোশ্যাল মিডিয়া রেন্ডারিং
   const socialsContainer = document.getElementById("nahidFooterSocials");
   if (socialsContainer && config.socials) {
-    socialsContainer.innerHTML = "";
+    let socialsHTML = "";
     config.socials.forEach((soc) => {
-      const a = document.createElement("a");
-      a.href = soc.url;
-      a.className = "social-icon-link";
-      a.setAttribute("aria-label", soc.name);
-      a.innerHTML = soc.iconSvg;
-      socialsContainer.appendChild(a);
+      const dynamicSlug = generateSlug(soc.name);
+      socialsHTML += `
+        <a href="${soc.url}"  target="_blank" rel="noopener noreferrer"
+           class="social-icon-link social-link-${dynamicSlug}" 
+           id="social-id-${dynamicSlug}" 
+           aria-label="${soc.name}">
+           ${soc.iconSvg}  
+        </a>
+      `;
     });
+    socialsContainer.innerHTML = socialsHTML;
   }
 
   // ৪. নেভিগেশন ও কন্টাক্ট কলাম প্রসেস
   const appendLinks = (containerId, linksArray) => {
     const container = document.getElementById(containerId);
     if (!container || !linksArray) return;
-    container.innerHTML = "";
-    linksArray.forEach((item) => {
-      const li = document.createElement("li");
-      const a = document.createElement("a");
-      a.href = item.link || "#";
-      a.textContent = item.label;
-      li.appendChild(a);
-      container.appendChild(li);
+
+    let linksHTML = "";
+    linksArray.forEach((item, idx) => {
+      const dynamicSlug = generateSlug(item.label);
+      linksHTML += `
+        <li id="${containerId}-${idx}">
+          <a href="${item.url || "#"}" class="footer-nav-link-${dynamicSlug}">
+             ${item.label}
+          </a>
+        </li>`;
     });
+    container.innerHTML = linksHTML;
   };
 
   appendLinks("nahidFooterNav", config.navigation);
@@ -1518,30 +1594,108 @@ function initNahidDynamicFooter() {
   const copyrightEl = document.getElementById("nahidCopyrightText");
   if (copyrightEl) copyrightEl.textContent = config.copyright || "";
 
-  // ৬. লিগ্যাল বটম লিংক
+  // ৬. লিগ্যাল বটম লিংক ও অটো-ট্যাগ জেনারেশন মেকানিজম
   const legalContainer = document.getElementById("nahidLegalLinks");
-  if (legalContainer && config.legal) {
-    legalContainer.innerHTML = "";
-    config.legal.forEach((item, idx) => {
-      const a = document.createElement("a");
-      a.href = item.link;
-      a.textContent = item.label;
-      legalContainer.appendChild(a);
+  const modal = document.getElementById("nahidPolicyModal");
+  const modalTitle = document.getElementById("nahidPolicyModalTitle");
+  const modalBody = document.getElementById("nahidPolicyModalBody");
+  const modalClose = document.getElementById("nahidPolicyModalClose");
 
-      if (idx < config.legal.length - 1) {
-        const separator = document.createTextNode(" | ");
-        legalContainer.appendChild(separator);
+  const iconMap = {
+    file: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>`,
+    lock: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`,
+    check: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 4 12 14.01 9 11.01"></polyline><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path></svg>`,
+    alert: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`,
+    shield: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
+    user: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle></svg>`,
+  };
+
+  if (legalContainer && config.legal) {
+    let legalHTML = "";
+    config.legal.forEach((item, idx) => {
+      const dynamicSlug = generateSlug(item.label);
+      legalHTML += `<a href="javascript:void(0);" class="legal-link-${dynamicSlug}" data-idx="${idx}">${item.label}</a>`;
+      if (idx < config.legal.length - 1) legalHTML += " | ";
+    });
+    legalContainer.innerHTML = legalHTML;
+
+    legalContainer.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const dataIdx = link.getAttribute("data-idx");
+        const policy = config.legal[dataIdx];
+
+        if (policy && modal && modalTitle && modalBody) {
+          modalTitle.textContent = policy.label;
+
+          let builtHTML = `<div class="policy-popup-content">`;
+
+          if (policy.content && Array.isArray(policy.content)) {
+            policy.content.forEach((block) => {
+              const svgIcon = iconMap[block.icon] || iconMap["file"];
+              builtHTML += `
+                <div class="policy-item">
+                  <div class="policy-icon-title">
+                    <h4>${block.title}</h4>
+                  </div>
+                  <p>${block.text}</p>
+                </div>`;
+            });
+          }
+
+          builtHTML += `</div>`;
+          modalBody.innerHTML = builtHTML;
+          modal.classList.add("open");
+        }
+      });
+    });
+  }
+
+  if (modal) {
+    if (modalClose) {
+      modalClose.addEventListener("click", () => {
+        modal.classList.remove("open");
+      });
+    }
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.remove("open");
       }
     });
   }
 
-  // ফর্ম সাবমিট হ্যান্ডলার (অ্যান্টি-রিফ্রেশ লজিক)
   const form = document.getElementById("nahidNewsletterForm");
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      alert("Thank you for subscribing!");
-      form.reset();
+  const emailInput = document.getElementById("nahidCtaInput");
+  const submitBtn = form ? form.querySelector(".newsletter-submit-btn") : null;
+  const successMsg = document.getElementById("nahidSuccessMessage");
+
+  if (form && emailInput && submitBtn && successMsg) {
+    form.addEventListener("submit", () => {
+      submitBtn.style.opacity = "0.5";
+      submitBtn.disabled = true;
+
+      // মেসেজ বক্সটিকে ডায়নামিক্যালি ফর্মের ঠিক নিচে পজিশন করার ট্রিক
+      const formRect = form.getBoundingClientRect();
+      successMsg.style.position = "absolute";
+      successMsg.style.top = `${window.scrollY + formRect.bottom + 8}px`; // ফর্মের নিচে ৮ পিক্সেল গ্যাপ
+      successMsg.style.left = `${window.scrollX + formRect.left}px`;
+
+      setTimeout(() => {
+        form.reset();
+
+        // মেসেজ শো করা
+        successMsg.style.display = "block";
+
+        submitBtn.style.opacity = "1";
+        submitBtn.disabled = false;
+
+        // ৫ সেকেন্ড পর মেসেজ হাইড করা
+        setTimeout(() => {
+          successMsg.style.display = "none";
+        }, 5000);
+      }, 1000);
     });
   }
 }

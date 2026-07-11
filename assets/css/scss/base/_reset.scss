@@ -32,43 +32,38 @@ body {
   scroll-behavior: smooth;
 }
 
-$color-primary: #00bf63;
-$color-secondary: #051d40;
+$primary-color: #00bf63;
+$secondary-color: #051d40;
 
-$text-light-color: #ffffff;
-$text-dark-color: #051d40;
+$light: #ffffff;
+$dark: #000000;
 
-$color-light-bg: #f2f4f7;
-$color-dark-bg: #111111;
+$text-light: #ffffff;
+$text-dark: #051d40;
 
-$color-matte-black: #1a1a1a;
-$color-mobile-bg: #161616;
+$light-bg: #f2f4f7;
+$dark-bg: #051d40;
 
-$color-text-muted: #555555;
-$font-main: "Plus Jakarta Sans", sans-serif;
+$color-text-muted: #ffffff;
 
 :root {
-  --primary-color: #{$color-primary};
-  --secondary-color: #{$color-secondary};
+  --primary-color: #{$primary-color};
+  --secondary-color: #{$secondary-color};
 
-  --text-light: #{$text-light-color};
-  --text-dark: #{$text-dark-color};
+  --text-light: #{$text-light};
+  --text-dark: #{$text-dark};
 
-  --light-bg: #{$color-light-bg};
-  --dark-bg: #{$color-dark-bg};
+  --light-bg: #{$light-bg};
+  --dark-bg: #{$dark-bg};
 
-  --text-main: #111111;
   --text-muted: #{$color-text-muted};
-
-  --font-family: #{$font-main};
-  --max-width: 1320px;
 
   // ট্রানজিশন টাইমিং
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-header: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Links */
+/* s */
 a {
   text-decoration: none;
   text-transform: uppercase;

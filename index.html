@@ -10,6 +10,7 @@
    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet">
 
+
    <link rel="stylesheet" href="assets/css/main.min.css">
    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
 </head>
@@ -247,8 +248,11 @@
 
                <!-- Portfolio Header -->
                <div class="portfolio-header">
-                  <h2 class="portfolio-title" id="portfolioMainTitle"> <span id="portfolioAccentTitle"></span></h2>
-                  <a href="#" class="btn-see-all" id="portfolioSeeAllBtn"></a>
+                  <div class="portfolio-title-area">
+                     <h2 class="portfolio-title" id="portfolioMainTitle"> <span id="portfolioAccentTitle"></span></h2>
+                     <p class="portfolio-description" id="portfolioDescription"></p>
+                  </div>
+                  <a href="#" class="btn btn-primary" id="portfolioSeeAllBtn"></a>
                </div>
 
                <!-- Dynamic Slider Track Wrapper -->
@@ -367,7 +371,7 @@
             </div>
          </section>
 
-         <!-- Pricing Section -->
+         <!-- Pricing Section 
          <section id="nahidPricingSection" class="pricing-section container">
             <div class="pricing-container">
 
@@ -410,7 +414,7 @@
 
             </div>
          </section>
-
+         -->
          <!-- Dynamic FAQ Section -->
          <section id="nahidFaqSection" class="nahid-faq-section container">
             <div class="faq-container">
@@ -471,6 +475,22 @@
                         <polyline points="7 7 17 7 17 17"></polyline>
                      </svg>
                   </a>
+
+                  <div class="nahid-popup-overlay" id="nahidConnectPopup">
+                     <div class="nahid-popup-content">
+                        <button class="nahid-popup-close" id="nahidPopupCloseBtn">&times;</button>
+                        <h3 id="nahidPopupTitle">Let's Work Together</h3>
+                        <p id="nahidPopupDesc"></p>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="nahid-popup-whatsapp-btn"
+                           id="nahidPopupWhatsappBtn">
+                           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                              <path
+                                 d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.455L0 24zm6.59-4.846c1.643.975 3.255 1.489 4.815 1.49 5.423.002 9.833-4.364 9.836-9.73.001-2.599-1.01-5.044-2.848-6.884C16.65 2.19 14.21 1.181 11.614 1.18c-5.429 0-9.84 4.366-9.843 9.735-.001 1.712.464 3.382 1.346 4.84l-.991 3.619 3.73-.974zm11.233-6.643c-.302-.151-1.786-.879-2.062-.979-.277-.1-.478-.151-.679.151-.202.302-.78.979-.956 1.181-.177.201-.353.226-.655.075-1.205-.519-2.031-1.02-2.836-2.406-.177-.302-.177-.522-.026-.672.136-.135.302-.353.453-.529.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.679-1.635-.93-2.24-.244-.587-.493-.507-.679-.516-.175-.008-.377-.01-.578-.01-.201 0-.528.075-.804.377-.276.302-1.056 1.031-1.056 2.516s1.081 2.917 1.232 3.118c.151.201 2.128 3.249 5.156 4.554.72.311 1.282.497 1.721.637.723.23 1.381.197 1.901.12.58-.087 1.786-.73 2.037-1.435.252-.704.252-1.308.176-1.435-.076-.127-.277-.202-.579-.353z" />
+                           </svg>
+                           <span id="nahidPopupBtnText"></span>
+                        </a>
+                     </div>
+                  </div>
                </div>
 
                <hr class="footer-divider">
@@ -490,22 +510,26 @@
 
                   <!-- Quick Navigation Links -->
                   <div class="footer-links-col">
-                     <h4 class="col-title">Navigation</h4>
-                     <ul class="footer-link-list" id="nahidFooterNav"></ul>
+                     <h6 class="footer-co-title">Quick Link</h6>
+                     <ul class="footer-link-list" id="nahidFooterNav">
+
+                     </ul>
                   </div>
 
                   <!-- Contact Details -->
                   <div class="footer-links-col">
-                     <h4 class="col-title">Contact</h4>
+                     <h6 class="footer-co-title">Contact</h6>
                      <ul class="footer-link-list" id="nahidFooterContact"></ul>
                   </div>
 
-                  <!-- Newsletter Box (Matching input with orange button) -->
+                  <!-- আপনার নিউজলেটার কলাম (আগের মতো নিখুঁত স্টাইলে ফেরত আসবে) -->
                   <div class="footer-newsletter-col">
-                     <h4 class="col-title" id="nahidNewsletterTitle"></h4>
-                     <form class="footer-newsletter-form" id="nahidNewsletterForm">
-                        <input type="email" class="newsletter-input" id="nahidCtaInput" placeholder="Email Address"
-                           required>
+                     <h6 class="footer-co-title" id="nahidNewsletterTitle"></h6>
+
+                     <form class="footer-newsletter-form" id="nahidNewsletterForm" method="POST" target="hidden_iframe"
+                        action="https://script.google.com/macros/s/AKfycbzh55AboiScZbHX_oCeTIgGj8v6f4_91srGRQPOCKUev8yTKaKUNMPqApFJ9qmzTF38xA/exec">
+                        <input type="email" class="newsletter-input" id="nahidCtaInput" name="email"
+                           placeholder="Email Address" required>
                         <button type="submit" class="newsletter-submit-btn">
                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                               <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -513,6 +537,12 @@
                            </svg>
                         </button>
                      </form>
+
+                     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+                  </div>
+                  <div id="nahidSuccessMessage"
+                     style="display: none; color: #00ca6d; font-size: 13px; font-weight: 500; z-index: 9999;">
+                     Awesome! Thank you for subscribing.
                   </div>
 
                </div>
@@ -522,7 +552,18 @@
                <!-- 📝 Bottom Copyright and Legal Terms -->
                <div class="footer-bottom-row">
                   <p class="copyright-text" id="nahidCopyrightText"></p>
+                  <!-- জাভাস্ক্রিপ্ট অটোমেটিক এটার ভেতরে ডাইনামিকলি <a> ট্যাগগুলো জেনারেট করবে -->
                   <div class="footer-legal-links" id="nahidLegalLinks"></div>
+               </div>
+
+               <div id="nahidPolicyModal" class="policy-modal">
+                  <div class="policy-modal-content">
+                     <div class="policy-modal-header">
+                        <h3 id="nahidPolicyModalTitle"></h3>
+                        <span id="nahidPolicyModalClose" class="policy-modal-close">&times;</span>
+                     </div>
+                     <div id="nahidPolicyModalBody" class="policy-modal-body"></div>
+                  </div>
                </div>
 
             </div>

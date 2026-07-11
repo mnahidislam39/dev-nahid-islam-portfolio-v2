@@ -58,7 +58,7 @@
     position: relative;
     z-index: 11;
     pointer-events: none;
-    color: #000000;
+    color: var(--text-dark);
   }
 
   .highlight-text {
@@ -188,7 +188,7 @@
 
   .quote-text {
     font-size: 14px;
-    color: var(--text-muted);
+    color: var(--text-dark);
     line-height: 1.5;
     font-weight: 500;
   }
@@ -214,7 +214,7 @@
   }
 
   .experience-text {
-    color: var(--text-muted);
+    color: var(--text-dark);
     font-weight: 500;
   }
 

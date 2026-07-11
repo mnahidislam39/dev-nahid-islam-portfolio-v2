@@ -19,7 +19,7 @@
   .faq-title {
     font-size: 42px;
     font-weight: 700;
-    color: var(--text-main);
+    color: var(--text-dark);
     letter-spacing: -1px;
 
     span {
@@ -64,7 +64,7 @@
   .faq-question-text {
     font-size: 18px;
     font-weight: 600;
-    color: var(--text-main);
+    color: var(--text-dark);
     transition: var(--transition-smooth);
   }
 
@@ -80,7 +80,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--text-main);
+    color: var(--text-dark);
     flex-shrink: 0;
     transition: var(--transition-smooth);
   }
@@ -110,7 +110,7 @@
     p {
       font-size: 15px;
       line-height: 1.6;
-      color: var(--text-muted);
+      color: var(--text-dark);
       margin: 0;
     }
   }

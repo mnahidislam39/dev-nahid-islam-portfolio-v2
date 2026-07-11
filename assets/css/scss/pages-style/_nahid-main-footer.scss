@@ -6,7 +6,7 @@
   background: var(--dark-bg);
   padding: 40px 24px;
   font-family: var(--font-family);
-  color: var(--text-muted);
+  color: var(--text-white);
 
   span.brand-logo-icon img {
     max-height: 80px;
@@ -119,21 +119,25 @@
     }
   }
 
-  .col-title {
-    font-size: 16px;
-    font-weight: 700;
+  .footer-co-title {
     color: var(--primary-color);
-    margin: 0 0 24px 0;
-    text-transform: capitalize;
   }
-
+  .footer-links-col,
+  .footer-newsletter-col {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+  }
   .footer-link-list {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 6px;
+    #nahidFooterContact-1 a {
+      text-transform: lowercase;
+    }
 
     a {
       color: #ffffff;
@@ -168,7 +172,7 @@
     width: 100%;
 
     &::placeholder {
-      color: var(--text-muted);
+      color: var(--text-white);
     }
   }
 
@@ -223,6 +227,216 @@
     }
   }
 
+  /* মোডাল ডিফল্ট ব্যাকগ্রাউন্ড (লুকিয়ে থাকবে) */
+  .policy-modal {
+    display: none;
+    position: fixed;
+    z-index: 99999; /* যেন সব এলিমেন্টের উপরে থাকে */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(6, 14, 26, 0.85); /* ডার্ক থিম */
+    backdrop-filter: blur(6px); /* গ্লাস মরফিজম */
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ⚠️ এই ক্লাসটিই মোডাল ওপেন করবে, এটি মিস করা যাবে না */
+  .policy-modal.open {
+    display: flex !important;
+  }
+
+  /* মোডাল কন্টেন্ট বক্স */
+  .policy-modal-content {
+    background-color: #0c1a30;
+    border: 1px solid #00e676; /* নিয়ন গ্রিন */
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 230, 118, 0.25);
+    animation: fadeInModal 0.25s ease-out;
+  }
+
+  .policy-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .policy-modal-header h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .policy-modal-close {
+    color: #888;
+    font-size: 32px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .policy-modal-close:hover {
+    color: #00e676;
+  }
+
+  .policy-modal-body {
+    padding: 24px;
+    color: #ccd6f6;
+  }
+
+  /* ভেতরের ডাইনামিক নোড স্টাইলিং */
+  .policy-popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .policy-item {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 3px solid #00e676;
+  }
+
+  .policy-icon-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .policy-icon-title h4 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.05rem;
+  }
+
+  .policy-item p {
+    margin: 0;
+    color: #ccd6f6;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    padding-left: 36px;
+  }
+
+  @keyframes fadeInModal {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .nahid-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+
+    &.active {
+      opacity: 1;
+      pointer-events: auto;
+
+      .nahid-popup-content {
+        transform: scale(1);
+      }
+    }
+  }
+
+  .nahid-popup-content {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    h3 {
+      font-family: var(--font-family), sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #111111;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-family: var(--font-family), sans-serif;
+      font-size: 15px;
+      color: #555555;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+  }
+
+  .nahid-popup-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    color: #999999;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #333333;
+    }
+  }
+
+  .nahid-popup-whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #25d366;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-family: var(--font-family), sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+    transition:
+      transform 0.2s ease,
+      background 0.2s ease;
+
+    svg {
+      display: block;
+    }
+
+    &:hover {
+      background: #20ba5a;
+      transform: translateY(-2px);
+    }
+  }
   @media (max-width: 1024px) {
     .footer-main-grid {
       grid-template-columns: 1fr 1fr;

@@ -53,16 +53,17 @@
 
     // জাভাস্ক্রিপ্ট থেকে জেনারেট হওয়া ক্লাসকে সরাসরি ফোর্স করা
     .custom-marquee-svg {
-      width: 28px !important;
-      height: 28px !important;
-      min-width: 28px !important;
-      min-height: 28px !important;
+      width: 60px !important;
+      height: auto !important;
       display: inline-block !important;
       visibility: visible !important;
-
       path {
         fill: inherit !important;
       }
+    }
+    .marquee-img {
+      width: 60px;
+      height: auto;
     }
   }
 

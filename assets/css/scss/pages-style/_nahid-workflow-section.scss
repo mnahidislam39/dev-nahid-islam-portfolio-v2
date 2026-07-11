@@ -42,6 +42,7 @@
     display: flex;
     flex-direction: column;
     transition: var(--transition-smooth);
+    border-color: var(--primary-color);
 
     &:hover {
       transform: translateY(-6px);
@@ -95,7 +96,7 @@
   .workflow-step-desc {
     font-size: 14px;
     line-height: 1.6;
-    color: var(--text-muted);
+    color: var(--text-dark);
     margin: 0;
   }
 

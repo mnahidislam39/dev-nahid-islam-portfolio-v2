@@ -14,20 +14,20 @@ const nahidHeaderConfig = {
     { label: "About", url: "#nahidExperienceSection", active: false },
     { label: "Service", url: "#nahidServicesSection", active: false },
     { label: "Portfolio", url: "#nahidPortfolioSection", active: false },
+  ],
+
+  // ডানদিকের মেনু আইটেম লিস্ট
+  rightMenu: [
     {
       label: "Resume",
       url: "pages/resume.html",
       target: "_self",
       active: false,
     },
-  ],
-
-  // ডানদিকের মেনু আইটেম লিস্ট
-  rightMenu: [
     { label: "Review", url: "#nahidTestimonialsSection", active: false },
-    { label: "Pricing", url: "#nahidPricingSection", active: false },
+    // { label: "Pricing", url: "#nahidPricingSection", active: false },
     { label: "FAQ", url: "#nahidFaqSection", active: false },
-    { label: "Contact", url: "#nahidContactSection", active: false },
+    { label: "Contact", url: "#nahidFooter", active: false },
   ],
 };
 
@@ -69,8 +69,8 @@ const nahidHeroConfig = {
 
 // Services Data
 const nahidServicesMeta = {
-  sectionTitle: "What",
-  accentText: "I Offer",
+  sectionTitle: "My",
+  accentText: "Services",
   sectionSubtitle:
     "High-performance web applications and custom digital engineering tailored to streamline your business operations, automate workflows, and drive measurable revenue growth.",
 };
@@ -214,14 +214,15 @@ const nahidHireStats = [
   },
 ];
 
-// ==========================================
-// NAHID PORTFOLIO GLOBAL CONFIGURATION
-// ==========================================
+// Portfolio Section Data
 const nahidPortfolioMeta = {
   sectionTitle: "My",
   accentText: "Portfolio",
+  portfolioDescription:
+    "A selection of recent work showcasing expertise across web development, e-commerce, and custom solutions.",
   sectionSubtitle: "See All",
 };
+// Portfolio slider configuration
 const nahidPortfolioConfig = {
   loop: true,
   autoplay: true,
@@ -233,31 +234,31 @@ const nahidPortfolioConfig = {
 const nahidPortfolioData = [
   {
     id: 1,
-    title: "Fotocademia - E-commerce Platform",
-    watermark: "Fotocademia",
-    image: "assets/images/education/edu-FP-1.png",
+    title: "portfoilo",
+    watermark: "portfoilo",
+    image: "assets/images/portfoilo.webp",
     link: "#",
-    tags: ["Shopify", "UI/UX Design", "E-commerce", "Minimalist"],
+    tags: ["HTML", "CSS", "Tailwind CSS", "JavaScript"],
     description:
       "A premium conversion-driven online academy platform built for seamless photography course sales, digital ebooks distribution, and destination workshops management.",
   },
   {
     id: 2,
-    title: "Fotocademia - E-commerce Platform",
-    watermark: "Fotocademia",
-    image: "assets/images/grow-axit-businessdRK.webp",
+    title: "grow-axit-business",
+    watermark: "grow-axit-business",
+    image: "assets/images/grow-axit-business.webp",
     link: "#",
-    tags: ["Shopify", "UI/UX Design", "E-commerce", "Minimalist"],
+    tags: ["HTML", "CSS", "Tailwind CSS", "JavaScript"],
     description:
       "A premium conversion-driven online academy platform built for seamless photography course sales, digital ebooks distribution, and destination workshops management.",
   },
   {
     id: 3,
-    title: "Fotocademia - E-commerce Platform",
-    watermark: "Fotocademia",
-    image: "assets/images/grow-axit-businessdRK.webp",
+    title: "Grow Business",
+    watermark: "Grow Business",
+    image: "assets/images/grow-business.webp",
     link: "#",
-    tags: ["Shopify", "UI/UX Design", "E-commerce", "Minimalist"],
+    tags: ["HTML", "CSS", "Tailwind CSS", "JavaScript"],
     description:
       "A premium conversion-driven online academy platform built for seamless photography course sales, digital ebooks distribution, and destination workshops management.",
   },
@@ -370,34 +371,58 @@ const nahidCtaConfig = {
 const nahidMarqueeConfig = {
   items: [
     {
-      text: "UX Design",
+      text: "Web Design & Development",
       iconColor: "#ff7a30",
-      svg: `<svg viewBox="0 0 24 24" width="24" height="24" class="marquee-star"><path d="M12 2l2.4 7.2L22 11.6l-5.6 4.4L17.8 22 12 18.4 6.2 22l1.4-6-5.6-4.4 7.6-2.4z"/></svg>`,
+      svg: ``,
+      img: "assets/images/icons/",
     },
     {
-      text: "App Design",
+      text: "App Development",
       iconColor: "#00ffcc",
-      svg: `<svg viewBox="0 0 24 24" width="24" height="24" class="marquee-star"><path d="M12 2l2.4 7.2L22 11.6l-5.6 4.4L17.8 22 12 18.4 6.2 22l1.4-6-5.6-4.4 7.6-2.4z"/></svg>`,
+      svg: ``,
+      img: "assets/images/icons/app.webp",
     },
     {
       text: "Dashboard",
       iconColor: "#ff007f",
-      svg: `<svg viewBox="0 0 24 24" width="24" height="24" class="marquee-star"><path d="M12 2l2.4 7.2L22 11.6l-5.6 4.4L17.8 22 12 18.4 6.2 22l1.4-6-5.6-4.4 7.6-2.4z"/></svg>`,
+      svg: ``,
+      img: "assets/images/icons/",
     },
     {
-      text: "Wireframe",
+      text: "E-commerce",
       iconColor: "#ffcc00",
-      svg: `<svg viewBox="0 0 24 24" width="24" height="24" class="marquee-star"><path d="M12 2l2.4 7.2L22 11.6l-5.6 4.4L17.8 22 12 18.4 6.2 22l1.4-6-5.6-4.4 7.6-2.4z"/></svg>`,
+      svg: ``,
+      img: "assets/images/icons/E-commerce.webp",
     },
     {
-      text: "User Research",
+      text: "Shopify Development",
       iconColor: "#3385ff",
-      svg: `<svg viewBox="0 0 24 24" width="24" height="24" class="marquee-star"><path d="M12 2l2.4 7.2L22 11.6l-5.6 4.4L17.8 22 12 18.4 6.2 22l1.4-6-5.6-4.4 7.6-2.4z"/></svg>`,
+      svg: ``,
+      img: "assets/images/icons/shopify-svg.svg",
     },
     {
-      text: "Visual Identity",
+      text: "WordPress Development",
       iconColor: "#a020f0",
-      svg: `<svg viewBox="0 0 24 24" width="24" height="24" class="marquee-star"><path d="M12 2l2.4 7.2L22 11.6l-5.6 4.4L17.8 22 12 18.4 6.2 22l1.4-6-5.6-4.4 7.6-2.4z"/></svg>`,
+      svg: ``,
+      img: "assets/images/icons/wordpress.webp",
+    },
+    {
+      text: "web optimization",
+      iconColor: "#a020f0",
+      svg: ``,
+      img: "assets/images/icons/",
+    },
+    {
+      text: "web application",
+      iconColor: "#a020f0",
+      svg: ``,
+      img: "assets/images/icons/",
+    },
+    {
+      text: "api integration",
+      iconColor: "#a020f0",
+      svg: ``,
+      img: "assets/images/icons/",
     },
   ],
 };
@@ -530,10 +555,13 @@ const nahidWorkflowData = [
 const nahidFooterConfig = {
   connectBanner: {
     title: "Let's Work Together",
+    desc: "Let's bring your store design and automation ideas to life. Click below to start a quick chat on WhatsApp, and let's discuss how we can grow your business!",
+    popupBtnText: "Chat on WhatsApp",
     buttonText: "GET IN TOUCH",
+    buttonUrl: "https://wa.me/8801761005639",
   },
   brand: {
-    logoText: "JCREA", // আপনার টিম বা নিজের লোগো টেক্সট
+    logoText: "Nahid", // আপনার টিম বা নিজের লোগো টেক্সট
     logoImage: `assets/images/nahid-logo.png`, // লোগো ইমেজ পাথ
     logoAlt: "Nahid Logo", // লোগোর অ্যালট টেক্সট
     description:
@@ -542,34 +570,41 @@ const nahidFooterConfig = {
   newsletter: {
     title: "Get the latest information",
   },
-  copyright: `Copyright© ${new Date().getFullYear()} Nahid Islam. All Rights Reserved.`,
+  copyright: ` © ${new Date().getFullYear()} Nahid Islam. All Rights Reserved.`,
 
   // ডাইনামিক সোশ্যাল লিংক মেমোরি
   socials: [
     {
       name: "facebook",
-      url: "#",
-      iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
+      url: "https://www.facebook.com/nahidislamfbp",
+      iconSvg: `<svg width="20" height="20" viewBox="0 0 0.6 0.6" xmlns="http://www.w3.org/2000/svg"><title>facebook_line</title><g fill="none" fill-rule="evenodd"><path d="M0.6 0v0.6H0V0zM0.315 0.581l0 0 -0.002 0.001 -0.001 0 0 0 -0.002 -0.001q0 0 -0.001 0l0 0 0 0.011 0 0.001 0 0 0.003 0.002 0 0 0 0 0.003 -0.002 0 0 0 0 0 -0.011q0 0 0 0m0.007 -0.003 0 0 -0.005 0.002 0 0 0 0 0 0.011 0 0 0 0 0.005 0.002q0 0 0.001 0l0 0 -0.001 -0.015q0 0 -0.001 -0.001m-0.018 0a0.001 0.001 0 0 0 -0.001 0l0 0 -0.001 0.015q0 0 0 0.001l0 0 0.005 -0.002 0 0 0 0 0 -0.011 0 0 0 0z"/><path d="M0.1 0.3a0.2 0.2 0 1 1 0.225 0.198V0.35h0.05a0.025 0.025 0 1 0 0 -0.05h-0.05v-0.05a0.025 0.025 0 0 1 0.025 -0.025h0.013a0.025 0.025 0 1 0 0 -0.05H0.35a0.075 0.075 0 0 0 -0.075 0.075v0.05H0.225a0.025 0.025 0 1 0 0 0.05h0.05v0.148A0.2 0.2 0 0 1 0.1 0.3m0.2 0.25c0.138 0 0.25 -0.112 0.25 -0.25S0.438 0.05 0.3 0.05 0.05 0.162 0.05 0.3s0.112 0.25 0.25 0.25" fill="#ffffff"/></g></svg>`,
     },
     {
-      name: "youtube",
-      url: "#",
-      iconSvg: `<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>`,
+      name: "Instagram",
+      url: "https://www.instagram.com/mnahidislam39",
+      iconSvg: `<svg width="20px" height="20px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11 3.5H12M4.5 0.5H10.5C12.7091 0.5 14.5 2.29086 14.5 4.5V10.5C14.5 12.7091 12.7091 14.5 10.5 14.5H4.5C2.29086 14.5 0.5 12.7091 0.5 10.5V4.5C0.5 2.29086 2.29086 0.5 4.5 0.5ZM7.5 10.5C5.84315 10.5 4.5 9.15685 4.5 7.5C4.5 5.84315 5.84315 4.5 7.5 4.5C9.15685 4.5 10.5 5.84315 10.5 7.5C10.5 9.15685 9.15685 10.5 7.5 10.5Z" stroke="#ffffff"/>
+</svg>`,
+    },
+    // {
+    //   name: "whatsapp",
+    //   url: "https://wa.me/8801761005639",
+    //   iconSvg: `<svg fill="#fff" width="20px" height="20px" viewBox="-0.05 -0.05 0.6 0.6" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-whatsapp"><path d="M0.238 0C0.105 0.007 0 0.116 0.001 0.248a0.245 0.245 0 0 0 0.027 0.112L0.002 0.487a0.01 0.01 0 0 0 0.012 0.011l0.126 -0.03a0.25 0.25 0 0 0 0.107 0.026c0.136 0.002 0.249 -0.105 0.253 -0.24C0.504 0.111 0.384 -0.007 0.238 0zm0.15 0.384a0.195 0.195 0 0 1 -0.138 0.057 0.195 0.195 0 0 1 -0.087 -0.02l-0.018 -0.009 -0.077 0.018 0.016 -0.078 -0.009 -0.017A0.19 0.19 0 0 1 0.055 0.248c0 -0.052 0.02 -0.1 0.057 -0.137a0.196 0.196 0 0 1 0.138 -0.057c0.052 0 0.101 0.02 0.138 0.057a0.192 0.192 0 0 1 0.057 0.137c0 0.051 -0.021 0.101 -0.057 0.137z"/><path d="m0.371 0.301 -0.048 -0.014a0.018 0.018 0 0 0 -0.018 0.005l-0.012 0.012a0.018 0.018 0 0 1 -0.019 0.004c-0.023 -0.009 -0.071 -0.052 -0.083 -0.073a0.017 0.017 0 0 1 0.001 -0.019l0.01 -0.013a0.018 0.018 0 0 0 0.002 -0.018L0.184 0.139a0.018 0.018 0 0 0 -0.028 -0.006c-0.013 0.011 -0.029 0.028 -0.031 0.048 -0.003 0.034 0.011 0.076 0.066 0.127 0.063 0.059 0.114 0.067 0.147 0.059 0.019 -0.004 0.034 -0.023 0.043 -0.037a0.018 0.018 0 0 0 -0.01 -0.027"/></svg>`,
+    // },
+    {
+      name: "Linkedin",
+      url: "https://www.linkedin.com/in/mnahidislam39",
+      iconSvg: `<svg fill="#fff" width="20px" height="20px" viewBox="-0.05 -0.05 0.6 0.6" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-linkedin"><path d="M0.499 0.293v0.184h-0.107v-0.172c0 -0.043 -0.015 -0.073 -0.054 -0.073 -0.03 0 -0.047 0.02 -0.055 0.039 -0.003 0.007 -0.004 0.016 -0.004 0.026v0.18h-0.107s0.001 -0.292 0 -0.322h0.107v0.046l-0.001 0.001h0.001v-0.001c0.014 -0.022 0.04 -0.053 0.096 -0.053 0.07 0 0.123 0.046 0.123 0.145M0.061 0.001C0.024 0.001 0 0.025 0 0.056c0 0.031 0.023 0.056 0.059 0.056h0.001c0.037 0 0.06 -0.025 0.06 -0.056C0.12 0.025 0.097 0.001 0.061 0.001zM0.006 0.477h0.107V0.156H0.006z"/></svg>`,
     },
     {
-      name: "whatsapp",
-      url: "#",
-      iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>`,
+      name: "github",
+      url: "https://github.com/mnahidislam39",
+      iconSvg: `<svg fill="#fff" width="20px" height="20px" viewBox="0 0 0.6 0.6" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="M0.3 0.056a0.25 0.25 0 0 0 -0.079 0.487c0.013 0.002 0.017 -0.005 0.017 -0.012 0 -0.006 0 -0.026 0 -0.047 -0.063 0.012 -0.079 -0.015 -0.084 -0.029a0.091 0.091 0 0 0 -0.026 -0.035c-0.009 -0.005 -0.021 -0.016 0 -0.017a0.05 0.05 0 0 1 0.038 0.026 0.053 0.053 0 0 0 0.073 0.021 0.053 0.053 0 0 1 0.016 -0.033c-0.056 -0.006 -0.114 -0.028 -0.114 -0.123a0.098 0.098 0 0 1 0.026 -0.067 0.09 0.09 0 0 1 0.003 -0.066s0.021 -0.007 0.069 0.026a0.236 0.236 0 0 1 0.125 0c0.048 -0.033 0.069 -0.026 0.069 -0.026a0.09 0.09 0 0 1 0.003 0.066 0.097 0.097 0 0 1 0.026 0.067c0 0.096 -0.058 0.117 -0.114 0.123a0.059 0.059 0 0 1 0.017 0.046c0 0.033 0 0.06 0 0.069 0 0.007 0.005 0.014 0.017 0.012A0.25 0.25 0 0 0 0.3 0.056"/></svg>`,
     },
     {
-      name: "instagram",
-      url: "#",
-      iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>`,
-    },
-    {
-      name: "twitter",
-      url: "#",
-      iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>`,
+      name: "Behance",
+      url: "https://www.behance.net/mnahidislam39",
+      iconSvg: `<svg fill="#fff" width="20px" height="20px" viewBox="0 0 0.6 0.6" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="M0.553 0.376a0.025 0.025 0 0 0 -0.03 0.018A0.075 0.075 0 0 1 0.375 0.375v-0.025h0.175a0.025 0.025 0 0 0 0.025 -0.025 0.125 0.125 0 1 0 -0.25 0v0.05a0.125 0.125 0 0 0 0.246 0.031 0.025 0.025 0 0 0 -0.018 -0.03M0.45 0.25a0.075 0.075 0 0 1 0.053 0.022A0.076 0.076 0 0 1 0.52 0.3h-0.141a0.075 0.075 0 0 1 0.07 -0.05m-0.05 -0.075h0.1a0.025 0.025 0 0 0 0 -0.05h-0.1a0.025 0.025 0 0 0 0 0.05M0.248 0.293A0.1 0.1 0 0 0 0.175 0.125h-0.125a0.025 0.025 0 0 0 -0.025 0.025v0.325a0.025 0.025 0 0 0 0.025 0.025h0.138a0.112 0.112 0 0 0 0.06 -0.207M0.075 0.175h0.1a0.05 0.05 0 1 1 0 0.1h-0.1Zm0.113 0.275h-0.113v-0.125h0.113a0.063 0.063 0 0 1 0 0.125"/></svg>`,
     },
   ],
 
@@ -584,7 +619,7 @@ const nahidFooterConfig = {
       active: false,
     },
     { label: "Review", url: "#nahidTestimonialsSection", active: false },
-    { label: "Pricing", url: "#nahidPricingSection", active: false },
+    // { label: "Pricing", url: "#nahidPricingSection", active: false },
     { label: "FAQ", url: "#nahidFaqSection", active: false },
   ],
 
@@ -595,15 +630,47 @@ const nahidFooterConfig = {
       label: "devnahidislam4@gmail.com",
       link: "mailto:devnahidislam4@gmail.com",
     },
-    {
-      label: "Nahid Islam Portfolio",
-      link: "https://mnahidislam39.github.io/dev-nahid-islam-portfolio/",
-    },
   ],
 
   // লিগ্যাল ডকুমেন্টস
   legal: [
-    { label: "Terms & Conditions", link: "#" },
-    { label: "Privacy Policy", link: "#" },
+    {
+      label: "TERMS & CONDITIONS",
+      link: "javascript:void(0);",
+      // প্রতিটি পলিসির ভেতরের আলাদা পয়েন্টগুলো শুধু অবজেক্ট আকারে দিবেন
+      content: [
+        {
+          // icon: "file", // জাভাস্ক্রিপ্ট নিজে এই নামে আইকন বসিয়ে নিবে
+          title: "1. Agreement to Terms",
+          text: "By accessing or using this website and portfolio services, you agree to be bound by these Terms and Conditions. If you disagree with any part, please refrain from using our services.",
+        },
+        {
+          title: "2. Intellectual Property Rights",
+          text: "Unless otherwise stated, all source code, designs, graphics, and portfolio materials displayed here are the intellectual property of Nahid Islam. Unauthorized duplication or redistribution without permission is strictly prohibited.",
+        },
+        {
+          title: "3. Project Standard & Code Quality",
+          text: "We commit to delivering projects with pixel-perfect design precision, modern standards (clean CSS using hyphens, robust JavaScript logic), and maximum architecture optimization within fixed deadlines.",
+        },
+        {
+          title: "4. Limitation of Liability",
+          text: "In no event shall we be liable for any direct, indirect, or consequential damages arising from the use or inability to use our dynamic web solutions or deployed assets once delivered.",
+        },
+      ],
+    },
+    {
+      label: "PRIVACY POLICY",
+      link: "javascript:void(0);",
+      content: [
+        {
+          title: "1. Data We Collect",
+          text: "We only collect personal information that you voluntarily provide to us when you subscribe to our newsletter or use the 'Get In Touch' interaction forms.",
+        },
+        {
+          title: "2. How We Use Your Data",
+          text: "Your details are securely analyzed and processed exclusively to reply to your business inquiries, manage project scoping, and deliver requested technical updates.",
+        },
+      ],
+    },
   ],
 };
