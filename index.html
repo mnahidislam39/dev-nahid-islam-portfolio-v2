@@ -341,25 +341,50 @@
                <!-- Dynamic Heading Area -->
                <h2 class="cta-heading" id="nahidCtaHeading"></h2>
 
-               <!-- Dynamic Subscription Form Area -->
+               <!-- Dynamic Full Form Area -->
                <div class="cta-form-wrapper">
                   <form class="cta-form" id="nahidCtaForm" novalidate>
-                     <div class="input-group">
-                        <!-- Icon Container -->
-                        <div class="email-icon-box" id="nahidCtaIconBox">
-                           <!-- SVG will be injected here -->
+                     <div class="input-wrap">
+                        <div class="input-group">
+                           <input type="text" class="cta-input" name="fullname" placeholder="Full Name" required>
                         </div>
-                        <input type="email" class="cta-input" id="nahidCtaInput" placeholder="">
+                        <h6 class="error-message" id="error-fullname"></span>
                      </div>
-                     <button type="submit" class="cta-submit-btn" id="nahidCtaSubmitBtn"></button>
+
+                     <div class="input-wrap">
+                        <div class="input-group">
+                           <input type="email" class="cta-input" name="email" placeholder="Email Address" required>
+                        </div>
+                        <h6 class="error-message" id="error-email"></h6>
+                     </div>
+                     <div class="input-wrap">
+                        <div class="input-group">
+                           <select name="country" id="dynamicCountrySelect" class="cta-input" required>
+                           </select>
+                        </div>
+                        <h6 class="error-message" id="error-country"></h6>
+                     </div>
+                     <div class="input-wrap">
+                        <div class="input-group">
+                           <input type="number" class="cta-input" name="whatsapp" placeholder="WhatsApp" required>
+                        </div>
+                        <h6 class="error-message" id="error-whatsapp"></h6>
+                     </div>
+
+                     <div class="input-wrap">
+                        <div class="input-group">
+                           <textarea type="area" class="cta-input" name="subject" placeholder="Subject"
+                              required></textarea>
+                        </div>
+                        <h6 class="error-message" id="error-subject"></h6>
+                     </div>
+
+                     <button type="submit" class="cta-submit-btn" id="nahidCtaSubmitBtn">Send Message</button>
                   </form>
                </div>
 
-               <!-- Dynamic Trust Badges / Footer Info -->
-               <div class="cta-badges-row" id="nahidCtaBadgesRow">
-                  <!-- Badges will be injected dynamically -->
-               </div>
-
+               <!-- Dynamic Trust Badges -->
+               <div class="cta-badges-row" id="nahidCtaBadgesRow"></div>
             </div>
          </section>
 
@@ -522,7 +547,6 @@
                      <ul class="footer-link-list" id="nahidFooterContact"></ul>
                   </div>
 
-                  <!-- আপনার নিউজলেটার কলাম (আগের মতো নিখুঁত স্টাইলে ফেরত আসবে) -->
                   <div class="footer-newsletter-col">
                      <h6 class="footer-co-title" id="nahidNewsletterTitle"></h6>
 
@@ -535,14 +559,14 @@
                               <line x1="22" y1="2" x2="11" y2="13"></line>
                               <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                            </svg>
+                           Subscribe
                         </button>
                      </form>
 
                      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
                   </div>
-                  <div id="nahidSuccessMessage"
-                     style="display: none; color: #00ca6d; font-size: 13px; font-weight: 500; z-index: 9999;">
-                     Awesome! Thank you for subscribing.
+                  <div id="nahidSuccessMessage" style="display: none; color: #00ca6d;  z-index: 9999;">
+                     <h5>Awesome! Thank you for subscribing.</h5>
                   </div>
 
                </div>
@@ -553,9 +577,10 @@
                <div class="footer-bottom-row">
                   <p class="copyright-text" id="nahidCopyrightText"></p>
                   <!-- জাভাস্ক্রিপ্ট অটোমেটিক এটার ভেতরে ডাইনামিকলি <a> ট্যাগগুলো জেনারেট করবে -->
-                  <div class="footer-legal-links" id="nahidLegalLinks"></div>
+                  <!-- <div class="footer-legal-links" id="nahidLegalLinks"></div> -->
                </div>
 
+               <!-- 
                <div id="nahidPolicyModal" class="policy-modal">
                   <div class="policy-modal-content">
                      <div class="policy-modal-header">
@@ -565,7 +590,7 @@
                      <div id="nahidPolicyModalBody" class="policy-modal-body"></div>
                   </div>
                </div>
-
+               -->
             </div>
          </footer>
 

@@ -1138,82 +1138,199 @@ function initNahidDynamicCtaSection() {
   const config = typeof nahidCtaConfig !== "undefined" ? nahidCtaConfig : null;
   if (!config) return;
 
-  // ডম সিলেক্টরস
   const headingEl = document.getElementById("nahidCtaHeading");
-  const iconBoxEl = document.getElementById("nahidCtaIconBox");
-  const inputEl = document.getElementById("nahidCtaInput");
-  const submitBtnEl = document.getElementById("nahidCtaSubmitBtn");
-  const badgesRowEl = document.getElementById("nahidCtaBadgesRow");
   const formEl = document.getElementById("nahidCtaForm");
+  const badgesRowEl = document.getElementById("nahidCtaBadgesRow");
 
   // ১. হেডিং ডাটা ইনজেক্ট
   if (headingEl && config.heading) {
-    const normalText = config.heading.textNormal || "";
-    const highlightText = config.heading.textHighlight
-      ? `<span class="highlight-orange">${config.heading.textHighlight}</span>`
-      : "";
-    headingEl.innerHTML = `${normalText}${highlightText}`;
+    headingEl.innerHTML = `${config.heading.textNormal || ""}<span class="highlight-orange">${config.heading.textHighlight || ""}</span>`;
   }
 
-  // ২. ফর্ম প্লেসহোল্ডার, বাটন ও আইকন ডাটা ইনজেক্ট
-  if (config.form) {
-    if (iconBoxEl && config.form.emailIconSvg)
-      iconBoxEl.innerHTML = config.form.emailIconSvg;
-    if (inputEl && config.form.placeholder)
-      inputEl.setAttribute("placeholder", config.form.placeholder);
-    if (submitBtnEl && config.form.buttonText)
-      submitBtnEl.textContent = config.form.buttonText;
-  }
-
-  // ৩. ট্রাস্ট ব্যাজ লুপ রেন্ডারিং
-  if (badgesRowEl && config.badges && config.badges.length > 0) {
-    badgesRowEl.innerHTML = ""; // ক্লিয়ার ওল্ড ডাটা
-    config.badges.forEach((badge) => {
-      const badgeItem = document.createElement("div");
-      badgeItem.classList.add("badge-item");
-
-      badgeItem.innerHTML = `
+  // ২. ট্রাস্ট ব্যাজ রেন্ডারিং
+  if (badgesRowEl && config.badges) {
+    badgesRowEl.innerHTML = config.badges
+      .map(
+        (badge) => `
+      <div class="badge-item">
         <span class="badge-icon">${badge.iconSvg || ""}</span>
         <span class="badge-text">${badge.text || ""}</span>
-      `;
-      badgesRowEl.appendChild(badgeItem);
+      </div>
+    `,
+      )
+      .join("");
+  }
+
+  // ১. কান্ট্রি লিস্ট
+  const countries = [
+    { name: "United States" },
+    { name: "United Kingdom" },
+    { name: "Canada" },
+    { name: "Australia" },
+    { name: "Germany" },
+    { name: "Bangladesh" },
+    { name: "India" },
+    { name: "United Arab Emirates" },
+    { name: "Saudi Arabia" },
+    { name: "Singapore" },
+    { name: "Netherlands" },
+    { name: "France" },
+    { name: "Italy" },
+    { name: "Spain" },
+    { name: "Sweden" },
+    { name: "Switzerland" },
+    { name: "Norway" },
+    { name: "New Zealand" },
+    { name: "Japan" },
+    { name: "South Korea" },
+    { name: "Other" },
+  ];
+
+  const countrySelect = document.getElementById("dynamicCountrySelect");
+  if (countrySelect) {
+    countrySelect.innerHTML = '<option value="">Select Country</option>';
+    countries.forEach((country) => {
+      let option = document.createElement("option");
+      option.value = country.name;
+      option.textContent = country.name;
+      countrySelect.appendChild(option);
     });
   }
 
-  // ৪. সাবমিট ইভেন্ট হ্যান্ডলার (আইসোলেটেড ভ্যালিডেশন)
+  // ২. ফর্ম সাবমিট হ্যান্ডলার
   if (formEl) {
     formEl.addEventListener("submit", (e) => {
       e.preventDefault();
-      if (!inputEl) return;
 
-      const emailValue = inputEl.value.trim();
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      // এরর ক্লিয়ার করা
+      document
+        .querySelectorAll(".error-message")
+        .forEach((el) => (el.textContent = ""));
 
-      if (!emailValue) {
-        inputEl.classList.add("input-error");
-        return;
+      const submitBtn = document.getElementById("nahidCtaSubmitBtn");
+
+      // ম্যানুয়ালি ডাটা তৈরি করছি যাতে কোনো ভুল না হয়
+      const data = {
+        fullname: formEl.querySelector("input[name='fullname']").value,
+        email: formEl.querySelector("input[name='email']").value,
+        country: countrySelect.value, // সরাসরি ড্রপডাউন থেকে ভ্যালু
+        whatsapp: formEl.querySelector("input[name='whatsapp']").value,
+        subject: formEl.querySelector("textarea[name='subject']").value,
+        formType: "project",
+      };
+
+      let isValid = true;
+
+      // ভ্যালিডেশন
+      if (!data.fullname.trim()) {
+        document.getElementById("error-fullname").textContent =
+          "Full Name is required";
+        isValid = false;
+      }
+      if (!data.email.trim()) {
+        document.getElementById("error-email").textContent =
+          "Email is required";
+        isValid = false;
+      }
+      if (!data.country) {
+        document.getElementById("error-country").textContent =
+          "Please select your country";
+        isValid = false;
+      }
+      const countryValidationRules = {
+        // বাংলাদেশ ও ভারতের জন্য নির্দিষ্ট নিয়ম
+        Bangladesh: /^(\+88|0)?1[3-9]\d{8}$/,
+        India: /^(\+91|0)?[6-9]\d{9}$/,
+
+        // বাকি সব দেশের জন্য ইন্টারন্যাশনাল ফ্লেক্সিবল নিয়ম (স্পেস, হাইফেন, প্লাস সব সাপোর্ট করবে)
+        "United States": /^\+?[\d\s-]{10,15}$/,
+        Canada: /^\+?[\d\s-]{10,15}$/,
+        "United Kingdom": /^\+?[\d\s-]{10,15}$/,
+        Australia: /^\+?[\d\s-]{10,15}$/,
+        Germany: /^\+?[\d\s-]{10,15}$/,
+        "United Arab Emirates": /^\+?[\d\s-]{10,15}$/,
+        "Saudi Arabia": /^\+?[\d\s-]{10,15}$/,
+        Singapore: /^\+?[\d\s-]{10,15}$/,
+        Netherlands: /^\+?[\d\s-]{10,15}$/,
+        France: /^\+?[\d\s-]{10,15}$/,
+        Italy: /^\+?[\d\s-]{10,15}$/,
+        Spain: /^\+?[\d\s-]{10,15}$/,
+        Sweden: /^\+?[\d\s-]{10,15}$/,
+        Switzerland: /^\+?[\d\s-]{10,15}$/,
+        Norway: /^\+?[\d\s-]{10,15}$/,
+        "New Zealand": /^\+?[\d\s-]{10,15}$/,
+        Japan: /^\+?[\d\s-]{10,15}$/,
+        "South Korea": /^\+?[\d\s-]{10,15}$/,
+        Other: /^\+?[\d\s-]{5,15}$/,
+      };
+
+      // ভ্যালিডেশন লজিক (যা সব ক্ষেত্রেই কাজ করবে)
+      const country = countrySelect.value;
+      const rawWhatsapp = formEl
+        .querySelector("input[name='whatsapp']")
+        .value.trim();
+
+      if (!rawWhatsapp) {
+        document.getElementById("error-whatsapp").textContent =
+          "WhatsApp number is required";
+        isValid = false;
+      } else {
+        const rule = countryValidationRules[country] || /^\+?[\d\s-]{5,15}$/;
+        if (!rule.test(rawWhatsapp)) {
+          document.getElementById("error-whatsapp").textContent =
+            "Please enter a valid number for " + country;
+          isValid = false;
+        } else {
+          document.getElementById("error-whatsapp").textContent = "";
+        }
       }
 
-      if (!emailRegex.test(emailValue)) {
-        inputEl.classList.add("input-error");
-        alert("Please enter a valid email address.");
-        return;
+      // subject
+      if (!data.subject.trim()) {
+        document.getElementById("error-subject").textContent =
+          "Subject is required";
+        isValid = false;
       }
 
-      // সাকসেস হলে এরর ক্লাস রিমুভ ও কলব্যাক এক্সিকিউট
-      inputEl.classList.remove("input-error");
-      if (typeof config.onSubmit === "function") {
-        config.onSubmit(emailValue);
-      }
-      formEl.reset();
+      if (!isValid) return;
+
+      // সাবমিশন
+      submitBtn.textContent = "Sending...";
+      submitBtn.disabled = true;
+
+      fetch(
+        "https://script.google.com/macros/s/AKfycbx1d4YwrZIJNOEvs0CpqWofR3KjNRorTjniETgF51-wWr6OY-l6apTvjvVKvxFgGUFJ/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        },
+      )
+        .then(() => {
+          submitBtn.textContent = "Sent Successfully!";
+          submitBtn.style.background = "#00ca6d";
+          formEl.reset();
+          setTimeout(() => {
+            submitBtn.textContent = "Send Message";
+            submitBtn.style.background = "";
+            submitBtn.disabled = false;
+          }, 3000);
+        })
+        .catch((err) => {
+          console.error("Error:", err);
+          submitBtn.textContent = "Error! Try Again";
+          submitBtn.disabled = false;
+        });
     });
 
-    // ইনপুট টাইপ করার সময় এরর ক্লাস রিমুভ করা
-    if (inputEl) {
-      inputEl.addEventListener("input", () => {
-        inputEl.classList.remove("input-error");
+    // টাইপ করলে এরর মুছে ফেলার লজিক
+    formEl.querySelectorAll("input, select, textarea").forEach((input) => {
+      input.addEventListener("input", () => {
+        const errorEl = document.getElementById("error-" + input.name);
+        if (errorEl) errorEl.textContent = "";
       });
-    }
+    });
   }
 }
 
@@ -1247,7 +1364,7 @@ function initNahidTiltedMarquee() {
         }
         // ২. আর যদি ডাটাতে ইমেজ পাথ/লিংক দেওয়া থাকে
         else if (item.img && item.img.trim()) {
-          iconContent = `<img src="${item.img}" alt="${item.text || "icon"}" class="marquee-img" style=" object-fit: contain;" />`;
+          iconContent = `<img src="${item.img}" alt="${item.text || "icon"}" class="marquee-img" style="width: 100%; height: 100%; object-fit: contain;" />`;
         }
 
         return `
@@ -1672,30 +1789,58 @@ function initNahidDynamicFooter() {
   const successMsg = document.getElementById("nahidSuccessMessage");
 
   if (form && emailInput && submitBtn && successMsg) {
-    form.addEventListener("submit", () => {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // ১. ডিফল্ট টেক্সট বা এইচটিএমএল সেভ করে রাখা
+      const originalHTML = submitBtn.innerHTML;
+
+      // বাটন লোডিং স্টেট
+      submitBtn.textContent = "Subscribing...";
       submitBtn.style.opacity = "0.5";
       submitBtn.disabled = true;
 
-      // মেসেজ বক্সটিকে ডায়নামিক্যালি ফর্মের ঠিক নিচে পজিশন করার ট্রিক
-      const formRect = form.getBoundingClientRect();
-      successMsg.style.position = "absolute";
-      successMsg.style.top = `${window.scrollY + formRect.bottom + 8}px`; // ফর্মের নিচে ৮ পিক্সেল গ্যাপ
-      successMsg.style.left = `${window.scrollX + formRect.left}px`;
+      const data = {
+        formType: "subscriber",
+        email: emailInput.value,
+      };
 
-      setTimeout(() => {
-        form.reset();
+      // ২. ইনস্ট্যান্ট ইনপুট ক্লিয়ার করা
+      form.reset();
 
-        // মেসেজ শো করা
-        successMsg.style.display = "block";
+      fetch(
+        "https://script.google.com/macros/s/AKfycbx1d4YwrZIJNOEvs0CpqWofR3KjNRorTjniETgF51-wWr6OY-l6apTvjvVKvxFgGUFJ/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        },
+      )
+        .then(() => {
+          // ৩. সাকসেস স্টেট
+          submitBtn.textContent = "Subscribed 😍";
+          submitBtn.style.opacity = "1";
+          submitBtn.disabled = false;
 
-        submitBtn.style.opacity = "1";
-        submitBtn.disabled = false;
+          const formRect = form.getBoundingClientRect();
+          successMsg.style.position = "absolute";
+          successMsg.style.top = `${window.scrollY + formRect.bottom + 8}px`;
+          successMsg.style.left = `${window.scrollX + formRect.left}px`;
+          successMsg.style.display = "block";
+          successMsg.textContent = "Thank you for subscribing!";
 
-        // ৫ সেকেন্ড পর মেসেজ হাইড করা
-        setTimeout(() => {
-          successMsg.style.display = "none";
-        }, 5000);
-      }, 1000);
+          // ৪. ২ সেকেন্ড পর অরিজিনাল বাটন ফিরে আসা
+          setTimeout(() => {
+            submitBtn.innerHTML = originalHTML; // অরিজিনাল আইকন + টেক্সট ফিরে আসবে
+            successMsg.style.display = "none";
+          }, 3000);
+        })
+        .catch((err) => {
+          console.error("Error:", err);
+          submitBtn.textContent = "Error! Try Again";
+          submitBtn.disabled = false;
+        });
     });
   }
 }

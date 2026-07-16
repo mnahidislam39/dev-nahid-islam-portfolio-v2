@@ -11,7 +11,7 @@ const nahidHeaderConfig = {
   // বাঁদিকের মেনু আইটেম লিস্ট
   leftMenu: [
     // { label: "Home", url: "#nahidHeroSection", active: true },
-    { label: "About", url: "#nahidExperienceSection", active: false },
+    { label: "About", url: "#why-hire-me", active: false },
     { label: "Service", url: "#nahidServicesSection", active: false },
     { label: "Portfolio", url: "#nahidPortfolioSection", active: false },
   ],
@@ -374,8 +374,9 @@ const nahidMarqueeConfig = {
       text: "Web Design & Development",
       iconColor: "#ff7a30",
       svg: ``,
-      img: "assets/images/icons/",
+      img: "assets/images/icons/coding.webp",
     },
+    /*
     {
       text: "App Development",
       iconColor: "#00ffcc",
@@ -388,17 +389,18 @@ const nahidMarqueeConfig = {
       svg: ``,
       img: "assets/images/icons/",
     },
+    */
     {
       text: "E-commerce",
       iconColor: "#ffcc00",
       svg: ``,
-      img: "assets/images/icons/E-commerce.webp",
+      img: "assets/images/icons/ecommerce.webp",
     },
     {
       text: "Shopify Development",
       iconColor: "#3385ff",
       svg: ``,
-      img: "assets/images/icons/shopify-svg.svg",
+      img: "assets/images/icons/shopify.webp",
     },
     {
       text: "WordPress Development",
@@ -410,8 +412,9 @@ const nahidMarqueeConfig = {
       text: "web optimization",
       iconColor: "#a020f0",
       svg: ``,
-      img: "assets/images/icons/",
+      img: "assets/images/icons/optimization.webp",
     },
+    /*
     {
       text: "web application",
       iconColor: "#a020f0",
@@ -424,6 +427,7 @@ const nahidMarqueeConfig = {
       svg: ``,
       img: "assets/images/icons/",
     },
+    */
   ],
 };
 
@@ -610,6 +614,7 @@ const nahidFooterConfig = {
 
   // নেভিগেশন লিংকসমূহ (ক্লিন অবজেক্ট ট্র্যাকিং)
   navigation: [
+    { label: "About", url: "#why-hire-me", active: false },
     { label: "Service", url: "#nahidServicesSection", active: false },
     { label: "Portfolio", url: "#nahidPortfolioSection", active: false },
     {

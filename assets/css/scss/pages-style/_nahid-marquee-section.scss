@@ -48,7 +48,7 @@
     align-items: center;
     justify-content: center;
     padding: 0 15px;
-    min-width: 28px;
+    width: max-content;
     height: 28px;
 
     // জাভাস্ক্রিপ্ট থেকে জেনারেট হওয়া ক্লাসকে সরাসরি ফোর্স করা
@@ -62,7 +62,7 @@
       }
     }
     .marquee-img {
-      width: 60px;
+      width: 75%;
       height: auto;
     }
   }

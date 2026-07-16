@@ -156,9 +156,25 @@
     display: flex;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
+    border-radius: 50px;
     padding: 6px;
     align-items: center;
+  }
+  /* Input field er base style */
+  .input-field-class {
+    border-radius: 25px;
+    background: transparent !important;
+  }
+
+  /* Autofill er background forcefully remove kora */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    -webkit-text-fill-color: #fff !important; /* Apnar text er color ekhane dite paren */
+    border-radius: 25px !important;
   }
 
   .newsletter-input {
@@ -178,16 +194,17 @@
 
   .newsletter-submit-btn {
     background: var(--primary-color);
-    color: #ffffff;
+    color: #fff;
     border: none;
-    width: 44px;
+    width: max-content;
     height: 44px;
-    border-radius: 8px;
+    border-radius: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: var(--transition-smooth);
+    padding: 10px;
 
     &:hover {
       background: var(--primary-color);

@@ -33,18 +33,18 @@
   }
 
   .cta-form-wrapper {
-    max-width: 720px;
+    max-width: 600px;
     margin: 0 auto 40px auto;
   }
 
   .cta-form {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 15px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid color-mix(in srgb, var(--primary-color) 30%, transparent);
-    border-radius: 100px;
-    padding: 8px 8px 8px 24px;
+    border-radius: 30px;
+    padding: 24px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
     transition: var(--transition-smooth);
 
@@ -53,23 +53,25 @@
       box-shadow: 0 10px 30px rgba(255, 122, 48, 0.08);
     }
   }
-
+  .error-message {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+  }
   .input-group {
     display: flex;
     align-items: center;
-    flex: 1;
-    gap: 16px;
-  }
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50px;
+    padding: 5px 15px;
+    border: 1px solid #00bf6336;
+    transition: var(--transition-smooth);
 
-  .email-icon-box {
-    background: rgba(255, 122, 48, 0.1);
-    color: var(--primary-color);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    &:focus-within {
+      border-color: var(--primary-color);
+    }
   }
 
   .cta-input {
@@ -78,23 +80,35 @@
     font-size: 16px;
     color: var(--text-color);
     width: 100%;
+    padding: 12px;
     background: transparent;
-
     &::placeholder {
-      color: var(--text-dark);
+      color: #888888;
+      opacity: 1;
+    }
+
+    &:focus::placeholder {
+      color: #cccccc;
     }
   }
-
+  textarea::placeholder {
+    color: #888888;
+    opacity: 1;
+  }
+  textarea:focus::placeholder {
+    color: #cccccc;
+  }
   .cta-submit-btn {
     background: var(--primary-color);
     color: #ffffff;
     border: none;
     outline: none;
-    padding: 16px 40px;
+    padding: 16px;
     font-size: 16px;
     font-weight: 600;
-    border-radius: 100px;
+    border-radius: 50px;
     cursor: pointer;
+    margin-top: 10px;
     transition: var(--transition-smooth);
 
     &:hover {
@@ -143,25 +157,13 @@
 
     .cta-form {
       border-radius: 24px;
-      flex-direction: column;
       padding: 16px;
-      gap: 16px;
-    }
-
-    .input-group {
-      width: 100%;
-    }
-
-    .cta-submit-btn {
-      width: 100%;
-      border-radius: 16px;
     }
 
     .cta-badges-row {
       gap: 20px;
       flex-direction: column;
-      align-items: flex-start;
-      max-width: 250px;
+      align-items: center;
       margin: 20px auto 0 auto;
     }
   }
