@@ -128,6 +128,9 @@
     gap: 20px;
     flex-direction: column;
   }
+  li#nahidFooterNav-3 a {
+    color: #00bf63;
+}
   .footer-link-list {
     list-style: none;
     padding: 0;
@@ -166,17 +169,37 @@
     background: transparent !important;
   }
 
-  /* Autofill er background forcefully remove kora */
+  /* 3. Forcefully override Autofill styles */
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
-    -webkit-text-fill-color: #fff !important; /* Apnar text er color ekhane dite paren */
-    border-radius: 25px !important;
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important; /* Transparent background */
+    -webkit-text-fill-color: #000 !important; /* Text color black */
+    transition: background-color 5000s ease-in-out 0s; /* Fix for browser autofill */
+    border-radius: 25px !important; /* Maintaining border radius */
   }
 
+  /* Select field er jonno ekti highly specific rule */
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus,
+  select:-webkit-autofill:active {
+    background-color: transparent !important;
+    background-image: none !important;
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+    -webkit-text-fill-color: #000 !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* Fallback: Jodi browser element-ke style override korte dey */
+  select {
+    background-color: transparent !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
   .newsletter-input {
     flex: 1;
     background: transparent;

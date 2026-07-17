@@ -3,9 +3,7 @@
 @use "../utilities/mixin" as *;
 
 .nahid-faq-section {
-  padding: 100px 24px;
-  font-family: var(--font-family);
-
+  padding-top: 80px;
   .faq-container {
     max-width: 1024px;
     margin: 0 auto;

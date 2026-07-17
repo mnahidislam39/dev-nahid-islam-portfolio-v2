@@ -14,6 +14,7 @@ const nahidHeaderConfig = {
     { label: "About", url: "#why-hire-me", active: false },
     { label: "Service", url: "#nahidServicesSection", active: false },
     { label: "Portfolio", url: "#nahidPortfolioSection", active: false },
+    { label: "Start Project", url: "#nahidContactSection", active: false },
   ],
 
   // ডানদিকের মেনু আইটেম লিস্ট
@@ -561,7 +562,7 @@ const nahidFooterConfig = {
     title: "Let's Work Together",
     desc: "Let's bring your store design and automation ideas to life. Click below to start a quick chat on WhatsApp, and let's discuss how we can grow your business!",
     popupBtnText: "Chat on WhatsApp",
-    buttonText: "GET IN TOUCH",
+    buttonText: "Get In Touch",
     buttonUrl: "https://wa.me/8801761005639",
   },
   brand: {
@@ -583,18 +584,20 @@ const nahidFooterConfig = {
       url: "https://www.facebook.com/nahidislamfbp",
       iconSvg: `<svg width="20" height="20" viewBox="0 0 0.6 0.6" xmlns="http://www.w3.org/2000/svg"><title>facebook_line</title><g fill="none" fill-rule="evenodd"><path d="M0.6 0v0.6H0V0zM0.315 0.581l0 0 -0.002 0.001 -0.001 0 0 0 -0.002 -0.001q0 0 -0.001 0l0 0 0 0.011 0 0.001 0 0 0.003 0.002 0 0 0 0 0.003 -0.002 0 0 0 0 0 -0.011q0 0 0 0m0.007 -0.003 0 0 -0.005 0.002 0 0 0 0 0 0.011 0 0 0 0 0.005 0.002q0 0 0.001 0l0 0 -0.001 -0.015q0 0 -0.001 -0.001m-0.018 0a0.001 0.001 0 0 0 -0.001 0l0 0 -0.001 0.015q0 0 0 0.001l0 0 0.005 -0.002 0 0 0 0 0 -0.011 0 0 0 0z"/><path d="M0.1 0.3a0.2 0.2 0 1 1 0.225 0.198V0.35h0.05a0.025 0.025 0 1 0 0 -0.05h-0.05v-0.05a0.025 0.025 0 0 1 0.025 -0.025h0.013a0.025 0.025 0 1 0 0 -0.05H0.35a0.075 0.075 0 0 0 -0.075 0.075v0.05H0.225a0.025 0.025 0 1 0 0 0.05h0.05v0.148A0.2 0.2 0 0 1 0.1 0.3m0.2 0.25c0.138 0 0.25 -0.112 0.25 -0.25S0.438 0.05 0.3 0.05 0.05 0.162 0.05 0.3s0.112 0.25 0.25 0.25" fill="#ffffff"/></g></svg>`,
     },
+    /*
+     {
+       name: "Instagram",
+       url: "https://www.instagram.com/mnahidislam39",
+       iconSvg: `<svg width="20px" height="20px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 3.5H12M4.5 0.5H10.5C12.7091 0.5 14.5 2.29086 14.5 4.5V10.5C14.5 12.7091 12.7091 14.5 10.5 14.5H4.5C2.29086 14.5 0.5 12.7091 0.5 10.5V4.5C0.5 2.29086 2.29086 0.5 4.5 0.5ZM7.5 10.5C5.84315 10.5 4.5 9.15685 4.5 7.5C4.5 5.84315 5.84315 4.5 7.5 4.5C9.15685 4.5 10.5 5.84315 10.5 7.5C10.5 9.15685 9.15685 10.5 7.5 10.5Z" stroke="#ffffff"/>
+        </svg>`,
+     },
     {
-      name: "Instagram",
-      url: "https://www.instagram.com/mnahidislam39",
-      iconSvg: `<svg width="20px" height="20px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M11 3.5H12M4.5 0.5H10.5C12.7091 0.5 14.5 2.29086 14.5 4.5V10.5C14.5 12.7091 12.7091 14.5 10.5 14.5H4.5C2.29086 14.5 0.5 12.7091 0.5 10.5V4.5C0.5 2.29086 2.29086 0.5 4.5 0.5ZM7.5 10.5C5.84315 10.5 4.5 9.15685 4.5 7.5C4.5 5.84315 5.84315 4.5 7.5 4.5C9.15685 4.5 10.5 5.84315 10.5 7.5C10.5 9.15685 9.15685 10.5 7.5 10.5Z" stroke="#ffffff"/>
-</svg>`,
+       name: "whatsapp",
+       url: "https://wa.me/8801761005639",
+       iconSvg: `<svg fill="#fff" width="20px" height="20px" viewBox="-0.05 -0.05 0.6 0.6" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-whatsapp"><path d="M0.238 0C0.105 0.007 0 0.116 0.001 0.248a0.245 0.245 0 0 0 0.027 0.112L0.002 0.487a0.01 0.01 0 0 0 0.012 0.011l0.126 -0.03a0.25 0.25 0 0 0 0.107 0.026c0.136 0.002 0.249 -0.105 0.253 -0.24C0.504 0.111 0.384 -0.007 0.238 0zm0.15 0.384a0.195 0.195 0 0 1 -0.138 0.057 0.195 0.195 0 0 1 -0.087 -0.02l-0.018 -0.009 -0.077 0.018 0.016 -0.078 -0.009 -0.017A0.19 0.19 0 0 1 0.055 0.248c0 -0.052 0.02 -0.1 0.057 -0.137a0.196 0.196 0 0 1 0.138 -0.057c0.052 0 0.101 0.02 0.138 0.057a0.192 0.192 0 0 1 0.057 0.137c0 0.051 -0.021 0.101 -0.057 0.137z"/><path d="m0.371 0.301 -0.048 -0.014a0.018 0.018 0 0 0 -0.018 0.005l-0.012 0.012a0.018 0.018 0 0 1 -0.019 0.004c-0.023 -0.009 -0.071 -0.052 -0.083 -0.073a0.017 0.017 0 0 1 0.001 -0.019l0.01 -0.013a0.018 0.018 0 0 0 0.002 -0.018L0.184 0.139a0.018 0.018 0 0 0 -0.028 -0.006c-0.013 0.011 -0.029 0.028 -0.031 0.048 -0.003 0.034 0.011 0.076 0.066 0.127 0.063 0.059 0.114 0.067 0.147 0.059 0.019 -0.004 0.034 -0.023 0.043 -0.037a0.018 0.018 0 0 0 -0.01 -0.027"/></svg>`,
     },
-    // {
-    //   name: "whatsapp",
-    //   url: "https://wa.me/8801761005639",
-    //   iconSvg: `<svg fill="#fff" width="20px" height="20px" viewBox="-0.05 -0.05 0.6 0.6" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-whatsapp"><path d="M0.238 0C0.105 0.007 0 0.116 0.001 0.248a0.245 0.245 0 0 0 0.027 0.112L0.002 0.487a0.01 0.01 0 0 0 0.012 0.011l0.126 -0.03a0.25 0.25 0 0 0 0.107 0.026c0.136 0.002 0.249 -0.105 0.253 -0.24C0.504 0.111 0.384 -0.007 0.238 0zm0.15 0.384a0.195 0.195 0 0 1 -0.138 0.057 0.195 0.195 0 0 1 -0.087 -0.02l-0.018 -0.009 -0.077 0.018 0.016 -0.078 -0.009 -0.017A0.19 0.19 0 0 1 0.055 0.248c0 -0.052 0.02 -0.1 0.057 -0.137a0.196 0.196 0 0 1 0.138 -0.057c0.052 0 0.101 0.02 0.138 0.057a0.192 0.192 0 0 1 0.057 0.137c0 0.051 -0.021 0.101 -0.057 0.137z"/><path d="m0.371 0.301 -0.048 -0.014a0.018 0.018 0 0 0 -0.018 0.005l-0.012 0.012a0.018 0.018 0 0 1 -0.019 0.004c-0.023 -0.009 -0.071 -0.052 -0.083 -0.073a0.017 0.017 0 0 1 0.001 -0.019l0.01 -0.013a0.018 0.018 0 0 0 0.002 -0.018L0.184 0.139a0.018 0.018 0 0 0 -0.028 -0.006c-0.013 0.011 -0.029 0.028 -0.031 0.048 -0.003 0.034 0.011 0.076 0.066 0.127 0.063 0.059 0.114 0.067 0.147 0.059 0.019 -0.004 0.034 -0.023 0.043 -0.037a0.018 0.018 0 0 0 -0.01 -0.027"/></svg>`,
-    // },
+     */
     {
       name: "Linkedin",
       url: "https://www.linkedin.com/in/mnahidislam39",
@@ -617,12 +620,7 @@ const nahidFooterConfig = {
     { label: "About", url: "#why-hire-me", active: false },
     { label: "Service", url: "#nahidServicesSection", active: false },
     { label: "Portfolio", url: "#nahidPortfolioSection", active: false },
-    {
-      label: "Resume",
-      url: "pages/resume.html",
-      target: "_self",
-      active: false,
-    },
+    { label: "Start Project", url: "#nahidContactSection", active: false },
     { label: "Review", url: "#nahidTestimonialsSection", active: false },
     // { label: "Pricing", url: "#nahidPricingSection", active: false },
     { label: "FAQ", url: "#nahidFaqSection", active: false },

@@ -66,7 +66,7 @@ $color-text-muted: #ffffff;
 /* s */
 a {
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: capitalize;
   color: inherit;
   display: inline-block;
   transition: all 0.3s ease;
@@ -102,6 +102,7 @@ button {
   font-family: inherit;
   font-size: inherit;
   background: transparent;
+  text-transform: capitalize;
 }
 
 textarea {
@@ -155,10 +156,13 @@ h3,
 h4,
 h5,
 h6 {
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
-.section {
-  padding: 60px 0;
+.sections {
+  padding: 100px 20px;
+  @include mq(md-down) {
+    padding: 60px 0;
+  }
 }
 .section-title {
   padding: 10px 0;

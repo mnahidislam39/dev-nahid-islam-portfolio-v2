@@ -826,17 +826,17 @@ function initNahidFullyDynamicSlider() {
     typeof nahidTestimonialConfig !== "undefined"
       ? nahidTestimonialConfig
       : {
-          loop: true,
-          autoplay: true,
-          autoplaySpeed: 4000,
-          slidesPerView: 3,
-          header: {
-            titleNormalPre: "Testimonials",
-            titleSpan: "",
-            titleNormalPost: "",
-            subtitle: "",
-          },
-        };
+        loop: true,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        slidesPerView: 3,
+        header: {
+          titleNormalPre: "Testimonials",
+          titleSpan: "",
+          titleNormalPost: "",
+          subtitle: "",
+        },
+      };
   const testimonialData =
     typeof nahidTestimonialData !== "undefined" ? nahidTestimonialData : [];
 
@@ -1161,152 +1161,99 @@ function initNahidDynamicCtaSection() {
       .join("");
   }
 
+
   // ১. কান্ট্রি লিস্ট
   const countries = [
-    { name: "United States" },
-    { name: "United Kingdom" },
-    { name: "Canada" },
-    { name: "Australia" },
-    { name: "Germany" },
-    { name: "Bangladesh" },
-    { name: "India" },
-    { name: "United Arab Emirates" },
-    { name: "Saudi Arabia" },
-    { name: "Singapore" },
-    { name: "Netherlands" },
-    { name: "France" },
-    { name: "Italy" },
-    { name: "Spain" },
-    { name: "Sweden" },
-    { name: "Switzerland" },
-    { name: "Norway" },
-    { name: "New Zealand" },
-    { name: "Japan" },
-    { name: "South Korea" },
-    { name: "Other" },
+    { name: "United States" }, { name: "United Kingdom" }, { name: "Canada" }, { name: "Australia" },
+    { name: "Germany" }, { name: "Bangladesh" }, { name: "India" }, { name: "United Arab Emirates" },
+    { name: "Saudi Arabia" }, { name: "Singapore" }, { name: "Netherlands" }, { name: "France" },
+    { name: "Italy" }, { name: "Spain" }, { name: "Sweden" }, { name: "Switzerland" },
+    { name: "Norway" }, { name: "New Zealand" }, { name: "Japan" }, { name: "South Korea" },
+    { name: "Israel" }, { name: "Ireland" }, { name: "Denmark" }, { name: "Belgium" }, { name: "Other" }
   ];
 
+  // ২. কান্ট্রি ভ্যালিডেশন রুলস
+  const countryValidationRules = {
+    "Bangladesh": /^(880|0)?1[3-9]\d{8}$/, "India": /^(91|0)?[6-9]\d{9}$/,
+    "United States": /^1?[2-9]\d{9}$/, "Canada": /^1?[2-9]\d{9}$/,
+    "United Kingdom": /^(44|0)?7\d{9}$/, "Australia": /^(61|0)?[45]\d{8}$/,
+    "Germany": /^(49|0)?1[5-7]\d{8,9}$/, "United Arab Emirates": /^(971|0)?5[024568]\d{7}$/,
+    "Saudi Arabia": /^(966|0)?5\d{8}$/, "Singapore": /^(65)?[89]\d{7}$/,
+    "Netherlands": /^(31|0)?6\d{8}$/, "France": /^(33|0)?[67]\d{8}$/,
+    "Italy": /^(39|0)?3\d{8,9}$/, "Spain": /^(34)?[67]\d{8}$/,
+    "Sweden": /^(46|0)?7\d{8}$/, "Switzerland": /^(41|0)?7[5-9]\d{7}$/,
+    "Norway": /^(47)?[49]\d{7}$/, "New Zealand": /^(64|0)?2\d{7,9}$/,
+    "Japan": /^(81|0)?[789]0\d{8}$/, "South Korea": /^(82|0)?10\d{7,8}$/,
+    "Israel": /^(972|0)?5\d{8}$/, "Ireland": /^(353|0)?8\d{8}$/,
+    "Denmark": /^(45)?\d{8}$/, "Belgium": /^(32|0)?4\d{8}$/, "Other": /^\d{7,15}$/
+  };
+
+  // ৩. সার্ভিস লিস্ট
+  const serviceItems = [
+    { text: "Web Design & Development" }, { text: "E-commerce" },
+    { text: "Shopify Development" }, { text: "WordPress Development" }, { text: "web optimization" }, { text: "Consulting" }
+  ];
+
+  // ৪. ড্রপডাউন পপুলেট করা
   const countrySelect = document.getElementById("dynamicCountrySelect");
+  const serviceSelect = document.getElementById("serviceSelect");
+
   if (countrySelect) {
     countrySelect.innerHTML = '<option value="">Select Country</option>';
-    countries.forEach((country) => {
-      let option = document.createElement("option");
-      option.value = country.name;
-      option.textContent = country.name;
-      countrySelect.appendChild(option);
-    });
+    countries.forEach(c => countrySelect.innerHTML += `<option value="${c.name}">${c.name}</option>`);
   }
 
-  // ২. ফর্ম সাবমিট হ্যান্ডলার
-  if (formEl) {
+  if (serviceSelect) {
+    serviceSelect.innerHTML = '<option value="">Select a Service</option>';
+    serviceItems.forEach(s => serviceSelect.innerHTML += `<option value="${s.text}">${s.text}</option>`);
+  }
+
+  // ৫. ফর্ম সাবমিট হ্যান্ডলার
+  if (typeof formEl !== 'undefined' && formEl) {
     formEl.addEventListener("submit", (e) => {
       e.preventDefault();
 
       // এরর ক্লিয়ার করা
-      document
-        .querySelectorAll(".error-message")
-        .forEach((el) => (el.textContent = ""));
+      document.querySelectorAll(".error-message").forEach((el) => (el.textContent = ""));
 
       const submitBtn = document.getElementById("nahidCtaSubmitBtn");
 
-      // ম্যানুয়ালি ডাটা তৈরি করছি যাতে কোনো ভুল না হয়
-      const data = {
-        fullname: formEl.querySelector("input[name='fullname']").value,
-        email: formEl.querySelector("input[name='email']").value,
-        country: countrySelect.value, // সরাসরি ড্রপডাউন থেকে ভ্যালু
-        whatsapp: formEl.querySelector("input[name='whatsapp']").value,
-        subject: formEl.querySelector("textarea[name='subject']").value,
-        formType: "project",
-      };
+      // সব ভ্যালু নেওয়া
+      const fullname = formEl.querySelector("input[name='fullname']")?.value.trim();
+      const email = formEl.querySelector("input[name='email']")?.value.trim();
+      const country = countrySelect ? countrySelect.value : "";
+      const service = serviceSelect ? serviceSelect.value : "";
+      const rawWhatsapp = formEl.querySelector("input[name='whatsapp']")?.value.trim();
+      const cleanWhatsapp = rawWhatsapp ? rawWhatsapp.replace(/[\s\-\(\)\+]/g, "") : "";
 
       let isValid = true;
 
-      // ভ্যালিডেশন
-      if (!data.fullname.trim()) {
-        document.getElementById("error-fullname").textContent =
-          "Full Name is required";
-        isValid = false;
-      }
-      if (!data.email.trim()) {
-        document.getElementById("error-email").textContent =
-          "Email is required";
-        isValid = false;
-      }
-      if (!data.country) {
-        document.getElementById("error-country").textContent =
-          "Please select your country";
-        isValid = false;
-      }
-      const countryValidationRules = {
-        // বাংলাদেশ ও ভারতের জন্য নির্দিষ্ট নিয়ম
-        Bangladesh: /^(\+88|0)?1[3-9]\d{8}$/,
-        India: /^(\+91|0)?[6-9]\d{9}$/,
+      // ভ্যালিডেশন চেক
+      if (!fullname) { document.getElementById("error-fullname").textContent = "Please enter your full name"; isValid = false; }
+      if (!email) { document.getElementById("error-email").textContent = "Please enter your email"; isValid = false; }
+      if (!country) { document.getElementById("error-country").textContent = "Please select your country"; isValid = false; }
+      if (!service) { document.getElementById("error-service").textContent = "Please select a service"; isValid = false; }
 
-        // বাকি সব দেশের জন্য ইন্টারন্যাশনাল ফ্লেক্সিবল নিয়ম (স্পেস, হাইফেন, প্লাস সব সাপোর্ট করবে)
-        "United States": /^\+?[\d\s-]{10,15}$/,
-        Canada: /^\+?[\d\s-]{10,15}$/,
-        "United Kingdom": /^\+?[\d\s-]{10,15}$/,
-        Australia: /^\+?[\d\s-]{10,15}$/,
-        Germany: /^\+?[\d\s-]{10,15}$/,
-        "United Arab Emirates": /^\+?[\d\s-]{10,15}$/,
-        "Saudi Arabia": /^\+?[\d\s-]{10,15}$/,
-        Singapore: /^\+?[\d\s-]{10,15}$/,
-        Netherlands: /^\+?[\d\s-]{10,15}$/,
-        France: /^\+?[\d\s-]{10,15}$/,
-        Italy: /^\+?[\d\s-]{10,15}$/,
-        Spain: /^\+?[\d\s-]{10,15}$/,
-        Sweden: /^\+?[\d\s-]{10,15}$/,
-        Switzerland: /^\+?[\d\s-]{10,15}$/,
-        Norway: /^\+?[\d\s-]{10,15}$/,
-        "New Zealand": /^\+?[\d\s-]{10,15}$/,
-        Japan: /^\+?[\d\s-]{10,15}$/,
-        "South Korea": /^\+?[\d\s-]{10,15}$/,
-        Other: /^\+?[\d\s-]{5,15}$/,
-      };
-
-      // ভ্যালিডেশন লজিক (যা সব ক্ষেত্রেই কাজ করবে)
-      const country = countrySelect.value;
-      const rawWhatsapp = formEl
-        .querySelector("input[name='whatsapp']")
-        .value.trim();
-
-      if (!rawWhatsapp) {
-        document.getElementById("error-whatsapp").textContent =
-          "WhatsApp number is required";
-        isValid = false;
-      } else {
-        const rule = countryValidationRules[country] || /^\+?[\d\s-]{5,15}$/;
-        if (!rule.test(rawWhatsapp)) {
-          document.getElementById("error-whatsapp").textContent =
-            "Please enter a valid number for " + country;
-          isValid = false;
-        } else {
-          document.getElementById("error-whatsapp").textContent = "";
-        }
-      }
-
-      // subject
-      if (!data.subject.trim()) {
-        document.getElementById("error-subject").textContent =
-          "Subject is required";
+      const rule = countryValidationRules[country];
+      if (!rawWhatsapp || !rule || !rule.test(cleanWhatsapp)) {
+        document.getElementById("error-whatsapp").textContent = "Please enter your whatsapp number";
         isValid = false;
       }
 
       if (!isValid) return;
 
-      // সাবমিশন
+      // সাবমিশন প্রসেস
       submitBtn.textContent = "Sending...";
       submitBtn.disabled = true;
 
-      fetch(
-        "https://script.google.com/macros/s/AKfycbx1d4YwrZIJNOEvs0CpqWofR3KjNRorTjniETgF51-wWr6OY-l6apTvjvVKvxFgGUFJ/exec",
-        {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        },
-      )
+      const data = { fullname, email, country, whatsapp: cleanWhatsapp, service, formType: "project" };
+
+      fetch("https://script.google.com/macros/s/AKfycbx1d4YwrZIJNOEvs0CpqWofR3KjNRorTjniETgF51-wWr6OY-l6apTvjvVKvxFgGUFJ/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
         .then(() => {
           submitBtn.textContent = "Sent Successfully!";
           submitBtn.style.background = "#00ca6d";
@@ -1325,13 +1272,14 @@ function initNahidDynamicCtaSection() {
     });
 
     // টাইপ করলে এরর মুছে ফেলার লজিক
-    formEl.querySelectorAll("input, select, textarea").forEach((input) => {
+    formEl.querySelectorAll("input, select").forEach((input) => {
       input.addEventListener("input", () => {
         const errorEl = document.getElementById("error-" + input.name);
         if (errorEl) errorEl.textContent = "";
       });
     });
   }
+
 }
 
 // marquee engine for Nahid Tilted Marquee Section
@@ -1691,7 +1639,7 @@ function initNahidDynamicFooter() {
       const dynamicSlug = generateSlug(item.label);
       linksHTML += `
         <li id="${containerId}-${idx}">
-          <a href="${item.url || "#"}" class="footer-nav-link-${dynamicSlug}">
+          <a href="${item.url || "#"}" class="footer-nav-link">
              ${item.label}
           </a>
         </li>`;

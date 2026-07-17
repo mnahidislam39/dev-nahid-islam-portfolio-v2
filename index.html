@@ -21,8 +21,8 @@
       <div class="main">
 
          <!-- Dynamic Premium Header Section -->
-         <header id="mainHeader" class="main-header container">
-            <div class="header-container">
+         <header id="mainHeader" class="main-header">
+            <div class="header-container container">
 
                <!-- 1. Left Navigation Menu (Dynamically Injected) -->
                <nav class="nav-menu nav-left" id="nahidHeaderLeftMenu"></nav>
@@ -43,8 +43,8 @@
             </div>
          </header>
 
-         <section class="hero-section" id="nahidHeroSection">
-            <div class="hero-container">
+         <section class="hero-section section sections" id="nahidHeroSection">
+            <div class="hero-container container">
 
                <div class="greeting-badge">
                   <span id="heroBadgeText"></span>
@@ -85,8 +85,8 @@
          </section>
 
          <!-- Services Section-->
-         <section id="nahidServicesSection" class="nahid-services-section">
-            <div class="nahid-container">
+         <section id="nahidServicesSection" class="nahid-services-section sections">
+            <div class="nahid-container container">
                <div class="nahid-services-header">
                   <h2 class="nahid-services-title"></h2>
                   <p class="nahid-services-subtitle"></p>
@@ -175,7 +175,7 @@
          -->
 
          <!-- Experience Section 
-         <section id="nahidExperienceSection" class="nahid-experience-section container">
+         <section id="nahidExperienceSection" class="nahid-experience-section container sections">
             <div class="nahid-exp-container">
 
                <div class="nahid-exp-header">
@@ -207,8 +207,8 @@
          </section>
          -->
          <!-- Hire Section -->
-         <section id="why-hire-me" class="nahid-hire-section">
-            <div class="nahid-hire-container">
+         <section id="why-hire-me" class="nahid-hire-section sections">
+            <div class="nahid-hire-container container">
 
                <div class="nahid-hire-media-wrapper">
                   <div class="nahid-asymmetric-bg-card"></div>
@@ -243,8 +243,8 @@
          </section>
 
          <!-- Portfolio Section -->
-         <section id="nahidPortfolioSection" class="portfolio-section container">
-            <div class="portfolio-container">
+         <section id="nahidPortfolioSection" class="portfolio-section sections">
+            <div class="portfolio-container container">
 
                <!-- Portfolio Header -->
                <div class="portfolio-header">
@@ -286,8 +286,8 @@
          </section>
 
          <!-- Testimonial Section -->
-         <section id="nahidTestimonialsSection" class="testimonial-section ">
-            <div class="testimonial-container">
+         <section id="nahidTestimonialsSection" class="testimonial-section sections">
+            <div class="testimonial-container container">
 
                <!-- Section Title Area (Totally Empty Skeleton) -->
                <div class="testimonial-header">
@@ -335,8 +335,8 @@
          </section>
 
          <!-- CTA Contact Section -->
-         <section id="nahidContactSection" class="cta-contact-section container">
-            <div class="cta-container">
+         <section id="nahidContactSection" class="cta-contact-section container sections">
+            <div class="cta-container container">
 
                <!-- Dynamic Heading Area -->
                <h2 class="cta-heading" id="nahidCtaHeading"></h2>
@@ -373,10 +373,11 @@
 
                      <div class="input-wrap">
                         <div class="input-group">
-                           <textarea type="area" class="cta-input" name="subject" placeholder="Subject"
-                              required></textarea>
+                           <select name="service" id="serviceSelect" class="cta-input" required>
+                              <option value="">Select a service</option>
+                           </select>
                         </div>
-                        <h6 class="error-message" id="error-subject"></h6>
+                        <h6 class="error-message" id="error-service"></h6>
                      </div>
 
                      <button type="submit" class="cta-submit-btn" id="nahidCtaSubmitBtn">Send Message</button>
@@ -389,8 +390,8 @@
          </section>
 
          <!-- Marquee Section -->
-         <section id="marquee" class="nahid-marquee-section">
-            <div class="marquee-skew-wrapper">
+         <section id="marquee" class="nahid-marquee-section sections">
+            <div class="marquee-skew-wrapper ">
                <div class="marquee-track" id="nahidMarqueeTrack">
                </div>
             </div>
@@ -441,8 +442,8 @@
          </section>
          -->
          <!-- Dynamic FAQ Section -->
-         <section id="nahidFaqSection" class="nahid-faq-section container">
-            <div class="faq-container">
+         <section id="nahidFaqSection" class="nahid-faq-section container sections">
+            <div class="faq-container container">
 
                <!-- Section Header -->
                <div class="faq-header">
@@ -458,8 +459,8 @@
          </section>
 
          <!-- Dynamic Workflow / Process Section -->
-         <section id="workflow" class="nahid-workflow-section container">
-            <div class="workflow-container">
+         <section id="workflow" class="nahid-workflow-section sections">
+            <div class="workflow-container container">
 
                <!-- Section Header (Dynamically Injected) -->
                <div class="workflow-header">
