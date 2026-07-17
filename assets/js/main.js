@@ -430,6 +430,46 @@ function initNahidHireMeEngine() {
     btnTarget.textContent = nahidHireMeta.ctaText;
     btnTarget.href = nahidHireMeta.ctaLink;
   }
+  // --- Modal Elements Lookup ---
+  const hireModal = document.getElementById("nahid-hire-modal");
+  const modalCloseBtn = document.getElementById("nahid-modal-close");
+  const modalFormTrigger = document.getElementById("nahid-modal-form-trigger");
+
+  if (btnTarget && hireModal) {
+    // ১. 'Hire Me' বাটনে ক্লিক করলে মডাল ওপেন হবে
+    btnTarget.addEventListener("click", (e) => {
+      e.preventDefault(); // href="#" এর ডিফল্ট বিহেভিয়ার বন্ধ করতে
+      hireModal.classList.add("active");
+    });
+
+    // ২. ক্লোজ (X) বাটনে ক্লিক করলে মডাল বন্ধ হবে
+    if (modalCloseBtn) {
+      modalCloseBtn.addEventListener("click", () => {
+        hireModal.classList.remove("active");
+      });
+    }
+
+    // ৩. মডালের বাইরে (Overlay) ক্লিক করলেও যেন মডাল বন্ধ হয়
+    hireModal.addEventListener("click", (e) => {
+      if (e.target === hireModal) {
+        hireModal.classList.remove("active");
+      }
+    });
+
+    // ৪. 'Fill Project Form' বাটনে ক্লিক করলে মডাল বন্ধ হয়ে স্মুথ স্ক্রল হবে
+    if (modalFormTrigger) {
+      modalFormTrigger.addEventListener("click", () => {
+        hireModal.classList.remove("active");
+
+        const contactSection = document.getElementById("nahidContactSection"); // আপনার ফরম সেকশনের ID
+        if (contactSection) {
+          contactSection.scrollIntoView({
+            behavior: "smooth"
+          });
+        }
+      });
+    }
+  }
 
   statsTrack.innerHTML = "";
 
