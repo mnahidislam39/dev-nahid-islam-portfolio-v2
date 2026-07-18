@@ -1,7 +1,3 @@
-@use "sass:color";
-@use "../base/variables" as *;
-@use "../utilities/mixin" as *;
-
 .nahid-services-section {
   background: var(--dark-bg);
   color: #ffffff;
@@ -13,213 +9,184 @@
     margin: 0 auto;
     padding: 0 40px;
     box-sizing: border-box;
-  }
 
-  .nahid-services-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 50px;
-  }
-
-  .nahid-services-title {
-    font-size: 2.8rem;
-    font-weight: 700;
-    margin: 0;
-
-    .nahid-accent-text {
-      color: var(--primary-color);
+    .nahid-services-header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      max-width: 700px;
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
     }
-  }
 
-  .nahid-services-subtitle {
-    color: var(--text-light);
-    max-width: 480px;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin: 0;
-  }
+    .services {
+      position: relative;
+      padding: 30px 0;
 
-  .nahid-services-slider-viewport {
-    width: 100%;
-    overflow: hidden;
-  }
+      .nahid-prev-btn,
+      .nahid-next-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        transition: all 0.3s ease;
 
-  .nahid-services-track {
-    display: flex;
-    gap: 30px;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-    will-change: transform;
-    transform: translate3d(0, 0, 0);
-  }
-
-  .nahid-service-card {
-    flex: 0 0 calc(33.333% - 20px);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 32px;
-    height: 480px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-
-    &:hover {
-      .nahid-layer-main {
-        transform: translateY(-8px) scale(1.02);
+        &:hover {
+          background: var(--primary-color);
+          border-color: var(--primary-color);
+        }
       }
 
-      .nahid-layer-bg-1 {
-        transform: translateY(0px) scale(0.96);
+      .nahid-prev-btn {
+        left: -20px;
       }
 
-      .nahid-action-circle-btn {
-        background: var(--primary-color);
+      .nahid-next-btn {
+        right: -20px;
+      }
+
+
+
+      .nahid-services-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 50px;
+      }
+
+
+
+      .nahid-services-slider-viewport {
+        width: 100%;
+        overflow: hidden;
+
+      }
+
+
+      .nahid-services-track {
+        display: flex;
+        gap: 30px;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        will-change: transform;
+        align-items: center;
+        cursor: grab; // ড্র্যাগ করার জন্য মাউস আইকন
+
+
+        .nahid-service-card {
+          flex: 0 0 calc(33.333% - 20px);
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 32px;
+          min-height: 520px;
+          padding: 30px;
+          display: flex;
+          flex-direction: column;
+          box-sizing: border-box;
+          position: relative;
+          overflow: hidden;
+          transition: 0.4s ease-in-out;
+          transform: scale(0.8);
+
+          &.nahid-active-card {
+            transform: scale(1); // মাঝখানের কার্ডটি একটু বড় হবে
+            border: 1px solid var(--primary-color); // বর্ডার কালার চেঞ্জ হবে
+            opacity: 1;
+          }
+
+          &:not(.nahid-active-card) {
+            opacity: 0.5; // বাকিগুলো একটু ঝাপসা হবে
+          }
+        }
+
+
+
+
+        // ইমেজ স্ট্যাক
+        .nahid-card-icon {
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 18px;
+          }
+        }
+
+        // কন্টেন্ট স্টাইল
+        .nahid-service-card-title {
+          font-weight: 600;
+          font-size: 1.25rem;
+          margin: 0;
+        }
+
+        .nahid-service-desc {
+          font-size: 0.9rem;
+          color: var(--text-light);
+          line-height: 1.5;
+          margin: 15px 0;
+        }
+
+        .nahid-service-features {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+
+            .check-icon {
+              color: var(--primary-color);
+              margin-right: 10px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+
+      .nahid-services-pagination {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 40px;
+
+        .nahid-dot {
+          width: 12px;
+          height: 12px;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 50%;
+          cursor: pointer;
+
+          &.nahid-active {
+            background: var(--primary-color);
+            width: 32px;
+            border-radius: 6px;
+          }
+        }
       }
     }
+
   }
 
-  .nahid-service-card-header {
-    padding: 30px 25px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  .nahid-service-card-title {
-    font-weight: 600;
-    margin: 0;
-  }
-
-  .nahid-nahid-services-image-stack {
-    position: relative;
-    flex-grow: 1;
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    img {
-      border-top-left-radius: 0px;
-      border-top-right-radius: 0px;
-      border-radius: 18px;
-    }
-  }
-
-  .nahid-mockup-layer {
-    position: absolute;
-    width: -webkit-fill-available;
-    height: -webkit-fill-available;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .nahid-layer-bg-2 {
-    transform: translateY(20px) scale(0.86);
-    opacity: 0.3;
-    z-index: 1;
-  }
-
-  .nahid-layer-bg-1 {
-    transform: translateY(10px) scale(0.93);
-    opacity: 0.6;
-    z-index: 2;
-  }
-
-  .nahid-layer-main {
-    transform: translateY(0) scale(1);
-    z-index: 3;
-  }
-
-  .nahid-card-bottom-action {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 90px;
-    height: 90px;
-    background: #0b0b0b;
-    border-top-left-radius: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 5;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: -20px;
-      right: 0;
-      width: 20px;
-      height: 20px;
-      background: transparent;
-      border-bottom-right-radius: 20px;
-      box-shadow: 10px 10px 0 10px #0b0b0b;
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: -20px;
-      width: 20px;
-      height: 20px;
-      background: transparent;
-      border-bottom-right-radius: 20px;
-      box-shadow: 10px 10px 0 10px #0b0b0b;
-    }
-  }
-
-  .nahid-action-circle-btn {
-    width: 64px;
-    height: 64px;
-    background: #19202e;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    transition: background 0.3s ease;
-    text-decoration: none;
-
-    svg {
-      width: 22px;
-      height: 22px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2.5;
-    }
-  }
-
-  .nahid-services-pagination {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 40px;
-
-    .nahid-dot {
-      width: 12px;
-      height: 12px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      cursor: pointer;
-      transition:
-        width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-        background-color 0.4s ease;
-
-      &.nahid-active {
-        background-color: var(--primary-color);
-        width: 32px;
-        border-radius: 6px;
-      }
-    }
-  }
 
   @media (max-width: 1024px) {
     .nahid-service-card {
       flex: 0 0 calc(50% - 15px);
-    }
-
-    .nahid-services-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 20px;
     }
   }
 
@@ -227,18 +194,5 @@
     .nahid-service-card {
       flex: 0 0 100%;
     }
-
-    .nahid-container {
-      padding: 0 20px;
-    }
   }
-}
-
-// Responsive Logic
-@media (max-width: $lg-width) {
-}
-
-@media (max-width: $md-width) {
-}
-@media (max-width: $sm-width) {
 }

@@ -195,141 +195,118 @@ function globalModalConfigFunction() {
 
 // Service Config Function
 function serviceConfigFunction() {
-  // 1. Service Local Configurations & Context Scopes
+  // 1. Service Local Configurations
   const nahidConfig = {
-    autoSlideActive: true, // True = Auto Slide Running, False = Dev Mode
-    autoSlideInterval: 3000, // Slides transition interval (3s)
-    gapValue: 30, // Fixed pixel separation mapping
+    autoSlideActive: false,
+    autoSlideInterval: 5000,
+    gapValue: 30,
   };
 
   const nahidViewCardsCount = 3;
   let nahidCurrentIndex = nahidViewCardsCount;
   let nahidAutoSlideTimer = null;
   let nahidIsTransitioning = false;
+  let isDragging = false;
+  let startX, scrollLeft;
 
-  // 2. DOM Elements Target Hooks
-  const titleElement = document.querySelector(".nahid-services-title");
-  const subtitleElement = document.querySelector(".nahid-services-subtitle");
+  // 2. DOM Elements  
+  const titleParent = document.querySelector(".nahid-services-title");
+  const subTitleElement = document.querySelector(".servicesSubTitle");
+  const descriptionElement = document.querySelector(".servicesDescripiton");
   const track = document.getElementById("nahid-services-container");
   const masterTemplate = document.getElementById("nahid-master-card-template");
-  const paginationContainer = document.getElementById(
-    "nahid-pagination-container",
-  );
+  const paginationContainer = document.getElementById("nahid-pagination-container");
+  const prevBtn = document.querySelector(".nahid-prev-btn");
+  const nextBtn = document.querySelector(".nahid-next-btn");
 
-  // Structural Safety Guards
   if (!track || !masterTemplate || !paginationContainer) return;
 
-  // 3. Inject Section Meta Text Dynamically
-  if (titleElement && typeof nahidServicesMeta !== "undefined") {
-    titleElement.innerHTML = `${nahidServicesMeta.sectionTitle} <span class="nahid-accent-text">${nahidServicesMeta.accentText}</span>`;
-  }
-  if (subtitleElement && typeof nahidServicesMeta !== "undefined") {
-    subtitleElement.textContent = nahidServicesMeta.sectionSubtitle;
+  // 3. Inject Section Meta
+  if (typeof nahidServicesMeta !== "undefined") {
+
+    // Title সেট করা
+    if (titleParent) {
+      titleParent.childNodes[0].textContent = nahidServicesMeta.sectionTitle;
+    }
+
+    // Subtitle সেট করা
+    if (subTitleElement) {
+      subTitleElement.textContent = nahidServicesMeta.sectionSubTitle;
+    }
+
+    // Description সেট করা
+    if (descriptionElement) {
+      descriptionElement.textContent = nahidServicesMeta.sectionDescription;
+    }
   }
 
-  if (
-    typeof nahidServicesData === "undefined" ||
-    nahidServicesData.length === 0
-  )
-    return;
+  if (typeof nahidServicesData === "undefined" || nahidServicesData.length === 0) return;
 
-  // 4. Symmetrical Quad-Buffer Array Sequence Cloning Strategy
+  // 4. Data Preparation & Rendering
   const startClones = nahidServicesData.slice(0, nahidViewCardsCount);
   const endClones = nahidServicesData.slice(-nahidViewCardsCount);
-  const totalCombinedData = [
-    ...endClones,
-    ...nahidServicesData,
-    ...startClones,
-  ];
+  const totalCombinedData = [...endClones, ...nahidServicesData, ...startClones];
 
-  // Document Fragment for High-Performance Batch Rendering
   const fragmentBuffer = document.createDocumentFragment();
 
-  totalCombinedData.forEach((item, index) => {
+  totalCombinedData.forEach((item) => {
     const cardClone = masterTemplate.cloneNode(true);
     cardClone.removeAttribute("id");
-    cardClone.style.display = "flex"; // Make visible dynamically
-
+    cardClone.style.display = "flex";
     cardClone.classList.add(`nahid-card-${item.id}`);
-    if (item.customClass) cardClone.classList.add(item.customClass);
 
-    cardClone.setAttribute("data-service-id", item.id);
-    cardClone.setAttribute(
-      "data-service-type",
-      item.serviceType || "generic-service",
-    );
-    cardClone.setAttribute("data-loop-index", index);
+    // Mapping Content
+    const icon = cardClone.querySelector(".nahid-service-icon");
+    if (icon) icon.src = item.icon;
+    cardClone.querySelector(".nahid-service-card-title").textContent = item.title;
+    cardClone.querySelector(".nahid-service-desc").textContent = item.desc;
 
-    // Context Data Interpolation Injection Mapping
-    cardClone.querySelector(".nahid-service-card-title").textContent =
-      item.title;
-    cardClone.querySelector(".nahid-layer-bg-2").src = item.bgImg2;
-    cardClone.querySelector(".nahid-layer-bg-1").src = item.bgImg1;
-    cardClone.querySelector(".nahid-layer-main").src = item.mainImg;
-    cardClone.querySelector(".nahid-action-circle-btn").href = item.link;
+    const featureList = cardClone.querySelector(".nahid-service-features");
+    if (featureList && item.features) {
+      featureList.innerHTML = item.features.map(f => `<li><span class="check-icon">✓</span> ${f}</li>`).join('');
+    }
+    cardClone.querySelector(".nahid-contact-btn").href = item.link;
 
     fragmentBuffer.appendChild(cardClone);
   });
 
-  // Purge tracking loops placeholders but keep master clone structure secure
   const templateNodeHolder = masterTemplate.cloneNode(true);
   track.innerHTML = "";
   track.appendChild(templateNodeHolder);
   track.appendChild(fragmentBuffer);
 
-  // 5. Dynamic Pagination Dot Matrix Build Sequence
-  paginationContainer.innerHTML = nahidServicesData
-    .map(
-      (_, i) =>
-        `<span class="nahid-dot ${i === 0 ? "nahid-active" : ""}" data-index="${i}"></span>`,
-    )
-    .join("");
+  // 5. Pagination
+  paginationContainer.innerHTML = nahidServicesData.map((_, i) =>
+    `<span class="nahid-dot ${i === 0 ? "nahid-active" : ""}" data-index="${i}"></span>`
+  ).join("");
 
-  // 6. Sub-Core Operational Engines (Encapsulated Support Functions)
+  // 6. Auto Slide
   function updateNahidTrackPosition(animation = true) {
-    const cardElements = track.querySelectorAll(
-      ".nahid-service-card:not(#nahid-master-card-template)",
-    );
+    const cardElements = track.querySelectorAll(".nahid-service-card:not(#nahid-master-card-template)");
     if (cardElements.length === 0) return;
 
-    const cardWidth = cardElements[0].getBoundingClientRect().width;
-    const moveDistance = nahidCurrentIndex * (cardWidth + nahidConfig.gapValue);
+    // ১. কার্ডের উইডথ এবং গ্যাপ
+    const cardWidth = cardElements[0].offsetWidth;
+    const gap = 30; // আপনার CSS অনুযায়ী গ্যাপ
 
-    if (animation) {
-      track.style.transition = "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)";
-      nahidIsTransitioning = true;
-    } else {
-      track.style.transition = "none";
-      nahidIsTransitioning = false;
-    }
+    // ২. ভিউপোর্টের উইডথ (প্যারেন্ট কন্টেইনার)
+    const viewportWidth = track.parentElement.offsetWidth;
 
-    track.style.transform = `translate3d(-${moveDistance}px, 0, 0)`;
+    // ৩. ক্যালকুলেশন: (কার্ডের পজিশন) - (ভিউপোর্টের অর্ধেক - কার্ডের অর্ধেক)
+    // এটি কার্ডকে ভিউপোর্টের ঠিক মাঝখানে নিয়ে আসবে
+    const offset = (viewportWidth / 2) - (cardWidth / 2);
+    const moveDistance = (nahidCurrentIndex * (cardWidth + gap)) - offset;
+
+    // ৪. এপ্লাই ট্রান্সফর্ম
+    track.style.transition = animation ? "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)" : "none";
+    track.style.transform = `translate3d(${-moveDistance}px, 0, 0)`;
+
+    // ৫. অ্যাক্টিভ ক্লাস (বর্তমান ইন্ডেক্স অনুযায়ী)
+    cardElements.forEach((card, index) => {
+      card.classList.toggle("nahid-active-card", index === nahidCurrentIndex);
+    });
+
     updateNahidActiveDots();
-  }
-
-  function handleNahidTransitionEnd() {
-    const cardElements = track.querySelectorAll(
-      ".nahid-service-card:not(#nahid-master-card-template)",
-    );
-    if (cardElements.length === 0) return;
-
-    nahidIsTransitioning = false;
-
-    if (nahidCurrentIndex >= nahidServicesData.length + nahidViewCardsCount) {
-      track.style.transition = "none";
-      nahidCurrentIndex = nahidViewCardsCount;
-      const cardWidth = cardElements[0].getBoundingClientRect().width;
-      const moveDistance =
-        nahidCurrentIndex * (cardWidth + nahidConfig.gapValue);
-      track.style.transform = `translate3d(-${moveDistance}px, 0, 0)`;
-    } else if (nahidCurrentIndex < nahidViewCardsCount) {
-      track.style.transition = "none";
-      nahidCurrentIndex = nahidServicesData.length + nahidViewCardsCount - 1;
-      const cardWidth = cardElements[0].getBoundingClientRect().width;
-      const moveDistance =
-        nahidCurrentIndex * (cardWidth + nahidConfig.gapValue);
-      track.style.transform = `translate3d(-${moveDistance}px, 0, 0)`;
-    }
   }
 
   function nextNahidSlide() {
@@ -338,61 +315,58 @@ function serviceConfigFunction() {
     updateNahidTrackPosition(true);
   }
 
-  function clickToNahidSlide(index) {
+  function prevNahidSlide() {
     if (nahidIsTransitioning) return;
-
-    if (nahidConfig.autoSlideActive) {
-      clearInterval(nahidAutoSlideTimer);
-    }
-
-    nahidCurrentIndex = index + nahidViewCardsCount;
+    nahidCurrentIndex--;
     updateNahidTrackPosition(true);
-
-    if (nahidConfig.autoSlideActive) {
-      startNahidAutoPlay();
-    }
   }
 
   function updateNahidActiveDots() {
     const dots = paginationContainer.querySelectorAll(".nahid-dot");
-    if (dots.length === 0) return;
-
-    let relativeIndex = nahidCurrentIndex - nahidViewCardsCount;
-    if (relativeIndex >= nahidServicesData.length) relativeIndex = 0;
-    if (relativeIndex < 0) relativeIndex = nahidServicesData.length - 1;
-
-    dots.forEach((dot) => dot.classList.remove("nahid-active"));
-    if (dots[relativeIndex]) {
-      dots[relativeIndex].classList.add("nahid-active");
-    }
+    let relativeIndex = (nahidCurrentIndex - nahidViewCardsCount) % nahidServicesData.length;
+    if (relativeIndex < 0) relativeIndex += nahidServicesData.length;
+    dots.forEach((dot, i) => dot.classList.toggle("nahid-active", i === relativeIndex));
   }
 
-  function startNahidAutoPlay() {
-    if (nahidAutoSlideTimer) clearInterval(nahidAutoSlideTimer);
-    nahidAutoSlideTimer = setInterval(() => {
-      nextNahidSlide();
-    }, nahidConfig.autoSlideInterval);
-  }
+  // 7. Event Listeners (Drag + Buttons)
+  track.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.pageX;
+  });
 
-  // 7. Event & Lifecycle Listeners Binding
-  paginationContainer.querySelectorAll(".nahid-dot").forEach((dot) => {
+  window.addEventListener('mouseup', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    const diff = startX - e.pageX;
+    if (diff > 50) nextNahidSlide();
+    else if (diff < -50) prevNahidSlide();
+  });
+
+  prevBtn?.addEventListener('click', prevNahidSlide);
+  nextBtn?.addEventListener('click', nextNahidSlide);
+
+  paginationContainer.querySelectorAll(".nahid-dot").forEach(dot => {
     dot.addEventListener("click", (e) => {
-      const targetIndex = parseInt(e.target.getAttribute("data-index"));
-      clickToNahidSlide(targetIndex);
+      nahidCurrentIndex = parseInt(e.target.getAttribute("data-index")) + nahidViewCardsCount;
+      updateNahidTrackPosition(true);
     });
   });
 
-  track.addEventListener("transitionend", handleNahidTransitionEnd);
-
-  window.addEventListener("resize", () => {
-    updateNahidTrackPosition(false);
+  track.addEventListener("transitionend", () => {
+    nahidIsTransitioning = false;
+    if (nahidCurrentIndex >= nahidServicesData.length + nahidViewCardsCount) {
+      nahidCurrentIndex = nahidViewCardsCount;
+      updateNahidTrackPosition(false);
+    } else if (nahidCurrentIndex < nahidViewCardsCount) {
+      nahidCurrentIndex = nahidServicesData.length + nahidViewCardsCount - 1;
+      updateNahidTrackPosition(false);
+    }
   });
 
-  // 8. Core Initialization Trigger
+  window.addEventListener("resize", () => updateNahidTrackPosition(false));
   updateNahidTrackPosition(false);
-
   if (nahidConfig.autoSlideActive) {
-    startNahidAutoPlay();
+    nahidAutoSlideTimer = setInterval(nextNahidSlide, nahidConfig.autoSlideInterval);
   }
 }
 

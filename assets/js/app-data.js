@@ -72,82 +72,52 @@ const nahidHeroConfig = {
 // SERVICES SECTION DATA
 // ==========================================
 const nahidServicesMeta = {
-  sectionTitle: "My",
-  accentText: "Services",
-  sectionSubtitle:
-    "High-performance web applications and custom digital engineering tailored to streamline your business operations, automate workflows, and drive measurable revenue growth.",
+  sectionTitle: "What",
+  sectionSubTitle: " I Offer",
+  sectionDescription: "Comprehensive development services to bring your digital vision to life, from concept to deployment and beyond.",
 };
+
 const nahidServicesData = [
   {
     id: 1,
-    title: "Web Development",
-    customClass: "nahid-card-web-development",
-    serviceType: "dev-web",
-    mainImg: "assets/images/services/web-development.jpg",
-    bgImg1: "assets/images/education/edu-FP-1.png",
-    bgImg2: "https://via.placeholder.com/260x360/222/fff",
-    link: "#",
+    title: "WEB DEVELOPMENT",
+    icon: "assets/icons/web-dev.svg",
+    desc: "Custom websites and web applications built with modern technologies.",
+    features: ["Responsive Design", "SEO Optimization", "Fast Performance", "Cross Browser Compatible"],
+    link: "#"
   },
   {
     id: 2,
-    title: "WordPress Development",
-    customClass: "nahid-card-wordpress",
-    serviceType: "dev-wordpress",
-    mainImg: "assets/images/services/wordPress-development.jpg",
-    bgImg1: "assets/images/education/edu-FP-2.png",
-    bgImg2: "https://via.placeholder.com/260x360/222/fff",
-    link: "#",
+    title: "WORDPRESS DEVELOPMENT",
+    icon: "assets/icons/wp-dev.svg",
+    desc: "Custom WordPress sites and management with best practices.",
+    features: ["Custom Themes", "Plugin Dev", "Speed Optimization", "Security"],
+    link: "#"
   },
   {
     id: 3,
-    title: "E-Commerce Solutions",
-    customClass: "nahid-card-ecommerce",
-    serviceType: "dev-ecommerce",
-    mainImg: "assets/images/services/ecommerce-solutions.jpg",
-    bgImg1: "https://via.placeholder.com/260x360/333/fff",
-    bgImg2: "https://via.placeholder.com/260x360/222/fff",
-    link: "#",
+    title: "E-COMMERCE SOLUTIONS",
+    icon: "assets/icons/ecommerce.svg",
+    desc: "Scalable e-commerce platforms to boost your online sales.",
+    features: ["Payment Integration", "Inventory Management", "Custom Checkout", "Analytics"],
+    link: "#"
   },
   {
     id: 4,
-    title: "Shopify Development",
-    customClass: "nahid-card-shopify",
-    serviceType: "dev-shopify",
-    mainImg: "assets/images/services/shopify-dev.jpg",
-    bgImg1: "https://via.placeholder.com/260x360/333/fff",
-    bgImg2: "https://via.placeholder.com/260x360/222/fff",
-    link: "#",
+    title: "SHOPIFY DEVELOPMENT",
+    icon: "assets/icons/shopify.svg",
+    desc: "Expert Shopify store setup, customization, and theme development.",
+    features: ["Theme Customization", "App Integration", "Store Migration", "Support"],
+    link: "#"
   },
   {
     id: 5,
-    title: "Shopify APP Development",
-    customClass: "nahid-card-shopify",
-    serviceType: "dev-shopify",
-    mainImg: "assets/images/services/shopify-app.jpg",
-    bgImg1: "https://via.placeholder.com/260x360/333/fff",
-    bgImg2: "https://via.placeholder.com/260x360/222/fff",
-    link: "#",
-  },
-  {
-    id: 6,
-    title: "Maintenance & Support",
-    customClass: "nahid-card-maintenance",
-    serviceType: "dev-maintenance",
-    mainImg: "assets/images/services/maintenance-support.jpg",
-    bgImg1: "https://via.placeholder.com/260x360/333/fff",
-    bgImg2: "https://via.placeholder.com/260x360/222/fff",
-    link: "#",
-  },
-  {
-    id: 7,
-    title: "API Integration",
-    customClass: "nahid-card-api",
-    serviceType: "dev-api",
-    mainImg: "assets/images/services/api-img.jpg",
-    bgImg1: "https://via.placeholder.com/260x360/333/fff",
-    bgImg2: "https://via.placeholder.com/260x360/222/fff",
-    link: "#",
-  },
+    title: "SHOPIFY APP DEVELOPMENT",
+    icon: "assets/icons/shopify-app.svg",
+    desc: "Tailored Shopify applications to enhance store functionality.",
+    features: ["Public/Private Apps", "API Integration", "Custom Dashboard", "Maintenance"],
+    link: "#"
+  }
 ];
 
 // ==========================================
