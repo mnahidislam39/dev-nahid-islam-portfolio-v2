@@ -277,55 +277,56 @@ function serviceConfigFunction() {
 
   // 5. Pagination
   paginationContainer.innerHTML = nahidServicesData.map((_, i) =>
-    `<span class="nahid-dot ${i === 0 ? "nahid-active" : ""}" data-index="${i}"></span>`
+    `<span class="service-slider-dot ${i === 0 ? "service-slider-dot-active" : ""}" data-index="${i}"></span>`
   ).join("");
 
-  // 6. Auto Slide
   function updateNahidTrackPosition(animation = true) {
     const cardElements = track.querySelectorAll(".nahid-service-card:not(#nahid-master-card-template)");
     if (cardElements.length === 0) return;
 
-    // ১. কার্ডের উইডথ এবং গ্যাপ
-    const cardWidth = cardElements[0].offsetWidth;
-    const gap = 30; // আপনার CSS অনুযায়ী গ্যাপ
-
-    // ২. ভিউপোর্টের উইডথ (প্যারেন্ট কন্টেইনার)
+    // বর্তমান স্ক্রিনে কয়টি কার্ড দেখা যাচ্ছে তা বের করা
     const viewportWidth = track.parentElement.offsetWidth;
+    const cardWidth = cardElements[0].offsetWidth;
+    const gap = 30;
 
-    // ৩. ক্যালকুলেশন: (কার্ডের পজিশন) - (ভিউপোর্টের অর্ধেক - কার্ডের অর্ধেক)
-    // এটি কার্ডকে ভিউপোর্টের ঠিক মাঝখানে নিয়ে আসবে
-    const offset = (viewportWidth / 2) - (cardWidth / 2);
-    const moveDistance = (nahidCurrentIndex * (cardWidth + gap)) - offset;
+    // কার্ডের পজিশন ক্যালকুলেশন
+    const moveDistance = nahidCurrentIndex * (cardWidth + gap);
 
-    // ৪. এপ্লাই ট্রান্সফর্ম
     track.style.transition = animation ? "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)" : "none";
     track.style.transform = `translate3d(${-moveDistance}px, 0, 0)`;
 
-    // ৫. অ্যাক্টিভ ক্লাস (বর্তমান ইন্ডেক্স অনুযায়ী)
-    cardElements.forEach((card, index) => {
-      card.classList.toggle("nahid-active-card", index === nahidCurrentIndex);
-    });
+    // অ্যাক্টিভ ক্লাস লজিক:
+    // মোবাইলে ১টি কার্ড দেখা গেলে প্রথমটিই অ্যাক্টিভ, ট্যাবলেটে ২টি হলে মাঝখানেরটি
+    const visibleCards = Math.round(viewportWidth / cardWidth);
+    const activeIndex = nahidCurrentIndex + Math.floor(visibleCards / 2);
 
-    updateNahidActiveDots();
+    cardElements.forEach((card, index) => {
+      card.classList.toggle("nahid-active-card", index === activeIndex);
+    });
   }
 
   function nextNahidSlide() {
     if (nahidIsTransitioning) return;
     nahidCurrentIndex++;
     updateNahidTrackPosition(true);
+    updateNahidActiveDots(); // অ্যারো ক্লিকেও ডট আপডেট হবে
   }
 
   function prevNahidSlide() {
     if (nahidIsTransitioning) return;
     nahidCurrentIndex--;
     updateNahidTrackPosition(true);
+    updateNahidActiveDots(); // অ্যারো ক্লিকেও ডট আপডেট হবে
   }
 
   function updateNahidActiveDots() {
-    const dots = paginationContainer.querySelectorAll(".nahid-dot");
-    let relativeIndex = (nahidCurrentIndex - nahidViewCardsCount) % nahidServicesData.length;
-    if (relativeIndex < 0) relativeIndex += nahidServicesData.length;
-    dots.forEach((dot, i) => dot.classList.toggle("nahid-active", i === relativeIndex));
+    const dots = document.querySelectorAll(".service-slider-dot");
+    const activeDotIndex = (nahidCurrentIndex - nahidViewCardsCount + nahidServicesData.length) % nahidServicesData.length;
+
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("service-slider-dot-active", index === activeDotIndex);
+    });
+    updateNahidActiveDots(); // <--- এই লাইনটি যোগ করুন
   }
 
   // 7. Event Listeners (Drag + Buttons)
@@ -345,11 +346,19 @@ function serviceConfigFunction() {
   prevBtn?.addEventListener('click', prevNahidSlide);
   nextBtn?.addEventListener('click', nextNahidSlide);
 
-  paginationContainer.querySelectorAll(".nahid-dot").forEach(dot => {
-    dot.addEventListener("click", (e) => {
-      nahidCurrentIndex = parseInt(e.target.getAttribute("data-index")) + nahidViewCardsCount;
+  // 5. Pagination Click Handler (ফাইনাল ফিক্স)
+  paginationContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("service-slider-dot")) {
+      // যদি ট্রানজিশন চলতে থাকে, তবে ক্লিক ইগনোর করবে
+      if (nahidIsTransitioning) return;
+
+      const clickedIndex = parseInt(e.target.getAttribute("data-index"));
+      nahidCurrentIndex = clickedIndex + nahidViewCardsCount;
+
       updateNahidTrackPosition(true);
-    });
+      // এখানেও ডট আপডেট কল করা নিরাপদ
+      updateNahidActiveDots();
+    }
   });
 
   track.addEventListener("transitionend", () => {

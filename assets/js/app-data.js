@@ -80,7 +80,7 @@ const nahidServicesMeta = {
 const nahidServicesData = [
   {
     id: 1,
-    title: "WEB DEVELOPMENT",
+    title: "Custom Web Development",
     icon: "assets/icons/web-dev.svg",
     desc: "Custom websites and web applications built with modern technologies.",
     features: ["Responsive Design", "SEO Optimization", "Fast Performance", "Cross Browser Compatible"],
@@ -88,36 +88,45 @@ const nahidServicesData = [
   },
   {
     id: 2,
-    title: "WORDPRESS DEVELOPMENT",
+    title: "E-Commerce Solutions",
     icon: "assets/icons/wp-dev.svg",
-    desc: "Custom WordPress sites and management with best practices.",
-    features: ["Custom Themes", "Plugin Dev", "Speed Optimization", "Security"],
+    desc: "Complete online stores with secure payment integration and inventory management.",
+    features: ["Payment Gateways", "Product Management", "Order Tracking", "Customer Accounts"],
     link: "#"
   },
   {
     id: 3,
-    title: "E-COMMERCE SOLUTIONS",
-    icon: "assets/icons/ecommerce.svg",
-    desc: "Scalable e-commerce platforms to boost your online sales.",
-    features: ["Payment Integration", "Inventory Management", "Custom Checkout", "Analytics"],
+    title: "Shopify Development",
+    icon: "assets/icons/shopify.svg",
+    desc: "Shopify theme customization and app development for enhanced store functionality.",
+    features: ["Theme Customization", "Liquid Templates", "App Integration", "Performance Optimization"],
+
     link: "#"
   },
   {
     id: 4,
-    title: "SHOPIFY DEVELOPMENT",
-    icon: "assets/icons/shopify.svg",
-    desc: "Expert Shopify store setup, customization, and theme development.",
-    features: ["Theme Customization", "App Integration", "Store Migration", "Support"],
+    title: "WordPress Development",
+    icon: "assets/icons/ecommerce.svg",
+    desc: "Custom WordPress themes, plugins, and WooCommerce solutions tailored to your needs.",
+    features: ["Custom Themes", "Plugin Development", "WooCommerce Setup", "Content Migration"],
     link: "#"
   },
   {
     id: 5,
-    title: "SHOPIFY APP DEVELOPMENT",
+    title: "Maintenance & Support",
     icon: "assets/icons/shopify-app.svg",
-    desc: "Tailored Shopify applications to enhance store functionality.",
-    features: ["Public/Private Apps", "API Integration", "Custom Dashboard", "Maintenance"],
+    desc: "Ongoing website maintenance, updates, and technical support to keep your site running smoothly.",
+    features: ["Bug Fixes", "Security Updates", "Performance Monitoring", "Regular Backups"],
     link: "#"
-  }
+  },
+  // {
+  //   id: 6,
+  //   title: "API Integration",
+  //   icon: "assets/icons/shopify-app.svg",
+  //   desc: "Integration of third-party APIs and development of custom RESTful APIs for your applications.",
+  //   features: ["RESTful API", "Third-party Integration", "Database Design", "Authentication"],
+  //   link: "#"
+  // }
 ];
 
 // ==========================================

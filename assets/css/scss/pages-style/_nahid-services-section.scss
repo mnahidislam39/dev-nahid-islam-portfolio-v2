@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../base/variables" as *;
+@use "../utilities/mixin" as *;
+
 .nahid-services-section {
   background: var(--dark-bg);
   color: #ffffff;
@@ -9,6 +13,11 @@
     margin: 0 auto;
     padding: 0 40px;
     box-sizing: border-box;
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
 
     .nahid-services-header {
       display: flex;
@@ -90,7 +99,6 @@
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 32px;
-          min-height: 520px;
           padding: 30px;
           display: flex;
           flex-direction: column;
@@ -109,6 +117,17 @@
           &:not(.nahid-active-card) {
             opacity: 0.5; // বাকিগুলো একটু ঝাপসা হবে
           }
+
+
+          @include mq(lg-down) {
+            flex: 0 0 calc(50% - 15px);
+          }
+
+          @include mq(md-down) {
+            flex: 0 0 100%;
+          }
+
+
         }
 
 
@@ -165,14 +184,15 @@
         gap: 12px;
         margin-top: 40px;
 
-        .nahid-dot {
+        .service-slider-dot {
           width: 12px;
           height: 12px;
           background: rgba(255, 255, 255, 0.2);
           border-radius: 50%;
           cursor: pointer;
+          transition: all 0.3s ease-in-out;
 
-          &.nahid-active {
+          &.service-slider-dot-active {
             background: var(--primary-color);
             width: 32px;
             border-radius: 6px;
