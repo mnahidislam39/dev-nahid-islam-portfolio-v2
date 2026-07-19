@@ -335,48 +335,51 @@
          <section id="nahidTestimonialsSection" class="testimonial-section sections">
             <div class="testimonial-container container">
 
-               <!-- Section Title Area (Totally Empty Skeleton) -->
-               <div class="testimonial-header">
-                  <h2 class="testimonial-title" id="nahidTestimonialTitle"></h2>
-                  <p class="testimonial-subtitle" id="nahidTestimonialSubtitle"></p>
-               </div>
+               <div class="testimonial">
+                  <!-- Section Title Area (Totally Empty Skeleton) -->
+                  <div class="testimonial-header">
+                     <h2 class="testimonial-title" id="nahidTestimonialTitle"></h2>
+                     <p class="testimonial-subtitle" id="nahidTestimonialSubtitle"></p>
+                  </div>
 
-               <!-- Slider Mask Container -->
-               <div class="testimonial-slider-wrapper">
-                  <div class="testimonial-slider-track" id="testimonialSlider">
+                  <!-- Slider Mask Container -->
+                  <div class="testimonial-slider-wrapper">
+                     <div class="testimonial-slider-track" id="testimonialSlider">
 
-                     <!-- 🎯 HTML Template with pure semantic classes & no hardcoded text -->
-                     <div class="testimonial-slide" id="nahidCardTemplate" style="display: none;">
-                        <div class="review-glass-card">
-                           <div class="card-header">
-                              <div class="user-info">
-                                 <img class="client-avatar" src="" alt="">
-                                 <div class="meta">
-                                    <h4 class="client-name"></h4>
-                                    <span class="client-role"></span>
+                        <!-- 🎯 HTML Template with pure semantic classes & no hardcoded text -->
+                        <div class="testimonial-slide" id="nahidCardTemplate" style="display: none;">
+                           <div class="review-glass-card">
+                              <div class="card-header">
+                                 <div class="user-info">
+                                    <img class="client-avatar" src="" alt="">
+                                    <div class="meta">
+                                       <h4 class="client-name"></h4>
+                                       <span class="client-role"></span>
+                                    </div>
+                                 </div>
+                                 <div class="quote-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                       <path
+                                          d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                                    </svg>
                                  </div>
                               </div>
-                              <div class="quote-icon">
-                                 <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                       d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                                 </svg>
+                              <div class="rating-row">
+                                 <div class="stars"></div>
+                                 <span class="rating-number"></span>
                               </div>
+                              <p class="review-text"></p>
                            </div>
-                           <div class="rating-row">
-                              <div class="stars"></div>
-                              <span class="rating-number"></span>
-                           </div>
-                           <p class="review-text"></p>
                         </div>
+
                      </div>
-
+                     <button class="testimonial-arrow prev" id="testimonialPrev">❮</button>
+                     <button class="testimonial-arrow next" id="testimonialNext">❯</button>
                   </div>
+
+                  <!-- Slider Pagination Dots -->
+                  <div class="testimonial-pagination" id="testimonialPagination"></div>
                </div>
-
-               <!-- Slider Pagination Dots -->
-               <div class="testimonial-pagination" id="testimonialPagination"></div>
-
             </div>
          </section>
 

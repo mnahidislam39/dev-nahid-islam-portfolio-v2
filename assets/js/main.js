@@ -690,8 +690,6 @@ function portfolioConfigFunction() {
   buildSlider();
 }
 
-portfolioConfigFunction();
-
 // Testimonial Config Function 
 function testimonialConfigFunction() {
   // ডাটা সেফটি মেকানিজম ফলব্যাকস
@@ -719,6 +717,8 @@ function testimonialConfigFunction() {
   const slider = document.getElementById("testimonialSlider");
   const pagination = document.getElementById("testimonialPagination");
   const templateCard = document.getElementById("nahidCardTemplate");
+  const prevBtn = document.getElementById("testimonialPrev");
+  const nextBtn = document.getElementById("testimonialNext");
 
   if (!slider || !pagination || !templateCard) return;
 
@@ -827,6 +827,24 @@ function testimonialConfigFunction() {
       );
     }
 
+    // অ্যারো বাটন হ্যান্ডলার
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        if (isTransitioning) return;
+        stopAutoplay();
+        moveToSlide(currentIndex - 1);
+        startAutoplay();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        if (isTransitioning) return;
+        stopAutoplay();
+        moveToSlide(currentIndex + 1);
+        startAutoplay();
+      });
+    }
     applyDynamicWidths();
 
     setTimeout(() => {

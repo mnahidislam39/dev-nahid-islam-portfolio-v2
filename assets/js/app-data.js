@@ -277,7 +277,7 @@ const nahidTestimonialConfig = {
 
   // ডাইনামিক হেডার টেক্সট ইঞ্জিন
   header: {
-    titleNormalPre: "Testimonials That ", // হাইলাইটেড টেক্সটের আগের অংশ
+    titleNormalPre: "Review That ", // হাইলাইটেড টেক্সটের আগের অংশ
     titleSpan: "Speak to My Results", // <span> এর ভেতরের হাইলাইটেড টেক্সট
     titleNormalPost: "", // হাইলাইটেড টেক্সটের পরের অংশ (প্রয়োজন না হলে খালি রাখুন)
     subtitle:
@@ -289,33 +289,41 @@ const nahidTestimonialData = [
     name: "Nahid Islam Patil",
     role: "CEO, Lirante",
     avatar: "assets/images/avatar1.webp",
-    rating: 5.0,
+    rating: 5,
     review:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue interdum ligula a dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis orci elementum egestas lobortis.",
+      "Very pleased with the final result!",
   },
   {
     name: "Amelia Harrison",
     role: "Founder, Fotocademia",
     avatar: "assets/images/avatar2.webp",
-    rating: 5.0,
+    rating: 5,
     review:
-      "A remarkable full-stack developer who perfectly executed our ecommerce photography platform architecture. The conversion metrics boosted significantly post-launch due to optimized clean layout structure.",
+      "Great guy to work with.",
   },
   {
     name: "Marcus Vance",
     role: "Director, Geek Pro Ultra",
     avatar: "assets/images/avatar3.webp",
-    rating: 5.0,
+    rating: 5,
     review:
-      "Exceptional modern design aesthetics blended with fluid backend performance. Delivered a flawless brand digital interface within record time. Highly responsive and professional communication throughout.",
+      "Fabulous! Great attention to detail and she definitely exceeded my expectations",
   },
   {
     name: "Sarah Jenkins",
     role: "Product Manager, Apex",
     avatar: "assets/images/avatar4.webp",
-    rating: 4.8,
+    rating: 5,
     review:
-      "Impressive attention to detail, especially regarding custom responsive layouts and speed optimization. The fluid navigation logic and custom code execution exceeded our enterprise benchmarks.",
+      "did everything I asked for and more some, I really appreciate the help and will continue the work with ",
+  },
+  {
+    name: "Sarah Jenkins",
+    role: "Product Manager, Apex",
+    avatar: "assets/images/avatar4.webp",
+    rating: 5,
+    review:
+      "ahead of schedule, strong professionalism, and the newly designed store is more user-friendly ",
   },
 ];
 
