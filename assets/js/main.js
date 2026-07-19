@@ -51,7 +51,7 @@ function headerConfigFunction() {
   generateMenuItems(rightMenuContainer, config.rightMenu);
 
   // ৩. 🎯 স্টিকি হেডার ইঞ্জিন (Smooth Backdrop Blurring)
-  const header = document.querySelector(".main-header");
+  const header = document.querySelector(".header-container");
   window.addEventListener(
     "scroll",
     () => {
