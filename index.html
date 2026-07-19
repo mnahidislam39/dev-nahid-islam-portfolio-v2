@@ -129,7 +129,7 @@
                            <h5 class="nahid-service-card-title"></h5>
                            <p class="nahid-service-desc"></p>
                            <ul class="nahid-service-features"></ul>
-                           <a href="#" class="nahid-contact-btn">GET IN TOUCH →</a>
+                           <a href="#" class="nahid-contact-btn">Get In Touch →</a>
                         </div>
                      </div>
                   </div>
@@ -291,44 +291,48 @@
          <section id="nahidPortfolioSection" class="portfolio-section sections">
             <div class="portfolio-container container">
 
-               <!-- Portfolio Header -->
-               <div class="portfolio-header">
-                  <div class="portfolio-title-area">
-                     <h2 class="portfolio-title" id="portfolioMainTitle"> <span id="portfolioAccentTitle"></span></h2>
+               <div class="portfolio">
+                  <div class="portfolio-header">
+                     <h2 class="portfolio-title" id="portfolioMainTitle"> <span id="portfolioSubTitle"></span></h2>
                      <p class="portfolio-description" id="portfolioDescription"></p>
                   </div>
-                  <a href="#" class="btn btn-primary" id="portfolioSeeAllBtn"></a>
-               </div>
 
-               <!-- Dynamic Slider Track Wrapper -->
-               <div class="slider-wrapper">
-                  <div class="slider-track" id="portfolioSlider">
-                     <!-- JS will dynamically inject slides here -->
+                  <!-- স্লাইডার এরিয়া -->
+                  <div class="slider-wrapper">
+                     <div class="slider-track" id="portfolioSlider"></div>
                   </div>
-               </div>
+                  <!-- টেমপ্লেট (এটি এইচটিএমএল ফাইলেই থাকবে) -->
+                  <template id="portfolioSlideTemplate">
+                     <div class="portfolio-slide">
+                        <div class="slide-card">
+                           <img class="card-img" src="" alt="">
+                           <div class="watermark-text"></div>
+                           <button class="card-action-btn" type="button">View</button>
 
-               <!-- Dynamic Pagination Dots -->
-               <div class="slider-pagination" id="sliderPagination">
-                  <!-- JS will dynamically inject dots here -->
-               </div>
+                           <div class="slide-expanded-details">
+                              <div class="tags-container"></div>
+                              <h3 class="project-title-area">
+                                 <span class="project-title"></span>
 
-               <!-- Dynamic Content Target (Title, Description & Tags) -->
-               <div class="dynamic-content-area" id="dynamicContentArea">
-                  <div class="tags-container" id="dynamicTags"></div>
-                  <h3 class="project-title-area">
-                     <span id="dynamicTitle"></span>
-                     <a href="#" class="arrow-link" id="dynamicProjectLink" aria-label="View Project">
-                        <svg viewBox="0 0 24 24" width="24" height="24">
-                           <path d="M5 19L19 5M19 5H10M19 5V14" stroke="currentColor" stroke-width="2.5"
-                              stroke-linecap="round" stroke-linejoin="round" fill="none" />
-                        </svg>
-                     </a>
-                  </h3>
-                  <p class="project-desc-area" id="dynamicDesc"></p>
+                              </h3>
+                              <p class="project-desc-area"></p>
+                           </div>
+                        </div>
+                     </div>
+                  </template>
+
+                  <!-- পেজিনেশন -->
+                  <div class="slider-pagination" id="sliderPagination"></div>
+
+                  <!-- ন্যাভ বাটনস -->
+                  <button class="nahid-portfolio-prev"> ❮ </button>
+                  <button class="nahid-portfolio-next"> ❯ </button>
                </div>
 
             </div>
          </section>
+
+
 
          <!-- Testimonial Section -->
          <section id="nahidTestimonialsSection" class="testimonial-section sections">

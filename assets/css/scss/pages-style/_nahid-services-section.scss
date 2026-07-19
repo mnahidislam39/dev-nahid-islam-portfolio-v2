@@ -200,6 +200,30 @@
             }
           }
         }
+
+
+      }
+
+      a.nahid-contact-btn {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        background: #00bf634a;
+        opacity: .8;
+        padding: 10px 20px;
+        margin-top: 20px;
+        border-radius: 50px;
+        max-width: -moz-fit-content;
+        max-width: fit-content;
+        color: #fff;
+        transition: all .3s ease;
+        text-transform: capitalize;
+
+        &:hover {
+          background: var(--primary-color);
+          opacity: 1;
+        }
       }
 
       .nahid-services-pagination {

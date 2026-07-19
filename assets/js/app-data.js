@@ -12,19 +12,19 @@ const nahidHeaderConfig = {
   leftMenu: [
     // { label: "Home", url: "#nahidHeroSection", active: true },
     { label: "About", url: "#why-hire-me", active: false },
-    { label: "Service", url: "#nahidServicesSection", active: false },
+    { label: "Services", url: "#nahidServicesSection", active: false },
     { label: "Portfolio", url: "#nahidPortfolioSection", active: false },
-    { label: "Start Project", url: "#nahidContactSection", active: false },
   ],
 
   // ডানদিকের মেনু আইটেম লিস্ট
   rightMenu: [
-    {
-      label: "Resume",
-      url: "pages/resume.html",
-      target: "_self",
-      active: false,
-    },
+    { label: "Start Project", url: "#nahidContactSection", active: false },
+    // {
+    //   label: "Resume",
+    //   url: "pages/resume.html",
+    //   target: "_self",
+    //   active: false,
+    // },
     { label: "Review", url: "#nahidTestimonialsSection", active: false },
     // { label: "Pricing", url: "#nahidPricingSection", active: false },
     { label: "FAQ", url: "#nahidFaqSection", active: false },
@@ -46,7 +46,7 @@ const nahidHeroConfig = {
     title: "Full Stack Developer",
   },
   media: {
-    imgSrc: "assets/images/nahid.png",
+    imgSrc: "assets/images/nahid.webp",
     altText: "Nahid Islam - Full Stack Developer",
   },
   ctas: {
@@ -84,7 +84,7 @@ const nahidServicesData = [
     icon: "assets/images/icons/SWebDesignDevelopment.webp",
     desc: "Custom websites and web applications built with modern technologies.",
     features: ["Responsive Design", "SEO Optimization", "Fast Performance", "Cross Browser Compatible"],
-    link: "#"
+    link: "#nahidContactSection"
   },
   {
     id: 2,
@@ -92,7 +92,7 @@ const nahidServicesData = [
     icon: "assets/images/icons/Se-commerce.webp",
     desc: "Complete online stores with secure payment integration and inventory management.",
     features: ["Payment Gateways", "Product Management", "Order Tracking", "Customer Accounts"],
-    link: "#"
+    link: "#nahidContactSection"
   },
   {
     id: 3,
@@ -101,7 +101,7 @@ const nahidServicesData = [
     desc: "Shopify theme customization and app development for enhanced store functionality.",
     features: ["Theme Customization", "Liquid Templates", "App Integration", "Performance Optimization"],
 
-    link: "#"
+    link: "#nahidContactSection"
   },
   {
     id: 4,
@@ -109,7 +109,7 @@ const nahidServicesData = [
     icon: "assets/images/icons/swordpress.webp",
     desc: "Custom WordPress themes, plugins, and WooCommerce solutions tailored to your needs.",
     features: ["Custom Themes", "Plugin Development", "WooCommerce Setup", "Content Migration"],
-    link: "#"
+    link: "#nahidContactSection"
   },
   {
     id: 5,
@@ -117,7 +117,7 @@ const nahidServicesData = [
     icon: "assets/images/icons/SMaintenanceSupport.webp",
     desc: "Ongoing website maintenance, updates, and technical support to keep your site running smoothly.",
     features: ["Bug Fixes", "Security Updates", "Performance Monitoring", "Regular Backups"],
-    link: "#"
+    link: "#nahidContactSection"
   },
   // {
   //   id: 6,
@@ -173,7 +173,7 @@ const nahidHireMeta = {
   titleAccent: "Hire me?",
   description:
     "I'm a Shopify-focused Full-Stack Web Developer. My primary expertise lies in Shopify store development, customization, and performance optimization, helping businesses build scalable and conversion-focused online stores. Alongside Shopify, I have strong expertise in HTML, CSS, Bootstrap, Tailwind CSS, SASS, JavaScript, jQuery, Vue.js, PHP, and Laravel, allowing me to handle both front-end and back-end development efficiently.",
-  avatarImg: "assets/images/nahid.png", // Apnar high-end png image path eikhane bhashaben
+  avatarImg: "assets/images/nahid.webp", // Apnar high-end png image path eikhane bhashaben
   ctaText: "Hire me ↗",
   ctaLink: "#contact",
 };
@@ -203,6 +203,7 @@ const nahidHireStats = [
 // ==========================================
 // PORTFOLIO SECTION DATA
 // ==========================================
+
 const nahidPortfolioMeta = {
   sectionTitle: "My",
   accentText: "Portfolio",
@@ -210,18 +211,21 @@ const nahidPortfolioMeta = {
     "A selection of recent work showcasing expertise across web development, e-commerce, and custom solutions.",
   sectionSubtitle: "See All",
 };
+
 const nahidPortfolioConfig = {
   loop: true,
   autoplay: true,
   autoplaySpeed: 4000,
-  slidesPerView: 3, // 👈 এখানে আপনি যত দিবেন (1, 2, 3, 4) প্রতি রো-তে ততটা কার্ড শো করবে!
+  slidesPerView: 3,
 };
+
 const nahidPortfolioData = [
   {
     id: 1,
     title: "portfoilo",
     watermark: "portfoilo",
     image: "assets/images/portfoilo.webp",
+    images: ["assets/images/portfoilo.webp", "assets/images/grow-business.webp"], // পপআপের জন্য একাধিক ইমেজ
     link: "#",
     tags: ["HTML", "CSS", "Tailwind CSS", "JavaScript"],
     description:
@@ -232,6 +236,7 @@ const nahidPortfolioData = [
     title: "grow-axit-business",
     watermark: "grow-axit-business",
     image: "assets/images/grow-axit-business.webp",
+    images: ["assets/images/grow-axit-business.webp", "assets/images/portfoilo.webp"],
     link: "#",
     tags: ["HTML", "CSS", "Tailwind CSS", "JavaScript"],
     description:
@@ -242,6 +247,7 @@ const nahidPortfolioData = [
     title: "Grow Business",
     watermark: "Grow Business",
     image: "assets/images/grow-business.webp",
+    images: ["assets/images/grow-business.webp", "assets/images/grow-axit-businessdRK.webp"],
     link: "#",
     tags: ["HTML", "CSS", "Tailwind CSS", "JavaScript"],
     description:
@@ -252,13 +258,13 @@ const nahidPortfolioData = [
     title: "Fotocademia - E-commerce Platform",
     watermark: "Fotocademia",
     image: "assets/images/grow-axit-businessdRK.webp",
+    images: ["assets/images/grow-axit-businessdRK.webp", "assets/images/portfoilo.webp"],
     link: "#",
     tags: ["Shopify", "UI/UX Design", "E-commerce", "Minimalist"],
     description:
       "A premium conversion-driven online academy platform built for seamless photography course sales, digital ebooks distribution, and destination workshops management.",
   },
 ];
-
 // ==========================================
 // NAHID TESTIMONIAL CONFIGURATION & DATA
 // ==========================================
@@ -602,7 +608,7 @@ const nahidFooterConfig = {
   // নেভিগেশন লিংকসমূহ (ক্লিন অবজেক্ট ট্র্যাকিং)
   navigation: [
     { label: "About", url: "#why-hire-me", active: false },
-    { label: "Service", url: "#nahidServicesSection", active: false },
+    { label: "Services", url: "#nahidServicesSection", active: false },
     { label: "Portfolio", url: "#nahidPortfolioSection", active: false },
     { label: "Start Project", url: "#nahidContactSection", active: false },
     { label: "Review", url: "#nahidTestimonialsSection", active: false },

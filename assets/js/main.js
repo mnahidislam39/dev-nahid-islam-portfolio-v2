@@ -197,7 +197,7 @@ function globalModalConfigFunction() {
 function serviceConfigFunction() {
   // 1. Service Local Configurations
   const nahidConfig = {
-    autoSlideActive: false,
+    autoSlideActive: true,
     autoSlideInterval: 5000,
     gapValue: 30,
   };
@@ -360,6 +360,7 @@ function serviceConfigFunction() {
       updateNahidActiveDots();
     }
   });
+
 
   track.addEventListener("transitionend", () => {
     nahidIsTransitioning = false;
@@ -535,58 +536,44 @@ function aboutMeConfigFunction() {
   observer.observe(statsTrack);
 }
 
-// Portfolio Config Function
+// নিশ্চিত করুন ডোম পুরোপুরি লোড হওয়ার পর ইঞ্জিন রান করবে
+document.addEventListener("DOMContentLoaded", () => {
+  portfolioConfigFunction();
+});
+
 function portfolioConfigFunction() {
-  const config =
-    typeof nahidPortfolioConfig !== "undefined"
-      ? nahidPortfolioConfig
-      : { loop: true, autoplay: true, autoplaySpeed: 3000, slidesPerView: 2 };
-  const projectsData =
-    typeof nahidPortfolioData !== "undefined" ? nahidPortfolioData : [];
+  const config = typeof nahidPortfolioConfig !== "undefined" ? nahidPortfolioConfig : { loop: true, autoplay: true, autoplaySpeed: 4000, slidesPerView: 3 };
+  const projectsData = typeof nahidPortfolioData !== "undefined" ? nahidPortfolioData : [];
 
   const slider = document.getElementById("portfolioSlider");
   const pagination = document.getElementById("sliderPagination");
-  const dynamicTitle = document.getElementById("dynamicTitle");
-  const dynamicDesc = document.getElementById("dynamicDesc");
-  const dynamicTags = document.getElementById("dynamicTags");
-  const dynamicProjectLink = document.getElementById("dynamicProjectLink");
-  const contentArea = document.getElementById("dynamicContentArea");
 
   // ==========================================
-  // 🔥 app-data.js থেকে হেডার টেক্সট ডাইনামিক করার লজিক
+  // ১. হেডার টেক্সট ডাইনামিক রেন্ডারিং লজিক
   // ==========================================
-  const metaData =
-    typeof nahidPortfolioMeta !== "undefined" ? nahidPortfolioMeta : null;
-
+  const metaData = typeof nahidPortfolioMeta !== "undefined" ? nahidPortfolioMeta : null;
   const headerMainTitle = document.getElementById("portfolioMainTitle");
+  const headerSubTitle = document.getElementById("portfolioSubTitle");
   const headerDescription = document.getElementById("portfolioDescription");
-  const headerAccentTitle = document.getElementById("portfolioAccentTitle");
-  const headerSeeAllBtn = document.getElementById("portfolioSeeAllBtn");
 
   if (metaData) {
     if (headerMainTitle && metaData.sectionTitle) {
-      // এটি স্প্যান (<span>) ট্যাগ না ভেঙে শুধু শুরুর টেক্সট ("My") চেঞ্জ করবে
       headerMainTitle.childNodes[0].textContent = metaData.sectionTitle + " ";
     }
     if (headerDescription && metaData.portfolioDescription) {
       headerDescription.textContent = metaData.portfolioDescription;
     }
-    if (headerAccentTitle && metaData.accentText) {
-      headerAccentTitle.textContent = metaData.accentText;
-    }
-    if (headerSeeAllBtn && metaData.sectionSubtitle) {
-      headerSeeAllBtn.textContent = metaData.sectionSubtitle;
+    if (headerSubTitle && metaData.accentText) {
+      headerSubTitle.textContent = metaData.accentText;
     }
   }
-  // ==========================================
 
   if (projectsData.length === 0 || !slider || !pagination) return;
 
-  const slidesPerView = config.slidesPerView || 2;
+  const slidesPerView = config.slidesPerView || 3;
   const isMobile = window.innerWidth <= 768;
   const finalSlidesPerView = isMobile ? 1 : slidesPerView;
 
-  // লুপ ট্রু হলে যতগুলো কার্ড স্ক্রিনে দেখাবে, ততগুলো ক্লোন শুরুতে থাকবে। তাই স্টার্টিং ইনডেক্স হবে = finalSlidesPerView
   let currentIndex = config.loop ? finalSlidesPerView : 0;
   let isDragging = false;
   let startX = 0;
@@ -596,11 +583,14 @@ function portfolioConfigFunction() {
   let autoplayTimer = null;
   let isTransitioning = false;
 
+  // ==========================================
+  // ২. স্লাইডার ট্র্যাক ও পেজিনেশন বিল্ড ইঞ্জিন
+  // ==========================================
   function buildSlider() {
     slider.innerHTML = "";
     pagination.innerHTML = "";
 
-    // ১. আসল ডাটার কাউন্ট অনুযায়ী পেজিনেশন ডটস তৈরি
+    // পেজিনেশন ডটস তৈরি
     projectsData.forEach((_, index) => {
       const dot = document.createElement("div");
       dot.classList.add("dot");
@@ -614,39 +604,23 @@ function portfolioConfigFunction() {
       pagination.appendChild(dot);
     });
 
-    // ২. ট্রু ইনফিনিট ক্লোনিং ইঞ্জিন (ব্ল্যাংক স্পেস প্রোটেকশন)
+    // ইনফিনিট ক্লোনিং ইঞ্জিন
     if (config.loop) {
-      // শেষের দিক থেকে finalSlidesPerView সংখ্যক কার্ড নিয়ে শুরুতে ক্লোন
-      for (
-        let i = projectsData.length - finalSlidesPerView;
-        i < projectsData.length;
-        i++
-      ) {
-        if (projectsData[i])
-          slider.appendChild(createSlideNode(projectsData[i]));
+      for (let i = projectsData.length - finalSlidesPerView; i < projectsData.length; i++) {
+        if (projectsData[i]) slider.appendChild(createSlideNode(projectsData[i]));
       }
-
-      // আসল কার্ডগুলো মাঝখানে বসবে
-      projectsData.forEach((project) =>
-        slider.appendChild(createSlideNode(project)),
-      );
-
-      // শুরুর দিক থেকে finalSlidesPerView সংখ্যক কার্ড নিয়ে শেষে ক্লোন
+      projectsData.forEach((project) => slider.appendChild(createSlideNode(project)));
       for (let i = 0; i < finalSlidesPerView; i++) {
-        if (projectsData[i])
-          slider.appendChild(createSlideNode(projectsData[i]));
+        if (projectsData[i]) slider.appendChild(createSlideNode(projectsData[i]));
       }
     } else {
-      projectsData.forEach((project) =>
-        slider.appendChild(createSlideNode(project)),
-      );
+      projectsData.forEach((project) => slider.appendChild(createSlideNode(project)));
     }
 
     applyDynamicSlideWidths();
 
     setTimeout(() => {
       updateSliderPositionWithoutAnimation();
-      updateTextContent(config.loop ? 0 : currentIndex);
       startAutoplay();
     }, 50);
   }
@@ -654,7 +628,6 @@ function portfolioConfigFunction() {
   function applyDynamicSlideWidths() {
     const slides = slider.querySelectorAll(".portfolio-slide");
     if (slides.length === 0) return;
-
     const style = window.getComputedStyle(slider);
     const gap = parseFloat(style.gap) || 0;
 
@@ -666,17 +639,50 @@ function portfolioConfigFunction() {
   }
 
   function createSlideNode(project) {
-    const slide = document.createElement("div");
-    slide.classList.add("portfolio-slide");
-    slide.innerHTML = `
-      <div class="slide-card">
-        <img src="${project.image}" alt="${project.title} Mockup">
-        <div class="watermark-text">${project.watermark}</div>
-      </div>
-    `;
+    const template = document.getElementById("portfolioSlideTemplate");
+    const slide = template.content.cloneNode(true).querySelector(".portfolio-slide");
+
+    // ডেটা ম্যাপিং
+    slide.querySelector(".card-img").src = project.image;
+    slide.querySelector(".card-img").alt = project.title;
+    slide.querySelector(".watermark-text").textContent = project.watermark;
+    slide.querySelector(".project-title").textContent = project.title;
+    slide.querySelector(".project-desc-area").textContent = project.description;
+    // slide.querySelector(".arrow-link").href = project.link;
+
+    // ট্যাগস রেন্ডারিং
+    const tagsContainer = slide.querySelector(".tags-container");
+    tagsContainer.innerHTML = ''; // ক্লিয়ার করা
+    project.tags.forEach(tag => {
+      const span = document.createElement("span");
+      span.className = "tag-badge";
+      span.textContent = tag;
+      tagsContainer.appendChild(span);
+    });
+
+    // বাটন ক্লিক লজিক (ইভেন্ট লিসেনার)
+    const actionBtn = slide.querySelector(".card-action-btn");
+    actionBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      // অন্য কার্ডগুলো বন্ধ করা
+      document.querySelectorAll(".portfolio-slide").forEach(s => {
+        if (s !== slide) s.classList.remove("expanded");
+      });
+
+      // টগল লজিক
+      slide.classList.toggle("expanded");
+      actionBtn.textContent = slide.classList.contains("expanded") ? "Hide" : "View";
+    });
+
     return slide;
   }
 
+  // বাকি স্লাইডার ইঞ্জিন লজিক এখানে থাকবে (buildSlider, moveToSlide, etc.)
+
+  // ==========================================
+  // ৪. স্লাইডার মুভমেন্ট ও ট্রানজিশন কন্ট্রোল
+  // ==========================================
   function moveToSlide(index, animated = true) {
     const slides = document.querySelectorAll(".portfolio-slide");
     if (slides.length === 0) return;
@@ -691,15 +697,10 @@ function portfolioConfigFunction() {
     currentTranslate = -currentIndex * (slideWidth + gap);
     prevTranslate = currentTranslate;
 
-    if (animated) {
-      slider.style.transition = "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)";
-    } else {
-      slider.style.transition = "none";
-    }
-
+    slider.style.transition = animated ? "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)" : "none";
     slider.style.transform = `translateX(${currentTranslate}px)`;
 
-    // ডট ও টেক্সটের জন্য অ্যাক্টিভ রিয়েল ইনডেক্স ক্যালকুলেট করা
+    // অ্যাক্টিভ পেজিনেশন ডট ক্যালকুলেশন
     let activeIndex = currentIndex;
     if (config.loop) {
       if (currentIndex < finalSlidesPerView) {
@@ -711,25 +712,12 @@ function portfolioConfigFunction() {
       }
     }
 
-    // সেফটি চেক যাতে অ্যারে ইনডেক্সের বাইরে না যায়
     if (activeIndex < 0) activeIndex = 0;
-    if (activeIndex >= projectsData.length)
-      activeIndex = projectsData.length - 1;
+    if (activeIndex >= projectsData.length) activeIndex = projectsData.length - 1;
 
     updateDots(activeIndex);
-
-    if (animated && contentArea) {
-      contentArea.classList.add("fade-out");
-      setTimeout(() => {
-        updateTextContent(activeIndex);
-        contentArea.classList.remove("fade-out");
-      }, 200);
-    } else {
-      updateTextContent(activeIndex);
-    }
   }
 
-  // লুপ বাউন্ডারি টাচ করলে ব্যাকগ্রাউন্ডে ইনস্ট্যান্ট পজিশন শিফট (সিমলেস ট্রিক)
   slider.addEventListener("transitionend", () => {
     isTransitioning = false;
     if (!config.loop) return;
@@ -761,31 +749,11 @@ function portfolioConfigFunction() {
     });
   }
 
-  function updateTextContent(index) {
-    const currentData = projectsData[index];
-    if (!currentData) return;
-
-    if (dynamicTitle) dynamicTitle.textContent = currentData.title;
-    if (dynamicDesc) dynamicDesc.textContent = currentData.description;
-    if (dynamicProjectLink)
-      dynamicProjectLink.setAttribute("href", currentData.link);
-
-    if (dynamicTags) {
-      dynamicTags.innerHTML = "";
-      currentData.tags.forEach((tag) => {
-        const span = document.createElement("span");
-        span.classList.add("tag-badge");
-        span.textContent = tag;
-        dynamicTags.appendChild(span);
-      });
-    }
-  }
-
   function startAutoplay() {
     if (!config.autoplay) return;
     stopAutoplay();
     autoplayTimer = setInterval(() => {
-      if (!isTransitioning) {
+      if (!isTransitioning && !slider.querySelector(".portfolio-slide.expanded")) {
         moveToSlide(currentIndex + 1);
       }
     }, config.autoplaySpeed);
@@ -795,7 +763,9 @@ function portfolioConfigFunction() {
     if (autoplayTimer) clearInterval(autoplayTimer);
   }
 
-  // ড্র্যাগ, টাচ এবং মাউস হোভার ট্র্যাকিং
+  // ==========================================
+  // ৫. ড্র্যাগ ও টাচ সাপোর্ট
+  // ==========================================
   slider.addEventListener("mousedown", dragStart);
   slider.addEventListener("touchstart", dragStart, { passive: true });
   slider.addEventListener("mousemove", dragAction);
@@ -803,13 +773,6 @@ function portfolioConfigFunction() {
   slider.addEventListener("mouseup", dragEnd);
   slider.addEventListener("mouseleave", dragEnd);
   slider.addEventListener("touchend", dragEnd);
-
-  slider.addEventListener("mouseenter", () => {
-    stopAutoplay();
-  });
-  slider.addEventListener("mouseleave", () => {
-    if (!isDragging) startAutoplay();
-  });
 
   function dragStart(e) {
     if (isTransitioning) return;
@@ -822,27 +785,20 @@ function portfolioConfigFunction() {
 
   function dragAction(e) {
     if (!isDragging) return;
-    const currentX = e.type.includes("touch")
-      ? e.touches[0].clientX
-      : e.clientX;
-    const diff = currentX - startX;
-    currentTranslate = prevTranslate + diff;
+    const currentX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
+    currentTranslate = prevTranslate + (currentX - startX);
   }
 
   function dragEnd() {
     if (!isDragging) return;
     isDragging = false;
     cancelAnimationFrame(animationID);
-
     const movedBy = currentTranslate - prevTranslate;
 
-    if (movedBy < -70) {
-      moveToSlide(currentIndex + 1);
-    } else if (movedBy > 70) {
-      moveToSlide(currentIndex - 1);
-    } else {
-      moveToSlide(currentIndex);
-    }
+    if (movedBy < -70) moveToSlide(currentIndex + 1);
+    else if (movedBy > 70) moveToSlide(currentIndex - 1);
+    else moveToSlide(currentIndex);
+
     startAutoplay();
   }
 
@@ -853,14 +809,34 @@ function portfolioConfigFunction() {
     }
   }
 
+  // ==========================================
+  // ৬. নিখুঁত অ্যারো বাটন লজিক ফিক্স
+  // ==========================================
+  const prevBtn = document.querySelector(".nahid-portfolio-prev");
+  const nextBtn = document.querySelector(".nahid-portfolio-next");
+
+  if (prevBtn) {
+    prevBtn.onclick = (e) => {
+      e.preventDefault();
+      if (isTransitioning) return;
+      stopAutoplay();
+      moveToSlide(currentIndex - 1);
+      startAutoplay();
+    };
+  }
+
+  if (nextBtn) {
+    nextBtn.onclick = (e) => {
+      e.preventDefault();
+      if (isTransitioning) return;
+      stopAutoplay();
+      moveToSlide(currentIndex + 1);
+      startAutoplay();
+    };
+  }
+
   window.addEventListener("resize", () => {
-    // স্ক্রিন সাইজ চেঞ্জ হলে ডাইনামিকালি রিবিল্ড করা যাতে ক্লোন কাউন্ট ঠিক থাকে
-    const currentMobileState = window.innerWidth <= 768;
-    if (currentMobileState !== isMobile) {
-      buildSlider();
-    } else {
-      updateSliderPositionWithoutAnimation();
-    }
+    buildSlider();
   });
 
   buildSlider();
