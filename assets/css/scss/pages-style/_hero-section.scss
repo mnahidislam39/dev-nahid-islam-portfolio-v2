@@ -92,8 +92,8 @@
       }
 
       .hero-image-container {
-        width: 90%;
-        max-width: 600px;
+        width: 100%;
+        max-width: 480px;
         height: 80%;
         display: flex;
         justify-content: center;
@@ -296,7 +296,13 @@
 @media (max-width: 768px) {
   #nahidHeroSection {
     .hero-container {
+
       .hero {
+
+        .hero-image-container {
+          width: 90%;
+        }
+
         .hero-heading {
           font-size: 44px;
           margin-bottom: -20px;

@@ -223,18 +223,12 @@ function serviceConfigFunction() {
 
   // 3. Inject Section Meta
   if (typeof nahidServicesMeta !== "undefined") {
-
-    // Title সেট করা
     if (titleParent) {
       titleParent.childNodes[0].textContent = nahidServicesMeta.sectionTitle;
     }
-
-    // Subtitle সেট করা
     if (subTitleElement) {
       subTitleElement.textContent = nahidServicesMeta.sectionSubTitle;
     }
-
-    // Description সেট করা
     if (descriptionElement) {
       descriptionElement.textContent = nahidServicesMeta.sectionDescription;
     }
@@ -284,19 +278,15 @@ function serviceConfigFunction() {
     const cardElements = track.querySelectorAll(".nahid-service-card:not(#nahid-master-card-template)");
     if (cardElements.length === 0) return;
 
-    // বর্তমান স্ক্রিনে কয়টি কার্ড দেখা যাচ্ছে তা বের করা
     const viewportWidth = track.parentElement.offsetWidth;
     const cardWidth = cardElements[0].offsetWidth;
     const gap = 30;
 
-    // কার্ডের পজিশন ক্যালকুলেশন
     const moveDistance = nahidCurrentIndex * (cardWidth + gap);
 
     track.style.transition = animation ? "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)" : "none";
     track.style.transform = `translate3d(${-moveDistance}px, 0, 0)`;
 
-    // অ্যাক্টিভ ক্লাস লজিক:
-    // মোবাইলে ১টি কার্ড দেখা গেলে প্রথমটিই অ্যাক্টিভ, ট্যাবলেটে ২টি হলে মাঝখানেরটি
     const visibleCards = Math.round(viewportWidth / cardWidth);
     const activeIndex = nahidCurrentIndex + Math.floor(visibleCards / 2);
 
@@ -309,14 +299,14 @@ function serviceConfigFunction() {
     if (nahidIsTransitioning) return;
     nahidCurrentIndex++;
     updateNahidTrackPosition(true);
-    updateNahidActiveDots(); // অ্যারো ক্লিকেও ডট আপডেট হবে
+    updateNahidActiveDots();
   }
 
   function prevNahidSlide() {
     if (nahidIsTransitioning) return;
     nahidCurrentIndex--;
     updateNahidTrackPosition(true);
-    updateNahidActiveDots(); // অ্যারো ক্লিকেও ডট আপডেট হবে
+    updateNahidActiveDots();
   }
 
   function updateNahidActiveDots() {
@@ -326,7 +316,6 @@ function serviceConfigFunction() {
     dots.forEach((dot, index) => {
       dot.classList.toggle("service-slider-dot-active", index === activeDotIndex);
     });
-    updateNahidActiveDots(); // <--- এই লাইনটি যোগ করুন
   }
 
   // 7. Event Listeners (Drag + Buttons)
@@ -346,21 +335,17 @@ function serviceConfigFunction() {
   prevBtn?.addEventListener('click', prevNahidSlide);
   nextBtn?.addEventListener('click', nextNahidSlide);
 
-  // 5. Pagination Click Handler (ফাইনাল ফিক্স)
   paginationContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("service-slider-dot")) {
-      // যদি ট্রানজিশন চলতে থাকে, তবে ক্লিক ইগনোর করবে
       if (nahidIsTransitioning) return;
 
       const clickedIndex = parseInt(e.target.getAttribute("data-index"));
       nahidCurrentIndex = clickedIndex + nahidViewCardsCount;
 
       updateNahidTrackPosition(true);
-      // এখানেও ডট আপডেট কল করা নিরাপদ
       updateNahidActiveDots();
     }
   });
-
 
   track.addEventListener("transitionend", () => {
     nahidIsTransitioning = false;
@@ -375,6 +360,7 @@ function serviceConfigFunction() {
 
   window.addEventListener("resize", () => updateNahidTrackPosition(false));
   updateNahidTrackPosition(false);
+
   if (nahidConfig.autoSlideActive) {
     nahidAutoSlideTimer = setInterval(nextNahidSlide, nahidConfig.autoSlideInterval);
   }

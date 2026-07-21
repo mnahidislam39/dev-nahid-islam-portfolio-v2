@@ -13,7 +13,7 @@ const nahidHeaderConfig = {
     // { label: "Home", url: "#nahidHeroSection", active: true },
     { label: "About", url: "#why-hire-me", active: false },
     { label: "Services", url: "#nahidServicesSection", active: false },
-    { label: "Portfolio", url: "#nahidPortfolioSection", active: false },
+    { label: "Projects", url: "#nahidPortfolioSection", active: false },
   ],
 
   // ডানদিকের মেনু আইটেম লিস্ট
@@ -206,7 +206,7 @@ const nahidHireStats = [
 
 const nahidPortfolioMeta = {
   sectionTitle: "My",
-  accentText: "Portfolio",
+  accentText: "Projects",
   portfolioDescription:
     "A selection of recent work showcasing expertise across web development, e-commerce, and custom solutions.",
   // sectionSubtitle: "See All",
@@ -288,7 +288,7 @@ const nahidTestimonialData = [
   {
     name: "Nahid Islam Patil",
     role: "CEO, Lirante",
-    avatar: "assets/images/avatar1.webp",
+    avatar: "",
     rating: 5,
     review:
       "Very pleased with the final result!",
@@ -296,7 +296,7 @@ const nahidTestimonialData = [
   {
     name: "Amelia Harrison",
     role: "Founder, Fotocademia",
-    avatar: "assets/images/avatar2.webp",
+    avatar: "",
     rating: 5,
     review:
       "Great guy to work with.",
@@ -304,7 +304,7 @@ const nahidTestimonialData = [
   {
     name: "Marcus Vance",
     role: "Director, Geek Pro Ultra",
-    avatar: "assets/images/avatar3.webp",
+    avatar: "",
     rating: 5,
     review:
       "Fabulous! Great attention to detail and she definitely exceeded my expectations",
@@ -312,7 +312,7 @@ const nahidTestimonialData = [
   {
     name: "Sarah Jenkins",
     role: "Product Manager, Apex",
-    avatar: "assets/images/avatar4.webp",
+    avatar: "",
     rating: 5,
     review:
       "did everything I asked for and more some, I really appreciate the help and will continue the work with ",
@@ -320,7 +320,7 @@ const nahidTestimonialData = [
   {
     name: "Sarah Jenkins",
     role: "Product Manager, Apex",
-    avatar: "assets/images/avatar4.webp",
+    avatar: "",
     rating: 5,
     review:
       "ahead of schedule, strong professionalism, and the newly designed store is more user-friendly ",
@@ -618,7 +618,7 @@ const nahidFooterConfig = {
   navigation: [
     { label: "About", url: "#why-hire-me", active: false },
     { label: "Services", url: "#nahidServicesSection", active: false },
-    { label: "Portfolio", url: "#nahidPortfolioSection", active: false },
+    { label: "Projects", url: "#nahidPortfolioSection", active: false },
     { label: "Start Project", url: "#nahidContactSection", active: false },
     { label: "Review", url: "#nahidTestimonialsSection", active: false },
     // { label: "Pricing", url: "#nahidPricingSection", active: false },
