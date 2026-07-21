@@ -522,158 +522,187 @@ function aboutMeConfigFunction() {
   observer.observe(statsTrack);
 }
 
-function portfolioConfigFunction() {
-  const config = typeof nahidPortfolioConfig !== "undefined" ? nahidPortfolioConfig : { loop: true, autoplay: true, autoplaySpeed: 4000, slidesPerView: 3 };
-  const projectsData = typeof nahidPortfolioData !== "undefined" ? nahidPortfolioData : [];
-  const slider = document.getElementById("portfolioSlider");
-  const pagination = document.getElementById("sliderPagination");
+// Portfolio Grid Config & Render Function
+function portfolioGridConfigFunction() {
+  const portfolioMeta = typeof nahidPortfolioMeta !== "undefined" ? nahidPortfolioMeta : {};
+  const portfolioConfig = typeof nahidPortfolioConfig !== "undefined" ? nahidPortfolioConfig : {};
+  const portfolioData = typeof nahidPortfolioData !== "undefined" ? nahidPortfolioData : [];
 
-  const metaData = typeof nahidPortfolioMeta !== "undefined" ? nahidPortfolioMeta : null;
-  const headerMainTitle = document.getElementById("portfolioMainTitle");
-  const headerSubTitle = document.getElementById("portfolioSubTitle");
-  const headerDescription = document.getElementById("portfolioDescription");
+  const mainTitleEl = document.getElementById("portfolioMainTitle");
+  const descEl = document.getElementById("portfolioDescription");
+  const gridContainer = document.getElementById("portfolioSlider");
+  const tabsContainer = document.getElementById("nahidPortfolioTabs");
+  const templateCard = document.getElementById("portfolioSlideTemplate");
+  const actionContainer = document.getElementById("nahidPortfolioAction");
+  const toggleBtn = document.getElementById("nahidToggleBtn");
 
-  if (metaData) {
-    if (headerMainTitle && metaData.sectionTitle) headerMainTitle.childNodes[0].textContent = metaData.sectionTitle + " ";
-    if (headerDescription && metaData.portfolioDescription) headerDescription.textContent = metaData.portfolioDescription;
-    if (headerSubTitle && metaData.accentText) headerSubTitle.textContent = metaData.accentText;
+  if (!gridContainer) return;
+
+  // ১. গ্রিড লেআউট সেটআপ
+  const itemsPerView = portfolioConfig.slidesPerView || 3;
+  gridContainer.style.display = "grid";
+
+  // ২. মেটা ডেটা সেটআপ (টাইটেল ও ডেসক্রিপশন)
+  if (mainTitleEl && portfolioMeta.sectionTitle) {
+    const preText = portfolioMeta.sectionTitle;
+    const accentText = portfolioMeta.accentText ? ` <span id="portfolioSubTitle">${portfolioMeta.accentText}</span>` : "";
+    mainTitleEl.innerHTML = `${preText}${accentText}`;
   }
 
-  if (projectsData.length === 0 || !slider || !pagination) return;
-
-  const isMobile = window.innerWidth <= 768;
-  const finalSlidesPerView = isMobile ? 1 : (config.slidesPerView || 3);
-
-  let currentIndex = finalSlidesPerView;
-  let isDragging = false, startX = 0, currentTranslate = 0, prevTranslate = 0, animationID = 0, autoplayTimer = null, isTransitioning = false;
-
-  function createSlideNode(project) {
-    const template = document.getElementById("portfolioSlideTemplate");
-    const slide = template.content.cloneNode(true).querySelector(".portfolio-slide");
-    slide.querySelector(".card-img").src = project.image;
-    slide.querySelector(".card-img").alt = project.title;
-    slide.querySelector(".watermark-text").textContent = project.watermark;
-    slide.querySelector(".project-title").textContent = project.title;
-    slide.querySelector(".project-desc-area").textContent = project.description;
-
-    const tagsContainer = slide.querySelector(".tags-container");
-    tagsContainer.innerHTML = '';
-    project.tags.forEach(tag => {
-      const span = document.createElement("span");
-      span.className = "tag-badge";
-      span.textContent = tag;
-      tagsContainer.appendChild(span);
-    });
-
-    slide.querySelector(".card-action-btn").addEventListener("click", (e) => {
-      e.stopPropagation();
-      document.querySelectorAll(".portfolio-slide").forEach(s => s !== slide && s.classList.remove("expanded"));
-      slide.classList.toggle("expanded");
-      e.target.textContent = slide.classList.contains("expanded") ? "Hide" : "View";
-    });
-    return slide;
+  if (descEl && portfolioMeta.portfolioDescription) {
+    descEl.textContent = portfolioMeta.portfolioDescription;
   }
 
-  function buildSlider() {
-    slider.innerHTML = "";
-    pagination.innerHTML = "";
+  let currentFilter = "All";
+  let isExpanded = false;
+  const initialLimit = 8;
 
-    // Create Pagination
-    projectsData.forEach((_, index) => {
-      const dot = document.createElement("div");
-      dot.classList.add("dot");
-      if (index === 0) dot.classList.add("active");
-      dot.addEventListener("click", () => {
-        stopAutoplay();
-        moveToSlide(index + finalSlidesPerView);
-        startAutoplay();
+  // ৩. ডাইনামিক ট্যাব তৈরি (এখন এটি portfolioMeta.filterTabs থেকে ডেটা নেবে)
+  function buildDynamicTabs() {
+    if (!tabsContainer) return;
+    tabsContainer.innerHTML = "";
+
+    // যদি portfolioMeta-তে filterTabs অ্যারে দেওয়া থাকে, সেটি ব্যবহার করবে, না হলে প্রজেক্ট ডেটা থেকে নেবে
+    let tabsList = [];
+    if (portfolioMeta.filterTabs && Array.isArray(portfolioMeta.filterTabs)) {
+      tabsList = portfolioMeta.filterTabs;
+    } else {
+      const categories = new Set();
+      portfolioData.forEach(item => {
+        if (item.category) categories.add(item.category);
       });
-      pagination.appendChild(dot);
-    });
-
-    // Loop Logic: Add clones
-    const slidesToClone = finalSlidesPerView;
-    for (let i = projectsData.length - slidesToClone; i < projectsData.length; i++) slider.appendChild(createSlideNode(projectsData[i]));
-    projectsData.forEach(project => slider.appendChild(createSlideNode(project)));
-    for (let i = 0; i < slidesToClone; i++) slider.appendChild(createSlideNode(projectsData[i]));
-
-    applyDynamicSlideWidths();
-    updateSliderPosition(false);
-    startAutoplay();
-  }
-
-  function applyDynamicSlideWidths() {
-    const slides = slider.querySelectorAll(".portfolio-slide");
-    const gap = parseFloat(window.getComputedStyle(slider).gap) || 0;
-    slides.forEach(slide => {
-      slide.style.flex = `0 0 calc((100% - ${(finalSlidesPerView - 1) * gap}px) / ${finalSlidesPerView})`;
-    });
-  }
-
-  function updateSliderPosition(animated = true) {
-    const slides = slider.querySelectorAll(".portfolio-slide");
-    const slideWidth = slides[0].offsetWidth;
-    const gap = parseFloat(window.getComputedStyle(slider).gap) || 0;
-    const containerWidth = slider.parentElement.offsetWidth;
-
-    const centerOffset = (containerWidth / 2) - (slideWidth / 2);
-    const translate = centerOffset - (currentIndex * (slideWidth + gap));
-
-    slider.style.transition = animated ? "transform 0.5s ease-out" : "none";
-    slider.style.transform = `translateX(${translate}px)`;
-    prevTranslate = translate;
-
-    // Active class
-    slides.forEach((s, i) => s.classList.toggle("activePortfolioSlide", i === currentIndex));
-
-    // Update dots
-    const realIndex = (currentIndex - finalSlidesPerView + projectsData.length) % projectsData.length;
-    document.querySelectorAll(".slider-pagination .dot").forEach((dot, idx) => dot.classList.toggle("active", idx === realIndex));
-  }
-
-  function moveToSlide(index) {
-    if (isTransitioning) return;
-    isTransitioning = true;
-    currentIndex = index;
-    updateSliderPosition(true);
-    setTimeout(() => isTransitioning = false, 500);
-  }
-
-  // Loop Fix
-  slider.addEventListener("transitionend", () => {
-    isTransitioning = false;
-    if (currentIndex <= finalSlidesPerView - 1) {
-      currentIndex = projectsData.length + (currentIndex % finalSlidesPerView);
-      updateSliderPosition(false);
-    } else if (currentIndex >= projectsData.length + finalSlidesPerView) {
-      currentIndex = finalSlidesPerView;
-      updateSliderPosition(false);
+      tabsList = ["All", ...categories];
     }
-  });
 
-  // Autoplay
-  function startAutoplay() { if (config.autoplay) autoplayTimer = setInterval(() => moveToSlide(currentIndex + 1), config.autoplaySpeed); }
-  function stopAutoplay() { clearInterval(autoplayTimer); }
+    tabsList.forEach((tabName, index) => {
+      const tab = document.createElement("button");
+      tab.className = index === 0 ? "portfolio-tab-btn active" : "portfolio-tab-btn";
+      tab.setAttribute("data-filter", tabName);
+      tab.textContent = tabName;
+      tabsContainer.appendChild(tab);
+    });
+  }
 
-  // Dragging
-  slider.addEventListener("mousedown", (e) => { isDragging = true; startX = e.pageX; stopAutoplay(); });
-  window.addEventListener("mousemove", (e) => { if (!isDragging) return; slider.style.transform = `translateX(${prevTranslate + (e.pageX - startX)}px)`; });
-  window.addEventListener("mouseup", (e) => {
-    if (!isDragging) return;
-    isDragging = false;
-    const movedBy = e.pageX - startX;
-    if (movedBy < -50) moveToSlide(currentIndex + 1);
-    else if (movedBy > 50) moveToSlide(currentIndex - 1);
-    else updateSliderPosition(true);
-    startAutoplay();
-  });
+  // ৪. গ্রিড রেন্ডার এবং ডেটা বাইন্ডিং
+  function renderGrid(filter = "All", expanded = false) {
+    const existingCards = gridContainer.querySelectorAll(".portfolio-slide:not(#portfolioSlideTemplate)");
+    existingCards.forEach(card => card.remove());
 
-  // Nav Buttons
-  document.querySelector(".nahid-portfolio-prev")?.addEventListener("click", () => { stopAutoplay(); moveToSlide(currentIndex - 1); startAutoplay(); });
-  document.querySelector(".nahid-portfolio-next")?.addEventListener("click", () => { stopAutoplay(); moveToSlide(currentIndex + 1); startAutoplay(); });
+    const filteredData = filter === "All"
+      ? portfolioData
+      : portfolioData.filter(item => item.category && item.category.toLowerCase() === filter.toLowerCase());
 
-  window.addEventListener("resize", buildSlider);
-  buildSlider();
+    const itemsToShow = expanded ? filteredData : filteredData.slice(0, initialLimit);
+
+    if (filteredData.length === 0) {
+      const noData = document.createElement("div");
+      noData.style.gridColumn = "1 / -1";
+      noData.style.textAlign = "center";
+      noData.style.padding = "40px";
+      noData.textContent = "No projects found in this category.";
+      gridContainer.appendChild(noData);
+      if (actionContainer) actionContainer.style.display = "none";
+      return;
+    }
+
+    itemsToShow.forEach(data => {
+      let clone = null;
+
+      if (templateCard && templateCard.content) {
+        clone = templateCard.content.cloneNode(true).firstElementChild;
+      } else if (templateCard) {
+        clone = templateCard.cloneNode(true);
+        clone.removeAttribute("id");
+        clone.style.display = "";
+      }
+
+      if (!clone) return;
+
+      const imgEl = clone.querySelector(".card-img");
+      if (imgEl && data.image) {
+        imgEl.src = data.image;
+        imgEl.alt = data.title || "";
+      }
+
+      const watermarkEl = clone.querySelector(".watermark-text");
+      if (watermarkEl) {
+        watermarkEl.textContent = data.watermark || data.title || "";
+      }
+
+      const titleEl = clone.querySelector(".project-title");
+      if (titleEl) {
+        titleEl.textContent = data.title || "";
+      }
+
+      const cardDescEl = clone.querySelector(".project-desc-area");
+      if (cardDescEl) {
+        cardDescEl.textContent = data.description || "";
+      }
+
+      const tagsContainer = clone.querySelector(".tags-container");
+      if (tagsContainer && data.tags && Array.isArray(data.tags)) {
+        tagsContainer.innerHTML = "";
+        data.tags.forEach(tag => {
+          const tagSpan = document.createElement("span");
+          tagSpan.className = "tag-badge";
+          tagSpan.textContent = tag;
+          tagsContainer.appendChild(tagSpan);
+        });
+      }
+
+      const actionBtn = clone.querySelector(".card-action-btn");
+      if (actionBtn) {
+        actionBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          clone.classList.toggle("expanded");
+        });
+      }
+
+      gridContainer.appendChild(clone);
+    });
+
+    if (actionContainer && toggleBtn) {
+      if (filteredData.length > initialLimit) {
+        actionContainer.style.display = "block";
+        toggleBtn.textContent = expanded ? "Show Less" : "Show More";
+      } else {
+        actionContainer.style.display = "none";
+      }
+    }
+  }
+
+  // ৫. ট্যাব ক্লিক ইভেন্ট হ্যান্ডলার
+  if (tabsContainer) {
+    tabsContainer.addEventListener("click", (e) => {
+      if (e.target.classList.contains("portfolio-tab-btn")) {
+        tabsContainer.querySelectorAll(".portfolio-tab-btn").forEach(btn => btn.classList.remove("active"));
+        e.target.classList.add("active");
+
+        currentFilter = e.target.getAttribute("data-filter");
+        isExpanded = false;
+        renderGrid(currentFilter, isExpanded);
+      }
+    });
+  }
+
+  // ৬. টগল ইভেন্ট হ্যান্ডলার
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      isExpanded = !isExpanded;
+      renderGrid(currentFilter, isExpanded);
+
+      if (!isExpanded) {
+        const sectionEl = document.getElementById("nahidPortfolioSection");
+        if (sectionEl) {
+          sectionEl.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    });
+  }
+
+  // ইনিশিয়ালাইজেশন
+  buildDynamicTabs();
+  renderGrid("All", false);
 }
 
 // Testimonial Config Function 
@@ -1675,8 +1704,6 @@ function footerConfigFunction() {
   }
 }
 
-
-
 //  Premium Custom Cursor Initializer Engine
 function initCustomCursor() {
   // 1. Mobile / Touch devices checks mapping ( tactile unit detection )
@@ -1809,7 +1836,7 @@ function masterFunction() {
   serviceConfigFunction();
   experienceConfigFunction();
   aboutMeConfigFunction();
-  portfolioConfigFunction();
+  portfolioGridConfigFunction();
   testimonialConfigFunction();
   projectFormConfigFunction();
   marqueeConfigFunction();

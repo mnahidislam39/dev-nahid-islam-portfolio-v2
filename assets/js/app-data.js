@@ -209,7 +209,7 @@ const nahidPortfolioMeta = {
   accentText: "Projects",
   portfolioDescription:
     "A selection of recent work showcasing expertise across web development, e-commerce, and custom solutions.",
-  // sectionSubtitle: "See All",
+  filterTabs: ["All", "Shopify", "Wordpress", "Custom"],
 };
 
 const nahidPortfolioConfig = {
@@ -224,8 +224,9 @@ const nahidPortfolioData = [
     id: 1,
     title: "portfoilo",
     watermark: "portfoilo",
+    category: "Custom", // ডাইনামিক ট্যাবের জন্য ক্যাটাগরি
     image: "assets/images/portfoilo.webp",
-    images: ["assets/images/portfoilo.webp", "assets/images/grow-business.webp"], // পপআপের জন্য একাধিক ইমেজ
+    images: ["assets/images/portfoilo.webp", "assets/images/grow-business.webp"],
     link: "#",
     tags: ["HTML", "CSS", "Tailwind CSS", "JavaScript"],
     description:
@@ -235,6 +236,7 @@ const nahidPortfolioData = [
     id: 2,
     title: "grow-axit-business",
     watermark: "grow-axit-business",
+    category: "Custom",
     image: "assets/images/grow-axit-business.webp",
     images: ["assets/images/grow-axit-business.webp", "assets/images/portfoilo.webp"],
     link: "#",
@@ -246,6 +248,7 @@ const nahidPortfolioData = [
     id: 3,
     title: "Grow Business",
     watermark: "Grow Business",
+    category: "WordPress",
     image: "assets/images/grow-business.webp",
     images: ["assets/images/grow-business.webp", "assets/images/grow-axit-businessdRK.webp"],
     link: "#",
@@ -257,6 +260,7 @@ const nahidPortfolioData = [
     id: 4,
     title: "Fotocademia - E-commerce Platform",
     watermark: "Fotocademia",
+    category: "Shopify",
     image: "assets/images/grow-business.webp",
     images: ["assets/images/grow-business.webp", "assets/images/grow-axit-businessdRK.webp"],
     link: "#",

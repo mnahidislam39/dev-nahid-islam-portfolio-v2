@@ -15,7 +15,7 @@
    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
 </head>
 
-<body>
+<body class="body">
 
    <div class="main-wrapper">
       <div class="main">
@@ -298,15 +298,17 @@
                      <p class="portfolio-description" id="portfolioDescription"></p>
                   </div>
 
-                  <!-- স্লাইডার এরিয়া -->
-                  <div class="slider-wrapper">
-                     <div class="slider-track" id="portfolioSlider"></div>
-                  </div>
+                  <!-- ডাইনামিক ক্যাটাগরি ট্যাব কন্টেইনার (ট্যাবগুলো এখানে অটো জেনারেট হবে) -->
+                  <div class="portfolio-tabs-container" id="nahidPortfolioTabs"></div>
+
+                  <!-- গ্রিড এরিয়া (স্লাইডার ট্র্যাকের জায়গায় গ্রিড হিসেবে কাজ করবে) -->
+                  <div class="slider-track" id="portfolioSlider"></div>
+
                   <!-- টেমপ্লেট (এটি এইচটিএমএল ফাইলেই থাকবে) -->
                   <template id="portfolioSlideTemplate">
                      <div class="portfolio-slide">
                         <div class="slide-card">
-                           <img class="card-img" src="" alt="">
+                           <img class="card-img" src="" alt="" loading="lazy">
                            <div class="watermark-text"></div>
                            <button class="card-action-btn" type="button">View</button>
 
@@ -321,12 +323,13 @@
                      </div>
                   </template>
 
-                  <!-- পেজিনেশন -->
-                  <div class="slider-pagination" id="sliderPagination"></div>
+                  <!-- Show More / Show Less Button Container -->
+                  <div class="portfolio-action-container" id="nahidPortfolioAction"
+                     style="display: none; text-align: center; margin-top: 30px;">
+                     <button class="portfolio-show-more-btn" id="nahidToggleBtn" type="button"
+                        style="padding: 10px 24px; cursor: pointer;">Show More</button>
+                  </div>
 
-                  <!-- ন্যাভ বাটনস -->
-                  <button class="nahid-portfolio-prev"> ❮ </button>
-                  <button class="nahid-portfolio-next"> ❯ </button>
                </div>
 
             </div>
@@ -656,6 +659,8 @@
 
       </div>
    </div>
+
+
 
 
    <script src="assets/js/marque.js"></script>

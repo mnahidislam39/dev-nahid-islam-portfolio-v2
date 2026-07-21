@@ -4,9 +4,9 @@
 
 .portfolio-section {
   font-family: var(--font-family);
+  overflow: hidden;
 
   .portfolio-container {
-    max-width: 1440px;
     margin: 0 auto;
     padding: 0 40px;
     box-sizing: border-box;
@@ -18,64 +18,11 @@
       align-items: center;
       justify-content: center;
       gap: 20px;
-    }
-
-    /* .slider-track বা #portfolioSlider এর জন্য */
-    #portfolioSlider {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      /* এটি স্লাইডগুলোকে ভার্টিক্যালি সেন্টারে রাখবে */
-      gap: 30px;
-      /* স্লাইডের মাঝখানে গ্যাপ */
-      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-      will-change: transform;
-    }
-
-    /* স্লাইডগুলোকে স্কেলের মাধ্যমে সেন্টারিং এফেক্ট দেওয়া */
-    .portfolio-slide {
-      transition: transform 0.4s ease, opacity 0.4s ease;
-      transform: scale(0.85);
-      /* সাইড স্লাইডগুলো ছোট থাকবে */
-      opacity: 0.5;
-
-      &.activePortfolioSlide {
-        transform: scale(1);
-        /* মাঝখানের স্লাইডটি বড় হবে */
-        opacity: 1;
-      }
+      width: 100%;
     }
 
     span#portfolioSubTitle {
       color: var(--primary-color);
-    }
-
-    .nahid-portfolio-prev,
-    .nahid-portfolio-next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: var(--secondary-color);
-      border: 1px solid var(--secondary-color);
-      color: var(--text-light);
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      transition: all .3s ease;
-    }
-
-    .nahid-portfolio-prev {
-      left: 0;
-    }
-
-    .nahid-portfolio-next {
-      right: 0;
     }
   }
 
@@ -91,40 +38,92 @@
     text-align: center;
   }
 
+  /* ডাইনামিক ক্যাটাগরি ট্যাব স্টাইল */
+  .portfolio-tabs-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0 10px 0;
+    width: 100%;
+
+    .portfolio-tab-btn {
+      background: var(--bg-card, rgba(255, 255, 255, 0.05));
+      border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+      color: var(--text-color, inherit);
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      &.active {
+        background: var(--primary-color);
+        color: #fff;
+        border-color: var(--primary-color);
+        box-shadow: 0 4px 12px rgba(255, 125, 68, 0.3);
+      }
+    }
+  }
+
+  /* স্লাইডার ট্র্যাক থেকে রেসপন্সিভ গ্রিড লেআউটে রূপান্তর */
   .slider-wrapper {
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
     position: relative;
     border-radius: 24px;
   }
 
   .slider-track {
-    display: flex;
-    // gap: 30px;
-    will-change: transform;
-    cursor: grab;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    will-change: auto;
+    cursor: default;
     padding: 10px 0;
+    width: 100%;
+    transform: none !important;
+    transition: none !important;
+
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   .portfolio-slide {
-    flex: 0 0 auto;
-    /* এটি কার্ডের সাইজ নড়াচড়া করতে দেবে না */
+    flex: unset;
     box-sizing: border-box;
     user-select: none;
     position: relative;
     box-shadow: 0 0 10px -5px var(--secondary-color);
     border-radius: 25px;
     transition: 0.4s ease;
-    transform: scale(.8);
-    opacity: .2;
+    transform: none !important;
+    /* গ্রিডে স্কেল রিমুভ করা হলো */
+    opacity: 1 !important;
+    /* সব কার্ড ফুল ভিজিবল থাকবে */
 
     &.activePortfolioSlide {
-      transform: scale(1); // মাঝখানের স্লাইডটি সামান্য বড় হবে
-      opacity: 1;
-
+      transform: none !important;
+      opacity: 1 !important;
     }
 
-    // যখন কার্ড এক্সপ্যান্ড হবে তখন ওভারলে ডিটেইলস দেখাবে
+    /* যখন কার্ড এক্সপ্যান্ড হবে তখন ওভারলে ডিটেইলস দেখাবে */
     &.expanded {
       .slide-expanded-details {
         opacity: 1;
@@ -140,9 +139,6 @@
     height: 480px;
     border-radius: 24px;
     overflow: hidden;
-    // background-color: rgba(255, 255, 255, 0.03);
-    // border: 1px solid rgba(255, 255, 255, 0.08);
-    // box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
 
     img {
       width: 100%;
@@ -214,7 +210,6 @@
     pointer-events: none;
   }
 
-  // বডি এবং রেসপন্সিভ স্টাইলগুলো আগের মতোই থাকল...
   .tags-container {
     display: flex;
     justify-content: center;
@@ -222,10 +217,9 @@
     flex-wrap: wrap;
     margin-bottom: 25px;
     flex-direction: column;
-    width: -webkit-fill-available;
+    width: 100%;
     align-items: flex-start;
   }
-
 
   .project-title-area {
     font-size: 38px;
@@ -238,27 +232,11 @@
     color: var(--text-dark);
   }
 
-
-  .slider-pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background-color: var(--primary-color);
-      cursor: pointer;
-      transition: var(--transition-smooth);
-
-      &.active {
-        width: 40px;
-        border-radius: 20px;
-        background-color: var(--primary-color);
-      }
-    }
+  /* পেজিনেশন এবং স্লাইডার নেভিগেশন বাটন গ্রিড লেআউটে হাইড রাখা হলো */
+  .slider-pagination,
+  .nahid-portfolio-prev,
+  .nahid-portfolio-next {
+    display: none !important;
   }
 
   .dynamic-content-area {
@@ -272,14 +250,6 @@
     }
   }
 
-  .tags-container {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 25px;
-  }
-
   .tag-badge {
     padding: 0;
     background-color: rgba(255, 255, 255, 0.05);
@@ -288,18 +258,6 @@
     font-size: 15px;
     font-weight: 500;
     border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .project-title-area {
-    font-size: 38px;
-    font-weight: 700;
-    color: var(--secondary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin-bottom: 18px;
-    letter-spacing: -0.5px;
   }
 
   .arrow-link {
@@ -327,11 +285,29 @@
     }
   }
 
-  .project-desc-area {
-    font-size: 17px;
-    line-height: 1.65;
-    color: var(--text-dark);
-    font-weight: 400;
+  /* Show More / Show Less Button Styling */
+  .portfolio-action-container {
+    text-align: center;
+    margin-top: 40px;
+    width: 100%;
+
+    .portfolio-show-more-btn {
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 12px 36px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: var(--primary-color);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(255, 125, 68, 0.3);
+      }
+    }
   }
 
   @media (max-width: 1024px) {
@@ -359,19 +335,14 @@
       gap: 25px;
     }
 
-    .portfolio-slide {
-      flex: 0 0 100%;
-      min-width: 100%;
-    }
-
     .project-title-area {
       font-size: 26px;
     }
 
     .watermark-text {
-      font-size: 42px;
-      bottom: 25px;
-      left: 25px;
+      font-size: 32px;
+      bottom: 0px;
+      left: 0px;
     }
   }
 }

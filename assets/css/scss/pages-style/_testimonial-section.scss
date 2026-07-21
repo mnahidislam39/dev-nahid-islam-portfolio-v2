@@ -5,25 +5,7 @@
 .testimonial-section {
   background: var(--dark-bg);
   position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: "\2605";
-    position: absolute;
-    top: 30%;
-    left: 20%;
-    color: rgb(0 191 99 / 41%);
-    font-size: 40px;
-  }
-
-  &::after {
-    content: "\2605";
-    position: absolute;
-    top: 22%;
-    right: 20%;
-    color: rgb(0 191 99 / 41%);
-    font-size: 30px;
-  }
+  overflow: hidden; // অ্যানিমেশন সেকশনের বাইরে যাতে না যায়
 
   .testimonial-container {
     max-width: 1440px;
@@ -233,6 +215,8 @@
     }
   }
 
+
+
   @media (max-width: 1024px) {
     .testimonial-title {
       font-size: 38px;
@@ -255,5 +239,16 @@
     .review-glass-card {
       padding: 25px;
     }
+  }
+}
+
+/* স্মুথ ফ্লোটিং অ্যানিমেশন */
+@keyframes portfolioOrbFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(50px, 50px) scale(1.1);
   }
 }
