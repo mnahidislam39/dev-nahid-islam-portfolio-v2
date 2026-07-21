@@ -131,6 +131,33 @@
   /* ==========================================
      RESPONSIVE RENDERING PARAMETERS CONTROLS
      ========================================== */
+  @media (min-width:992px) {
+    .nahid-hire-media-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 480px;
+      height: 500px;
+      background: var(--primary-color);
+      border: 1px solid hsla(0, 0%, 100%, .08);
+      border-radius: 120px 40px 40px 18px;
+      z-index: 1;
+    }
+
+    .nahid-hire-avatar {
+      position: absolute;
+      z-index: 2;
+      max-height: 500px;
+      width: -webkit-fill-available;
+      -o-object-fit: contain;
+      object-fit: contain;
+      transform: translate(-3px, -50px) scale(1.2);
+      bottom: 0;
+      height: 100%;
+    }
+  }
+
   @media (max-width: 991.99px) {
     .nahid-hire-container {
       grid-template-columns: 1fr;
@@ -154,18 +181,22 @@
 
     .nahid-asymmetric-bg-card {
       width: 340px;
+      position: absolute;
+      height: 100%;
     }
 
     .nahid-hire-avatar {
-      transform: translate(0, -18px) scale(1.1);
+      transform: translate(0, -20px) scale(1.1);
+      height: 100%;
     }
   }
 
   @media (max-width: 425px) {
     .nahid-asymmetric-bg-card {
+      position: absolute;
       transform: translate(0, 0);
       width: -webkit-fill-available;
-      height: 350px;
+      height: 100%;
       border-radius: 120px 40px 56px 50px;
     }
 
