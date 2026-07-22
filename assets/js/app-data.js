@@ -46,7 +46,7 @@ const nahidHeroConfig = {
     title: "Full Stack Developer",
   },
   media: {
-    imgSrc: "assets/images/nahid.webp",
+    imgSrc: "assets/images/nahidislam.webp",
     altText: "Nahid Islam - Full Stack Developer",
   },
   ctas: {
@@ -173,7 +173,7 @@ const nahidHireMeta = {
   titleAccent: "Hire me?",
   description:
     "I'm a Shopify-focused Full-Stack Web Developer. My primary expertise lies in Shopify store development, customization, and performance optimization, helping businesses build scalable and conversion-focused online stores. Alongside Shopify, I have strong expertise in HTML, CSS, Bootstrap, Tailwind CSS, SASS, JavaScript, jQuery, Vue.js, PHP, and Laravel, allowing me to handle both front-end and back-end development efficiently.",
-  avatarImg: "assets/images/nahid.webp", // Apnar high-end png image path eikhane bhashaben
+  avatarImg: "assets/images/nahidislam.webp", // Apnar high-end png image path eikhane bhashaben
   ctaText: "Hire me ↗",
   ctaLink: "#contact",
 };
