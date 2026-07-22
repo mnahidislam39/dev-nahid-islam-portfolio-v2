@@ -336,7 +336,7 @@ const nahidTestimonialData = [
 // ==========================================
 const nahidCtaConfig = {
   heading: {
-    textNormal: "Have an Awsome Project Idea? ",
+    textNormal: "Project Idea? ",
     textHighlight: "Let's Discuss",
   },
   form: {
@@ -527,7 +527,7 @@ const nahidFaqConfig = {
 // WORKFLOW SECTION DATA
 // ==========================================
 const nahidWorkflowConfig = {
-  titleNormal: "My Professional ",
+  titleNormal: "My ",
   titleHighlight: "Work Process",
 };
 const nahidWorkflowData = [

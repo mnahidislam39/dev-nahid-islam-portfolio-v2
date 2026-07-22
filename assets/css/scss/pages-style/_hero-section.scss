@@ -13,7 +13,7 @@
   width: 100%;
 
   .hero-container {
-    
+
     .hero {
       position: relative;
       display: flex;
@@ -32,8 +32,7 @@
         -webkit-backdrop-filter: blur(5px);
         padding: 6px 20px;
         border-radius: 30px;
-        font-weight: 600;
-        font-size: 16px;
+
         margin-bottom: 25px;
         z-index: 12;
         color: #ffffff;
@@ -46,11 +45,7 @@
       }
 
       .hero-heading {
-        font-size: 84px;
-        font-weight: 800;
-        line-height: 1.1;
         text-align: center;
-        letter-spacing: -2px;
         margin-bottom: -30px;
         position: relative;
         z-index: 11;
@@ -175,8 +170,7 @@
         text-decoration: none;
         padding: 12px 24px;
         border-radius: 100px;
-        font-weight: 600;
-        font-size: 15px;
+
         display: flex;
         align-items: center;
         gap: 8px;
@@ -191,8 +185,7 @@
         color: #ffffff;
         text-decoration: none;
         padding: 12px 20px;
-        font-weight: 500;
-        font-size: 15px;
+
         transition: opacity 0.2s ease;
 
         &:hover {
@@ -209,18 +202,14 @@
       }
 
       .quote-icon {
-        font-size: 48px;
         color: var(--primary-color);
         font-family: serif;
-        line-height: 1;
         display: block;
       }
 
       .quote-text {
-        font-size: 14px;
         color: var(--text-dark);
-        line-height: 1.5;
-        font-weight: 500;
+
       }
 
       .hero-right-widget {
@@ -233,19 +222,15 @@
 
       .rating-stars {
         color: var(--primary-color);
-        font-size: 18px;
         margin-bottom: 8px;
       }
 
       .experience-years {
-        font-weight: 800;
-        line-height: 1;
         color: var(--primary-color);
       }
 
       .experience-text {
         color: var(--text-dark);
-        font-weight: 500;
       }
 
       .deco-line-left {
@@ -273,9 +258,6 @@
 }
 
 @media (max-width: 991px) {
-  .hero-heading {
-    font-size: 64px;
-  }
 
   .hero-left-widget,
   .hero-right-widget {
@@ -305,7 +287,6 @@
         }
 
         .hero-heading {
-          font-size: 44px;
           margin-bottom: -20px;
         }
 

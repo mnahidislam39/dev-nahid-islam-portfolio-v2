@@ -76,8 +76,7 @@
   }
 
   .nahid-hire-description {
-    font-size: 1.05rem;
-    line-height: 1.65;
+
     color: var(--text-dark);
   }
 
@@ -100,15 +99,11 @@
     justify-content: center;
 
     .stat-counter-number {
-      font-weight: 700;
       color: var(--primary-color);
-      line-height: 1;
     }
 
     .stat-counter-label {
-      font-size: 1rem;
       color: var(--text-dark);
-      font-weight: 500;
       margin: 0;
     }
   }

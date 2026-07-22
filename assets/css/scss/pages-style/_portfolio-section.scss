@@ -7,7 +7,6 @@
   overflow: hidden;
 
   .portfolio-container {
-
     .portfolio {
       position: relative;
       display: flex;
@@ -51,8 +50,6 @@
       color: var(--text-color, inherit);
       padding: 10px 24px;
       border-radius: 30px;
-      font-size: 15px;
-      font-weight: 500;
       cursor: pointer;
       transition: all 0.3s ease;
 
@@ -86,8 +83,8 @@
     cursor: default;
     padding: 10px 0;
     width: 100%;
-    transform: none !important;
-    transition: none !important;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
 
     @media (max-width: 1200px) {
       grid-template-columns: repeat(3, 1fr);
@@ -111,9 +108,8 @@
     border-radius: 25px;
     transition: 0.4s ease;
     transform: none !important;
-    /* গ্রিডে স্কেল রিমুভ করা হলো */
     opacity: 1 !important;
-    /* সব কার্ড ফুল ভিজিবল থাকবে */
+    animation: zoomInCard 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
     &.activePortfolioSlide {
       transform: none !important;
@@ -127,6 +123,25 @@
         visibility: visible;
         transform: translateY(0);
       }
+
+      .card-action-btn {
+        background-color: var(--text-dark, #222);
+        /* চাইলে వ్యூ বাটনের কালার পরিবর্তন করতে পারেন */
+      }
+    }
+  }
+
+  @keyframes zoomInCard {
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+      /* একটু ছোট থেকে শুরু হবে */
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+      /* মাপে এসে থামবে */
     }
   }
 
@@ -150,40 +165,42 @@
       transform: translateY(calc(-100% + 480px));
     }
 
-    // ডিটেইলস ওভারলে স্টাইল
+    /* ডিটেইলস ওভারলে স্টাইল সংশোধন করা হলো যাতে কার্ডের ওপর প্রপারলি বসে */
     .slide-expanded-details {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: #ffff;
+      background: #ffffff;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+      justify-content: start;
+      align-items: start;
+      gap: 16px;
+      padding: 30px;
       opacity: 0;
       visibility: hidden;
       transform: translateY(10px);
       transition: all 0.4s ease;
       z-index: 5;
-      text-align: center;
+      text-align: left;
     }
 
     .card-action-btn {
       position: absolute;
-      bottom: 6px;
+      bottom: 7px;
       right: 20px;
       z-index: 10;
       background: var(--primary-color);
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 8px 18px;
       border-radius: 30px;
       cursor: pointer;
-      font-weight: 600;
       transition: 0.3s;
+      pointer-events: auto;
+      /* নিশ্চিত করা হলো যাতে ক্লিক সঠিকভাবে পায় */
 
       &:hover {
         opacity: 0.9;
@@ -196,7 +213,6 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    font-weight: 800;
     color: var(--primary-color);
     background: var(--secondary-color);
     width: 100%;
@@ -204,35 +220,27 @@
     padding: 10px;
     z-index: 3;
     pointer-events: none;
+    /* যাতে ওয়াটারমার্কের টেক্সটে মাউস ইভেন্ট আটকে না যায় */
     display: flex;
     justify-content: space-between;
 
-    .watermark-text {
-      font-size: 20px;
-    }
+    .watermark-text {}
   }
-
 
   .tags-container {
     display: flex;
-    justify-content: center;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 25px;
-    flex-direction: column;
+    flex-direction: row;
+    /* রো வைজ ট্যাগগুলো সুন্দর দেখানোর জন্য */
     width: 100%;
-    align-items: flex-start;
+    align-items: center;
   }
 
-  .project-title-area {
-    font-size: 38px;
-    margin-bottom: 18px;
-  }
+  .project-title-area {}
 
   .project-desc-area {
-    font-size: 17px;
-    line-height: 1.65;
-    color: var(--text-dark);
+    color: var(--text-dark, #555);
   }
 
   /* পেজিনেশন এবং স্লাইডার নেভিগেশন বাটন গ্রিড লেআউটে হাইড রাখা হলো */
@@ -254,38 +262,11 @@
   }
 
   .tag-badge {
-    padding: 0;
-    background-color: rgba(255, 255, 255, 0.05);
+    padding: 4px 12px;
     color: var(--secondary-color);
     border-radius: 30px;
-    font-size: 15px;
-    font-weight: 500;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .arrow-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background-color: var(--primary-color);
-    color: var(--text-light);
-    border-radius: 50%;
-    text-decoration: none;
-    transition: var(--transition-smooth);
-    box-shadow: 0 4px 12px rgba(255, 125, 68, 0.3);
-
-    &:hover {
-      background-color: var(--primary-color);
-      opacity: 0.9;
-      transform: scale(1.08) rotate(15deg);
-    }
-
-    svg {
-      width: 22px;
-      height: 22px;
-    }
+    border: 1px solid var(--primary-color);
+    font-size: 14px;
   }
 
   /* Show More / Show Less Button Styling */
@@ -299,8 +280,6 @@
       border: 2px solid var(--primary-color);
       color: var(--primary-color);
       padding: 12px 36px;
-      font-size: 16px;
-      font-weight: 600;
       border-radius: 30px;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -313,43 +292,17 @@
     }
   }
 
-  @media (max-width: 1024px) {
-    .portfolio-container {
-      .portfolio {}
-    }
-
-    .portfolio-title {
-      font-size: 38px;
-    }
-
-    .project-title-area {
-      font-size: 32px;
-    }
-  }
-
   @media (max-width: 768px) {
-    .portfolio-section {
-      padding: 60px 0;
-    }
+    padding: 60px 0;
 
     .portfolio-header {
       flex-direction: column;
-
       gap: 25px;
-    }
-
-    .project-title-area {
-      font-size: 26px;
     }
 
     .watermarks {
       bottom: 0px;
       left: 0px;
-
-      .watermark-text {
-        font-size: 18px;
-      }
     }
-
   }
 }

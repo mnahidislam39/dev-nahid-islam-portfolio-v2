@@ -1,71 +1,30 @@
 @use "sass:list";
 @use "../base/variables" as *;
 
-/* Responsive Typography setup */
-/* Ekhane shob headling ebong paragraph er font size, weight ar line-height define kora hoyeche */
-$fonts_config: (
-  "h1": (
-    56px,
-    36px,
-    1.2,
-    700,
-  ),
-  "h2": (
-    48px,
-    32px,
-    1.2,
-    600,
-  ),
-  "h3": (
-    40px,
-    28px,
-    1.3,
-    500,
-  ),
-  "h4": (
-    32px,
-    24px,
-    1.3,
-    500,
-  ),
-  "h5": (
-    24px,
-    20px,
-    1.4,
-    400,
-  ),
-  "h6": (
-    20px,
-    18px,
-    1.4,
-    400,
-  ),
-  "p": (
-    16px,
-    16px,
-    1.6,
-    400,
-  ),
+// Based on H1 max-size of 5.25rem and H2 max-size of 3.50rem, scaled proportionally down to H6 and paragraph.
+$typography: (
+  'h1': (3.5rem, 3vw, 5.25rem, 800, 1.1, -2px),
+  'h2': (2.4rem, 2vw, 3.50rem, 800, 1.2, -1px),
+  'h3': (1.8rem, 1.4vw, 2.33rem, 800, 1.2, 0px),
+  'h4': (1.35rem, 1vw, 1.55rem, 800, 1.3, 0px),
+  'h5': (1.1rem, 0.6vw, 1.25rem, 600, 1.3, 0px),
+  'h6': (0.95rem, 0.3vw, 1.05rem, 600, 1.4, 0px),
+  'p': (0.9rem, 0.3vw, 1rem, 400, 1.5, 0px)
 );
 
-/* Heading and Paragraph generation loop */
-/* Ei loop ta fonts_config map theke data niye auto CSS generate korbe ebong mobile er jonno responsive size set korbe */
-@each $name, $values in $fonts_config {
-  #{$name} {
-    font-size: list.nth($values, 1);
-    line-height: list.nth($values, 3);
-    font-weight: list.nth($values, 4);
-    font-family: $font-primary;
-
-    @media (max-width: $md-width) {
-      font-size: list.nth($values, 2);
-    }
+// Automatically generate properties for each tag
+@each $tag, $values in $typography {
+  #{$tag} {
+    font-size: clamp(nth($values, 1), calc(#{nth($values, 1)} + #{nth($values, 2)}), nth($values, 3));
+    font-weight: nth($values, 4);
+    line-height: nth($values, 5);
+    letter-spacing: nth($values, 6);
   }
 }
 
-/* Layout Utilities */
 /* Prottekta element er display property set korar jonno ei short utility classes gulo banano hoyeche */
 $display_list: block, inline-block, flex, grid, none;
+
 @each $val in $display_list {
   .d-#{$val} {
     display: $val;
@@ -81,6 +40,7 @@ $justify_list: (
   "start": flex-start,
   "end": flex-end,
 );
+
 @each $key, $val in $justify_list {
   .justify-#{$key} {
     justify-content: $val;
@@ -94,6 +54,7 @@ $align_list: (
   "start": flex-start,
   "end": flex-end,
 );
+
 @each $key, $val in $align_list {
   .align-#{$key} {
     align-items: $val;
@@ -105,6 +66,7 @@ $align_list: (
 .pos-relative {
   position: relative;
 }
+
 .pos-absolute {
   position: absolute;
 }
@@ -130,6 +92,7 @@ $align_list: (
 .none {
   text-decoration: none;
 }
+
 .underline {
   text-decoration: underline;
 }

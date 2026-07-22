@@ -32,11 +32,9 @@
   }
 
   .connect-title {
-    font-size: 56px;
-    font-weight: 700;
+
     color: #ffffff;
     margin: 0;
-    letter-spacing: -1.5px;
   }
 
   .footer-hire-btn {
@@ -45,8 +43,6 @@
     text-decoration: none;
     padding: 18px 36px;
     border-radius: 100px;
-    font-size: 18px;
-    font-weight: 600;
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -91,15 +87,12 @@
   }
 
   .brand-logo-text {
-    font-size: 24px;
-    font-weight: 800;
+
     color: #ffffff;
-    letter-spacing: 0.5px;
   }
 
   .footer-brand-desc {
-    font-size: 15px;
-    line-height: 1.6;
+
     color: #cbd5e0;
     margin: 0 0 24px 0;
   }
@@ -122,15 +115,18 @@
   .footer-co-title {
     color: var(--primary-color);
   }
+
   .footer-links-col,
   .footer-newsletter-col {
     display: flex;
     gap: 20px;
     flex-direction: column;
   }
+
   li#nahidFooterNav-3 a {
     color: #00bf63;
-}
+  }
+
   .footer-link-list {
     list-style: none;
     padding: 0;
@@ -138,6 +134,7 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+
     #nahidFooterContact-1 a {
       text-transform: lowercase;
     }
@@ -145,8 +142,7 @@
     a {
       color: #ffffff;
       text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
+
       transition: var(--transition-smooth);
 
       &:hover {
@@ -163,6 +159,7 @@
     padding: 6px;
     align-items: center;
   }
+
   /* Input field er base style */
   .input-field-class {
     border-radius: 25px;
@@ -176,10 +173,14 @@
   textarea:-webkit-autofill,
   textarea:-webkit-autofill:hover,
   textarea:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 1000px transparent inset !important; /* Transparent background */
-    -webkit-text-fill-color: #000 !important; /* Text color black */
-    transition: background-color 5000s ease-in-out 0s; /* Fix for browser autofill */
-    border-radius: 25px !important; /* Maintaining border radius */
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+    /* Transparent background */
+    -webkit-text-fill-color: #000 !important;
+    /* Text color black */
+    transition: background-color 5000s ease-in-out 0s;
+    /* Fix for browser autofill */
+    border-radius: 25px !important;
+    /* Maintaining border radius */
   }
 
   /* Select field er jonno ekti highly specific rule */
@@ -200,13 +201,13 @@
     -webkit-appearance: none !important;
     appearance: none !important;
   }
+
   .newsletter-input {
     flex: 1;
     background: transparent;
     border: none;
     outline: none;
     padding: 12px 16px;
-    font-size: 15px;
     color: #ffffff;
     width: 100%;
 
@@ -245,7 +246,6 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 32px;
-    font-size: 14px;
   }
 
   .copyright-text {
@@ -271,13 +271,16 @@
   .policy-modal {
     display: none;
     position: fixed;
-    z-index: 99999; /* যেন সব এলিমেন্টের উপরে থাকে */
+    z-index: 99999;
+    /* যেন সব এলিমেন্টের উপরে থাকে */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(6, 14, 26, 0.85); /* ডার্ক থিম */
-    backdrop-filter: blur(6px); /* গ্লাস মরফিজম */
+    background-color: rgba(6, 14, 26, 0.85);
+    /* ডার্ক থিম */
+    backdrop-filter: blur(6px);
+    /* গ্লাস মরফিজম */
     align-items: center;
     justify-content: center;
   }
@@ -290,7 +293,8 @@
   /* মোডাল কন্টেন্ট বক্স */
   .policy-modal-content {
     background-color: #0c1a30;
-    border: 1px solid #00e676; /* নিয়ন গ্রিন */
+    border: 1px solid #00e676;
+    /* নিয়ন গ্রিন */
     border-radius: 12px;
     width: 90%;
     max-width: 600px;
@@ -311,15 +315,13 @@
   .policy-modal-header h3 {
     margin: 0;
     color: #fff;
-    font-size: 1.2rem;
-    font-weight: 600;
+
     text-transform: uppercase;
   }
 
   .policy-modal-close {
     color: #888;
-    font-size: 32px;
-    line-height: 20px;
+
     cursor: pointer;
     transition: color 0.2s;
   }
@@ -357,14 +359,12 @@
   .policy-icon-title h4 {
     margin: 0;
     color: #ffffff;
-    font-size: 1.05rem;
   }
 
   .policy-item p {
     margin: 0;
     color: #ccd6f6;
-    font-size: 0.9rem;
-    line-height: 1.6;
+
     padding-left: 36px;
   }
 
@@ -373,6 +373,7 @@
       transform: scale(0.95);
       opacity: 0;
     }
+
     to {
       transform: scale(1);
       opacity: 1;
@@ -419,17 +420,15 @@
 
     h3 {
       font-family: var(--font-family), sans-serif;
-      font-size: 26px;
-      font-weight: 700;
+
       color: #111111;
       margin-bottom: 12px;
     }
 
     p {
       font-family: var(--font-family), sans-serif;
-      font-size: 15px;
+
       color: #555555;
-      line-height: 1.6;
       margin-bottom: 25px;
     }
   }
@@ -440,7 +439,6 @@
     right: 20px;
     background: transparent;
     border: none;
-    font-size: 28px;
     color: #999999;
     cursor: pointer;
     transition: color 0.2s ease;
@@ -461,8 +459,7 @@
     padding: 14px 28px;
     border-radius: 30px;
     font-family: var(--font-family), sans-serif;
-    font-size: 16px;
-    font-weight: 600;
+
     box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
     transition:
       transform 0.2s ease,
@@ -477,6 +474,7 @@
       transform: translateY(-2px);
     }
   }
+
   @media (max-width: 1024px) {
     .footer-main-grid {
       grid-template-columns: 1fr 1fr;
@@ -490,9 +488,9 @@
       background: none;
       border: none;
     }
+
     .footer-hire-btn {
       padding: 12px 20px;
-      font-size: 18px;
     }
 
     .footer-connect-banner {
@@ -501,9 +499,7 @@
       gap: 24px;
     }
 
-    .connect-title {
-      font-size: 24px;
-    }
+    .connect-title {}
 
     .footer-main-grid {
       grid-template-columns: 1fr;
@@ -520,8 +516,6 @@
 }
 
 // Responsive States
-@media (max-width: $lg-width) {
-}
+@media (max-width: $lg-width) {}
 
-@media (max-width: $sm-width) {
-}
+@media (max-width: $sm-width) {}

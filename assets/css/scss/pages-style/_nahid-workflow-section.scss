@@ -17,10 +17,8 @@
   }
 
   .workflow-title {
-    font-size: 42px;
-    font-weight: 700;
+
     color: var(--secondary-color);
-    letter-spacing: -1px;
 
     span {
       color: var(--primary-color);
@@ -58,8 +56,6 @@
   }
 
   .workflow-step-num {
-    font-size: 20px;
-    font-weight: 800;
     color: var(--primary-color);
     background: rgba(255, 122, 48, 0.1);
     padding: 4px 14px;
@@ -86,15 +82,13 @@
   }
 
   .workflow-step-title {
-    font-size: 20px;
-    font-weight: 700;
+
     color: var(--secondary-color);
     margin: 0 0 12px 0;
   }
 
   .workflow-step-desc {
-    font-size: 14px;
-    line-height: 1.6;
+
     color: var(--text-dark);
     margin: 0;
   }
@@ -107,9 +101,7 @@
   }
 
   @media (max-width: 640px) {
-    .workflow-title {
-      font-size: 32px;
-    }
+    .workflow-title {}
 
     .workflow-grid {
       grid-template-columns: 1fr;
