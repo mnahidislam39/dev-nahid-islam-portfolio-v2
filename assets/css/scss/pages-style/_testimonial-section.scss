@@ -220,6 +220,7 @@
   @media (max-width: 1024px) {
     .testimonial-title {
       font-size: 38px;
+
     }
 
     .testimonial-container {
@@ -234,6 +235,12 @@
 
     .testimonial-title {
       font-size: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      row-gap: 0;
     }
 
     .review-glass-card {

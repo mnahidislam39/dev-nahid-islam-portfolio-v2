@@ -278,69 +278,68 @@
          </section>
          -->
          <!-- Hire Section -->
+
          <section id="why-hire-me" class="nahid-hire-section sections">
             <div class="nahid-hire-container container">
-
-               <div class="nahid-hire-media-wrapper">
-                  <div class="nahid-asymmetric-bg-card"></div>
-                  <img src="" id="nahid-hire-avatar-target" class="nahid-hire-avatar"
-                     alt="Nahid Islam Profile Avatar Layout">
-               </div>
-
-               <div class="nahid-hire-content-wrapper">
-                  <h2 class="nahid-hire-main-title" id="nahid-hire-title-target">
-                  </h2>
-                  <p class="nahid-hire-description" id="nahid-hire-desc-target">
-                  </p>
-
-                  <div class="nahid-stats-grid-track" id="nahid-stats-injector-track">
+               <div class="hire-me">
+                  <div class="nahid-hire-media-wrapper">
+                     <div class="nahid-asymmetric-bg-card"></div>
+                     <img src="" id="nahid-hire-avatar-target" class="nahid-hire-avatar"
+                        alt="Nahid Islam Profile Avatar Layout">
                   </div>
 
-                  <div class="nahid-hire-action-box">
-                     <a href="#" id="nahid-hire-btn-target" class="nahid-btn-pill-outline btn btn-primary"></a>
+                  <div class="nahid-hire-content-wrapper">
+                     <h2 class="nahid-hire-main-title" id="nahid-hire-title-target">
+                     </h2>
+                     <p class="nahid-hire-description" id="nahid-hire-desc-target">
+                     </p>
+
+                     <div class="nahid-stats-grid-track" id="nahid-stats-injector-track">
+                     </div>
+
+                     <div class="nahid-hire-action-box">
+                        <a href="#" id="nahid-hire-btn-target" class="nahid-btn-pill-outline btn btn-primary"></a>
+                     </div>
                   </div>
-               </div>
-               <!-- Hire Me Modal Area -->
-               <div id="nahid-hire-modal" class="nahid-modal-overlay">
-                  <div class="nahid-modal-card">
-                     <!-- Close Button -->
-                     <button id="nahid-modal-close" class="nahid-modal-close-btn">&times;</button>
+                  <!-- Hire Me Modal Area -->
+                  <div id="nahid-hire-modal" class="nahid-modal-overlay">
+                     <div class="nahid-modal-card">
+                        <!-- Close Button -->
+                        <button id="nahid-modal-close" class="nahid-modal-close-btn">&times;</button>
 
-                     <h3 class="modal-title">Let's Work Together!</h3>
-                     <p class="modal-desc">Choose how you would like to connect with me:</p>
+                        <h3 class="modal-title">Let's Work Together!</h3>
+                        <p class="modal-desc">Choose how you would like to connect with me:</p>
 
-                     <div class="modal-action-wrapper">
-                        <!-- Option 1: WhatsApp Chat -->
-                        <a href="https://wa.me/01761005639" target="_blank" class="modal-btn btn-whatsapp">
-                           <i class="fab fa-whatsapp"></i> Chat On WhatsApp
-                           <span>For quick & instant replies</span>
-                        </a>
+                        <div class="modal-action-wrapper">
+                           <!-- Option 1: WhatsApp Chat -->
+                           <a href="https://wa.me/01761005639" target="_blank" class="modal-btn btn-whatsapp">
+                              <i class="fab fa-whatsapp"></i> Chat On WhatsApp
+                              <span>For quick & instant replies</span>
+                           </a>
 
-                        <!-- Option 2: Scroll to Project Form -->
-                        <button id="nahid-modal-form-trigger" class="modal-btn btn-form-scroll">
-                           <i class="far fa-edit"></i> Fill Project Form
-                           <span>Share project details first</span>
-                        </button>
+                           <!-- Option 2: Scroll to Project Form -->
+                           <button id="nahid-modal-form-trigger" class="modal-btn btn-form-scroll">
+                              <i class="far fa-edit"></i> Fill Project Form
+                              <span>Share project details first</span>
+                           </button>
+                        </div>
                      </div>
                   </div>
                </div>
-
-            </div>
-
-            <template id="nahid-stat-node-template">
-               <div class="nahid-stat-card-item">
-                  <div class="card-item-content">
-                     <h3 class="stat-counter-number"></h3>
-                     <p class="stat-counter-label"></p>
+               <template id="nahid-stat-node-template">
+                  <div class="nahid-stat-card-item">
+                     <div class="card-item-content">
+                        <h3 class="stat-counter-number"></h3>
+                        <p class="stat-counter-label"></p>
+                     </div>
                   </div>
-               </div>
-            </template>
+               </template>
+            </div>
          </section>
 
          <!-- Portfolio Section -->
          <section id="nahidPortfolioSection" class="portfolio-section sections">
             <div class="portfolio-container container">
-
                <div class="portfolio">
                   <div class="portfolio-header">
                      <h2 class="portfolio-title" id="portfolioMainTitle"> <span id="portfolioSubTitle"></span></h2>
@@ -358,8 +357,10 @@
                      <div class="portfolio-slide">
                         <div class="slide-card">
                            <img class="card-img" src="" alt="" loading="lazy">
-                           <div class="watermark-text"></div>
-                           <button class="card-action-btn" type="button">View</button>
+                           <div class="watermarks">
+                              <div class="watermark-text"></div>
+                              <button class="card-action-btn" type="button">View</button>
+                           </div>
 
                            <div class="slide-expanded-details">
                               <h3 class="project-title-area">
@@ -380,7 +381,6 @@
                   </div>
 
                </div>
-
             </div>
          </section>
 
@@ -440,54 +440,56 @@
          <section id="nahidContactSection" class="cta-contact-section container sections">
             <div class="cta-container container">
 
-               <!-- Dynamic Heading Area -->
-               <h2 class="cta-heading" id="nahidCtaHeading"></h2>
+               <div class="cta">
+                  <!-- Dynamic Heading Area -->
+                  <h2 class="cta-heading" id="nahidCtaHeading"></h2>
 
-               <!-- Dynamic Full Form Area -->
-               <div class="cta-form-wrapper">
-                  <form class="cta-form" id="nahidCtaForm" novalidate>
-                     <div class="input-wrap">
-                        <div class="input-group">
-                           <input type="text" class="cta-input" name="fullname" placeholder="Full Name" required>
+                  <!-- Dynamic Full Form Area -->
+                  <div class="cta-form-wrapper">
+                     <form class="cta-form" id="nahidCtaForm" novalidate>
+                        <div class="input-wrap">
+                           <div class="input-group">
+                              <input type="text" class="cta-input" name="fullname" placeholder="Full Name" required>
+                           </div>
+                           <h6 class="error-message" id="error-fullname"></span>
                         </div>
-                        <h6 class="error-message" id="error-fullname"></span>
-                     </div>
 
-                     <div class="input-wrap">
-                        <div class="input-group">
-                           <input type="email" class="cta-input" name="email" placeholder="Email Address" required>
+                        <div class="input-wrap">
+                           <div class="input-group">
+                              <input type="email" class="cta-input" name="email" placeholder="Email Address" required>
+                           </div>
+                           <h6 class="error-message" id="error-email"></h6>
                         </div>
-                        <h6 class="error-message" id="error-email"></h6>
-                     </div>
-                     <div class="input-wrap">
-                        <div class="input-group">
-                           <select name="country" id="dynamicCountrySelect" class="cta-input" required>
-                           </select>
+                        <div class="input-wrap">
+                           <div class="input-group">
+                              <select name="country" id="dynamicCountrySelect" class="cta-input" required>
+                              </select>
+                           </div>
+                           <h6 class="error-message" id="error-country"></h6>
                         </div>
-                        <h6 class="error-message" id="error-country"></h6>
-                     </div>
-                     <div class="input-wrap">
-                        <div class="input-group">
-                           <input type="number" class="cta-input" name="whatsapp" placeholder="WhatsApp" required>
+                        <div class="input-wrap">
+                           <div class="input-group">
+                              <input type="number" class="cta-input" name="whatsapp" placeholder="WhatsApp" required>
+                           </div>
+                           <h6 class="error-message" id="error-whatsapp"></h6>
                         </div>
-                        <h6 class="error-message" id="error-whatsapp"></h6>
-                     </div>
 
-                     <div class="input-wrap">
-                        <div class="input-group">
-                           <select name="service" id="serviceSelect" class="cta-input" required>
-                              <option value="">Select a service</option>
-                           </select>
+                        <div class="input-wrap">
+                           <div class="input-group">
+                              <select name="service" id="serviceSelect" class="cta-input" required>
+                                 <option value="">Select a service</option>
+                              </select>
+                           </div>
+                           <h6 class="error-message" id="error-service"></h6>
                         </div>
-                        <h6 class="error-message" id="error-service"></h6>
-                     </div>
 
-                     <button type="submit" class="cta-submit-btn" id="nahidCtaSubmitBtn">Send Message</button>
-                  </form>
+                        <button type="submit" class="cta-submit-btn" id="nahidCtaSubmitBtn">Send Message</button>
+                     </form>
+                  </div>
+
+                  <!-- Dynamic Trust Badges -->
+                  <div class="cta-badges-row" id="nahidCtaBadgesRow"></div>
                </div>
-
-               <!-- Dynamic Trust Badges -->
-               <div class="cta-badges-row" id="nahidCtaBadgesRow"></div>
             </div>
          </section>
 
@@ -543,20 +545,22 @@
             </div>
          </section>
          -->
+
          <!-- Dynamic FAQ Section -->
          <section id="nahidFaqSection" class="nahid-faq-section container sections">
             <div class="faq-container container">
 
-               <!-- Section Header -->
-               <div class="faq-header">
-                  <h2 class="faq-title" id="nahidFaqTitle"></h2>
-               </div>
+               <div class="faq">
+                  <!-- Section Header -->
+                  <div class="faq-header">
+                     <h2 class="faq-title" id="nahidFaqTitle"></h2>
+                  </div>
 
-               <!-- FAQ Accordion Wrapper -->
-               <div class="faq-accordion-list" id="nahidFaqList">
-                  <!-- Accordion items will be injected here dynamically -->
+                  <!-- FAQ Accordion Wrapper -->
+                  <div class="faq-accordion-list" id="nahidFaqList">
+                     <!-- Accordion items will be injected here dynamically -->
+                  </div>
                </div>
-
             </div>
          </section>
 

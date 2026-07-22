@@ -8,14 +8,11 @@
   overflow: hidden;
 
   .nahid-hire-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 40px;
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    align-items: center;
-    gap: 80px;
-
+    .hire-me {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      align-items: center;
+    }
 
 
   }
@@ -30,6 +27,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
 
     // height: -webkit-fill-available;
   }
@@ -143,6 +141,7 @@
       border: 1px solid hsla(0, 0%, 100%, .08);
       border-radius: 120px 40px 40px 18px;
       z-index: 1;
+      margin: 0 auto;
     }
 
     .nahid-hire-avatar {
@@ -158,11 +157,27 @@
     }
   }
 
-  @media (max-width: 991.99px) {
+  @media (max-width:1200px) {
     .nahid-hire-container {
-      grid-template-columns: 1fr;
-      gap: 60px;
-      text-align: center;
+
+      .hire-me {
+        grid-template-columns: 1fr;
+        gap: 80px;
+        text-align: center;
+      }
+    }
+
+  }
+
+  @media (max-width: 991.99px) {
+
+    .nahid-hire-container {
+
+      .hire-me {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        text-align: center;
+      }
     }
 
     .nahid-hire-description {}
@@ -173,10 +188,11 @@
     }
 
     .nahid-hire-media-wrapper {
-      width: auto;
+      width: -webkit-fill-available;
       max-height: 620px;
       height: 400px;
       position: relative;
+      margin: 0 auto;
     }
 
     .nahid-asymmetric-bg-card {
@@ -208,11 +224,10 @@
 
   @media (max-width: 480px) {
     .nahid-hire-container {
-      padding: 0 20px;
+      .hire-me {}
     }
 
     .nahid-stats-grid-track {
-      grid-template-columns: 1fr;
       gap: 16px;
     }
   }

@@ -3,178 +3,197 @@
 @use "../utilities/mixin" as *;
 
 .cta-contact-section {
-  padding: 100px 24px;
+  padding: 100px 0 100px 0;
+
+
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: var(--font-family);
 
   .cta-container {
-    width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
+
     text-align: center;
+
+    .cta {
+
+
+
+      .cta-heading {
+        font-weight: 700;
+        color: var(--secondary-color);
+        line-height: 1.3;
+        margin-bottom: 40px;
+        letter-spacing: -1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .highlight-orange {
+          color: var(--primary-color);
+        }
+      }
+
+      .cta-form-wrapper {
+        max-width: 600px;
+        margin: 0 auto 40px auto;
+      }
+
+      .cta-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid color-mix(in srgb, var(--primary-color) 30%, transparent);
+        border-radius: 30px;
+        padding: 24px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        transition: var(--transition-smooth);
+
+        &:focus-within {
+          border-color: var(--primary-color);
+          box-shadow: 0 10px 30px rgba(255, 122, 48, 0.08);
+        }
+      }
+
+      .error-message {
+        color: #ff4d4d;
+        font-size: 12px;
+        margin-top: 5px;
+        display: block;
+      }
+
+      .input-group {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50px;
+        padding: 5px 15px;
+        border: 1px solid #00bf6336;
+        transition: var(--transition-smooth);
+
+        &:focus-within {
+          border-color: var(--primary-color);
+        }
+      }
+
+      .cta-input {
+        border: none;
+        outline: none;
+        font-size: 16px;
+        color: var(--text-color);
+        width: 100%;
+        padding: 12px;
+        background: transparent;
+
+        &::placeholder {
+          color: #888888;
+          opacity: 1;
+        }
+
+        &:focus::placeholder {
+          color: #cccccc;
+        }
+      }
+
+      textarea::placeholder {
+        color: #888888;
+        opacity: 1;
+      }
+
+      textarea:focus::placeholder {
+        color: #cccccc;
+      }
+
+      /* Autofill er background forcefully remove kora */
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      input:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+        -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+        -webkit-text-fill-color: #000 !important;
+        /* Apnar text er color ekhane dite paren */
+        border-radius: 25px !important;
+      }
+
+      .cta-submit-btn {
+        background: var(--primary-color);
+        color: #ffffff;
+        border: none;
+        outline: none;
+        padding: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 50px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: var(--transition-smooth);
+
+        &:hover {
+          background: var(--primary-color);
+          opacity: 0.9;
+          transform: translateY(-1px);
+        }
+      }
+
+      .cta-input.input-error {
+        color: #e53e3e;
+
+        &::placeholder {
+          color: #feb2b2;
+        }
+      }
+
+      .cta-badges-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .badge-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-dark);
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .badge-icon {
+        color: var(--primary-color);
+        display: inline-flex;
+        align-items: center;
+      }
+    }
+
+
+
+  }
+}
+
+@media (max-width: 768px) {
+  .cta-contact-section {
+    padding: 100px 0 0 0;
   }
 
   .cta-heading {
-    font-weight: 700;
-    color: var(--secondary-color);
-    line-height: 1.3;
-    margin-bottom: 40px;
-    letter-spacing: -1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
-    .highlight-orange {
-      color: var(--primary-color);
-    }
-  }
-
-  .cta-form-wrapper {
-    max-width: 600px;
-    margin: 0 auto 40px auto;
+    font-size: 32px;
   }
 
   .cta-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid color-mix(in srgb, var(--primary-color) 30%, transparent);
-    border-radius: 30px;
-    padding: 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-    transition: var(--transition-smooth);
-
-    &:focus-within {
-      border-color: var(--primary-color);
-      box-shadow: 0 10px 30px rgba(255, 122, 48, 0.08);
-    }
-  }
-  .error-message {
-    color: #ff4d4d;
-    font-size: 12px;
-    margin-top: 5px;
-    display: block;
-  }
-  .input-group {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50px;
-    padding: 5px 15px;
-    border: 1px solid #00bf6336;
-    transition: var(--transition-smooth);
-
-    &:focus-within {
-      border-color: var(--primary-color);
-    }
-  }
-
-  .cta-input {
-    border: none;
-    outline: none;
-    font-size: 16px;
-    color: var(--text-color);
-    width: 100%;
-    padding: 12px;
-    background: transparent;
-    &::placeholder {
-      color: #888888;
-      opacity: 1;
-    }
-
-    &:focus::placeholder {
-      color: #cccccc;
-    }
-  }
-  textarea::placeholder {
-    color: #888888;
-    opacity: 1;
-  }
-  textarea:focus::placeholder {
-    color: #cccccc;
-  }
-  /* Autofill er background forcefully remove kora */
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
-    -webkit-text-fill-color: #000 !important; /* Apnar text er color ekhane dite paren */
-    border-radius: 25px !important;
-  }
-  .cta-submit-btn {
-    background: var(--primary-color);
-    color: #ffffff;
-    border: none;
-    outline: none;
+    border-radius: 24px;
     padding: 16px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 50px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: var(--transition-smooth);
-
-    &:hover {
-      background: var(--primary-color);
-      opacity: 0.9;
-      transform: translateY(-1px);
-    }
-  }
-
-  .cta-input.input-error {
-    color: #e53e3e;
-
-    &::placeholder {
-      color: #feb2b2;
-    }
   }
 
   .cta-badges-row {
-    display: flex;
-    justify-content: center;
+    gap: 20px;
     align-items: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-  }
-
-  .badge-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-dark);
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  .badge-icon {
-    color: var(--primary-color);
-    display: inline-flex;
-    align-items: center;
-  }
-
-  @media (max-width: 768px) {
-    .cta-heading {
-      font-size: 32px;
-    }
-
-    .cta-form {
-      border-radius: 24px;
-      padding: 16px;
-    }
-
-    .cta-badges-row {
-      gap: 20px;
-      flex-direction: column;
-      align-items: center;
-      margin: 20px auto 0 auto;
-    }
+    margin: 20px auto 0 auto;
   }
 }
