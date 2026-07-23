@@ -158,19 +158,19 @@
       height: auto;
       display: block;
       pointer-events: none;
-      transition: transform 3.5s ease-in-out;
+      // জাভাস্ক্রিপ্ট স্মুথ লুপের সাথে নিখুঁত কাজ করার জন্য এটি থাকবে:
       will-change: transform;
     }
 
-    /* 🛑 ফিক্স: অ্যারো বাটনে মাউস নিলে ইমেজের অটো-স্ক্রোল বন্ধ থাকবে */
-    &:has(.slide-arrow:hover) img {
-      transform: none !important;
-      transition: none !important;
-    }
+    // /* 🛑 ফিক্স: অ্যারো বাটনে মাউস নিলে ইমেজের অটো-স্ক্রোল বন্ধ থাকবে */
+    // &:has(.slide-arrow:hover) img {
+    //   transform: none !important;
+    //   transition: none !important;
+    // }
 
-    &:hover img {
-      transform: translateY(calc(-100% + 480px));
-    }
+    // &:hover img {
+    //   transform: translateY(calc(-100% + 480px));
+    // }
 
     /* 🖼️ ইমেজ স্লাইডার নেভিগেশন অ্যারো বাটন স্টাইল */
     .slide-arrow {

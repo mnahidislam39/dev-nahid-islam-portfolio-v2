@@ -544,11 +544,9 @@ function portfolioGridConfigFunction() {
 
   if (!gridContainer) return;
 
-  // ১. গ্রিড লেআউট সেটআপ
   const itemsPerView = portfolioConfig.slidesPerView || 3;
   gridContainer.style.display = "grid";
 
-  // ২. মেটা ডেটা সেটআপ (টাইটেল ও ডেসক্রিপশন)
   if (mainTitleEl && portfolioMeta.sectionTitle) {
     const preText = portfolioMeta.sectionTitle;
     const accentText = portfolioMeta.accentText ? ` <span id="portfolioSubTitle">${portfolioMeta.accentText}</span>` : "";
@@ -563,24 +561,20 @@ function portfolioGridConfigFunction() {
   let isExpanded = false;
   const initialLimit = 8;
 
-  // ৩. ডাইনামিক ট্যাব তৈরি (যে ক্যাটাগরির প্রজেক্ট নেই, সেই ট্যাব হাইড থাকবে)
   function buildDynamicTabs() {
     if (!tabsContainer) return;
     tabsContainer.innerHTML = "";
 
     let tabsList = [];
     if (portfolioMeta.filterTabs && Array.isArray(portfolioMeta.filterTabs)) {
-      // যদি মেটা থেকে ট্যাব লিস্ট দেওয়া থাকে, তবে চেক করব কোনটার প্রজেক্ট আছে
       tabsList = portfolioMeta.filterTabs.filter(tabName => {
         if (tabName === "All") return portfolioData.length > 0;
         return portfolioData.some(item => item.category && item.category.toLowerCase() === tabName.toLowerCase());
       });
     } else {
-      // স্বয়ংক্রিয়ভাবে ক্যাটাগরি বের করা এবং যেগুলোর প্রজেক্ট আছে শুধু সেগুলো রাখা
       const categories = new Set();
       portfolioData.forEach(item => {
         if (item.category) {
-          // ক্যাটাগরি চেক করছি যে এই ক্যাটাগরিতে প্রজেক্ট আছে কি না
           const hasProjects = portfolioData.some(p => p.category && p.category.toLowerCase() === item.category.toLowerCase());
           if (hasProjects) {
             categories.add(item.category);
@@ -590,12 +584,11 @@ function portfolioGridConfigFunction() {
       tabsList = ["All", ...categories];
     }
 
-    // যদি "All" বাদে আর কোনো ট্যাব বা প্রজেক্ট না থাকে, তবে ট্যাব কন্টেইনার ফাকা রাখতে পারেন
     if (tabsList.length <= 1) {
       tabsContainer.style.display = "none";
       return;
     } else {
-      tabsContainer.style.display = "flex"; // অথবা আপনার ডিফল্ট ডিসপ্লে প্রপার্টি
+      tabsContainer.style.display = "flex";
     }
 
     tabsList.forEach((tabName, index) => {
@@ -607,8 +600,6 @@ function portfolioGridConfigFunction() {
     });
   }
 
-
-  // ৪. গ্রিড রেন্ডার এবং ডেটা বাইন্ডিং (অ্যারো স্লাইডার লজিকসহ)
   function renderGrid(filter = "All", expanded = false) {
     const existingCards = gridContainer.querySelectorAll(".portfolio-slide:not(#portfolioSlideTemplate)");
     existingCards.forEach(card => card.remove());
@@ -645,7 +636,6 @@ function portfolioGridConfigFunction() {
 
       const imgEl = clone.querySelector(".card-img");
 
-      // 🖼️ একাধিক ইমেজ এবং অ্যারো স্লাইডার হ্যান্ডেলিং
       let currentImgIndex = 0;
       const imagesList = data.images && data.images.length > 0 ? data.images : [data.image];
 
@@ -653,32 +643,29 @@ function portfolioGridConfigFunction() {
         imgEl.src = imagesList[currentImgIndex];
         imgEl.alt = data.title || "";
 
-        // যদি একাধিক ইমেজ থাকে, তবে অ্যারো বাটনগুলো জেনারেট বা একটিভ হবে
-        const imageWrapper = imgEl.parentElement; // অথবা ইমেজের প্যারেন্ট কন্টেইনার
-        if (imagesList.length > 1 && imageWrapper) {
-          // যদি অলরেডি অ্যারো না থাকে, তবে তৈরি করে দেব
-          if (!imageWrapper.querySelector(".slide-arrow")) {
-            imageWrapper.style.position = "relative";
+        const imageWrapper = imgEl.parentElement;
+        if (imageWrapper) {
+          imageWrapper.style.position = "relative";
+          imageWrapper.style.overflow = "hidden";
 
+          if (imagesList.length > 1 && !imageWrapper.querySelector(".slide-arrow")) {
             const prevBtn = document.createElement("button");
             prevBtn.className = "slide-arrow prev-arrow";
-            prevBtn.innerHTML = "&#10094;"; // বামমুখী অ্যারো
+            prevBtn.innerHTML = "&#10094;";
 
             const nextBtn = document.createElement("button");
             nextBtn.className = "slide-arrow next-arrow";
-            nextBtn.innerHTML = "&#10095;"; // ডানমুখী অ্যারো
+            nextBtn.innerHTML = "&#10095;";
 
             imageWrapper.appendChild(prevBtn);
             imageWrapper.appendChild(nextBtn);
 
-            // প্রিভিয়াস অ্যারো ক্লিক
             prevBtn.addEventListener("click", (e) => {
               e.stopPropagation();
               currentImgIndex = (currentImgIndex - 1 + imagesList.length) % imagesList.length;
               imgEl.src = imagesList[currentImgIndex];
             });
 
-            // নেক্সট অ্যারো ক্লিক
             nextBtn.addEventListener("click", (e) => {
               e.stopPropagation();
               currentImgIndex = (currentImgIndex + 1) % imagesList.length;
@@ -686,6 +673,74 @@ function portfolioGridConfigFunction() {
             });
           }
         }
+      }
+
+      // 🖱️ মাউস হোভার ও মাউসআউট উভয় ক্ষেত্রেই স্লো এবং সুপার স্মুথ লজিক
+      const slideCard = clone.querySelector(".slide-card");
+      if (slideCard && imgEl) {
+        let currentY = 0;
+        let targetY = 0;
+        let animationFrameId = null;
+        let isHovered = false;
+
+        function smoothScrollLoop() {
+          if (!isHovered) return;
+          currentY += (targetY - currentY) * 0.03;
+          imgEl.style.transform = `translateY(${currentY}px)`;
+          animationFrameId = requestAnimationFrame(smoothScrollLoop);
+        }
+
+        slideCard.addEventListener("mousemove", (e) => {
+          if (e.target.closest(".slide-arrow")) return;
+
+          const rect = slideCard.getBoundingClientRect();
+          const cardHeight = rect.height;
+
+          const imgDisplayWidth = imgEl.clientWidth || rect.width;
+          let realImgHeight = (imgEl.naturalHeight && imgEl.naturalWidth)
+            ? (imgEl.naturalHeight / imgEl.naturalWidth) * imgDisplayWidth
+            : imgEl.getBoundingClientRect().height;
+
+          if (!realImgHeight || realImgHeight <= cardHeight) {
+            realImgHeight = cardHeight * 3;
+          }
+
+          const maxScroll = realImgHeight - cardHeight;
+          const adjustedMaxScroll = maxScroll + (cardHeight * 0.25);
+
+          if (adjustedMaxScroll > 0) {
+            const mouseY = e.clientY - rect.top;
+            const percentage = Math.max(0, Math.min(1, mouseY / cardHeight));
+
+            targetY = -percentage * adjustedMaxScroll;
+
+            if (!isHovered) {
+              isHovered = true;
+              cancelAnimationFrame(animationFrameId);
+              animationFrameId = requestAnimationFrame(smoothScrollLoop);
+            }
+          }
+        });
+
+        slideCard.addEventListener("mouseleave", () => {
+          isHovered = false;
+          targetY = 0;
+
+          function returnToTop() {
+            // মাউস সরিয়ে নিলে স্লোলি (৩-৪ সেকেন্ড ধরে) উপরে ফিরে যাওয়ার লজিক
+            currentY += (0 - currentY) * 0.015;
+            imgEl.style.transform = `translateY(${currentY}px)`;
+
+            if (Math.abs(0 - currentY) > 0.5) {
+              animationFrameId = requestAnimationFrame(returnToTop);
+            } else {
+              currentY = 0;
+              imgEl.style.transform = `translateY(0px)`;
+            }
+          }
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = requestAnimationFrame(returnToTop);
+        });
       }
 
       const watermarkEl = clone.querySelector(".watermark-text");
@@ -703,8 +758,6 @@ function portfolioGridConfigFunction() {
         cardDescEl.textContent = data.description || "";
       }
 
-      // 🏷️ টেক্সট স্ট্যাক ব্যাজ এবং টাইটেল ডাইনামিক রেন্ডারিং
-      // 🏷️ টেক্সট স্ট্যাক ব্যাজ এবং টাইটেল ডাইনামিক রেন্ডারিং
       const tagsContainer = clone.querySelector(".tags-container");
       if (tagsContainer) {
         const tagsTitleEl = tagsContainer.querySelector(".tags-title");
@@ -720,10 +773,7 @@ function portfolioGridConfigFunction() {
           data.tags.forEach((tag, index) => {
             const li = document.createElement("li");
             li.className = "tags-li tag-badge";
-
-            // শেষ ট্যাগটি ছাড়া বাকিগুলোর পরে কমা যোগ হবে
             li.textContent = index < data.tags.length - 1 ? `${tag},` : tag;
-
             ulEl.appendChild(li);
           });
         }
@@ -733,16 +783,13 @@ function portfolioGridConfigFunction() {
         }
       }
 
-      // ✨ কী ফিচারস (Key Features) এবং টাইটেল ডাইনামিক রেন্ডারিং
       const featuresContainer = clone.querySelector(".fetures");
       if (featuresContainer) {
-        // ফিচার টাইটেল সেট করা (যেমন: "Key Features")
-        const futureTitleEl = featuresContainer.querySelector(".future-title h6"); featuresContainer.querySelector(".future-title-text");
+        const futureTitleEl = featuresContainer.querySelector(".future-title h6") || featuresContainer.querySelector(".future-title");
         if (futureTitleEl) {
-          futureTitleEl.textContent = data.featuresTitle;
+          futureTitleEl.textContent = data.featuresTitle || "Key Features";
         }
 
-        // ফিচার লিস্ট রেন্ডার করা
         const futuresUl = featuresContainer.querySelector(".tags-futures");
         if (futuresUl && data.features && Array.isArray(data.features)) {
           futuresUl.innerHTML = "";
@@ -759,7 +806,7 @@ function portfolioGridConfigFunction() {
           });
         }
       }
-      // card action
+
       const actionBtn = clone.querySelector(".card-action-btn");
       if (actionBtn) {
         actionBtn.addEventListener("click", (e) => {
@@ -767,7 +814,6 @@ function portfolioGridConfigFunction() {
 
           const isCurrentlyExpanded = clone.classList.contains("expanded");
 
-          // 🛑 ১. অন্য সব কার্ড বন্ধ করে দেব এবং তাদের বাটন টেক্সট "View" করে দেব
           const allCards = gridContainer.querySelectorAll(".portfolio-slide");
           allCards.forEach(card => {
             card.classList.remove("expanded");
@@ -775,7 +821,6 @@ function portfolioGridConfigFunction() {
             if (btn) btn.textContent = "View";
           });
 
-          // 🔄 ২. যদি বর্তমান কার্ডটি আগে থেকে ওপেন না থাকে, তবেই এটি ওপেন করব
           if (!isCurrentlyExpanded) {
             clone.classList.add("expanded");
             actionBtn.textContent = "Close";
@@ -796,7 +841,6 @@ function portfolioGridConfigFunction() {
     }
   }
 
-  // ৫. ট্যাব ক্লিক ইভেন্ট হ্যান্ডলার
   if (tabsContainer) {
     tabsContainer.addEventListener("click", (e) => {
       if (e.target.classList.contains("portfolio-tab-btn")) {
@@ -810,7 +854,6 @@ function portfolioGridConfigFunction() {
     });
   }
 
-  // ৬. টগল ইভেন্ট হ্যান্ডলার
   if (toggleBtn) {
     toggleBtn.addEventListener("click", () => {
       isExpanded = !isExpanded;
@@ -825,10 +868,12 @@ function portfolioGridConfigFunction() {
     });
   }
 
-  // ইনিশিয়ালাইজেশন
   buildDynamicTabs();
   renderGrid("All", false);
 }
+
+
+
 
 // Testimonial Config Function 
 function testimonialConfigFunction() {
